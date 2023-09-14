@@ -1,0 +1,28 @@
+
+
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    
+}
+
+.loginContainer {
+    width: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right : 3%;
+    align-items: center;
+    a{
+        font-size: 34px;
+        font-weight: bold;
+        font-family: Avenir, Helvetica, sans-serif;
+        text-decoration: none;
+        color: black;
+    }
+}
+
