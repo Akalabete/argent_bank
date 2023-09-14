@@ -7,14 +7,16 @@ import Link from 'next/link';
 export default function  Header() {
       return (
         <header className={styles.header}>
-            <Image 
-                src="/argentBankLogo.png" 
-                className="App-logo"
-                alt="Argent Bank logo"
-                width={580}
-                height={150}
-                priority
-            />
+            <div className={styles.imageWrapper}>
+                <Image 
+                    src="/argentBankLogo.png" 
+                    className="App-logo"
+                    alt="Argent Bank logo"
+                    style={{objectFit:"cover"}}
+                    fill
+                    priority
+                />
+            </div>
             <div className={styles.loginContainer}>
             <FontAwesomeIcon 
                 size="3x" 

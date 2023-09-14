@@ -9,7 +9,11 @@
     align-items: center;
     
 }
-
+.imageWrapper {
+    position: relative;
+    width: 300px;
+    height: 70px;
+}
 .loginContainer {
     width: 10%;
     display: flex;
