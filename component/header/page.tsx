@@ -25,7 +25,7 @@ export default function  Header() {
                 icon={faCircleUser} 
             />
             <Link href="/login">
-                Sign In
+              Sign In
             </Link>
             </div>
         </header>

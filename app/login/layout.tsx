@@ -1,3 +1,4 @@
+
 export default function LoginLayout({
     children,
   }: {
@@ -6,7 +7,9 @@ export default function LoginLayout({
     return (
         <>
         <main>
+        
             {children}
+            
         </main>
         </>
     )

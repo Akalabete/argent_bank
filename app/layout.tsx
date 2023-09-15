@@ -1,4 +1,5 @@
 import './globals.css'
+import { Providers } from "@/redux/provider";
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { useRouter } from 'next/router'
@@ -23,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body >
-        <Header />
-        {children}
-        <Footer />
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   )

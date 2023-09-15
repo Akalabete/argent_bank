@@ -2,6 +2,7 @@ import styles from './page.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import  Form  from '../../component/form/page'
+
 export default function Login() {
   return (
    
@@ -12,7 +13,9 @@ export default function Login() {
                 icon={faCircleUser} 
             />
             <h3>Sign in</h3>
+            
             <Form />
+            
         </div>
     </section>
  
