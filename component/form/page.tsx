@@ -1,17 +1,16 @@
-'use.client'
-
+"use client";
 import { useAppDispatch, useAppSelector } from "@/redux/hook"; // Assurez-vous que le chemin est correct
 import styles from './page.module.scss';
-import { RootState } from '../../redux/store';
+import { updateFormField } from '../../redux/features/formSlice'
 
 
 export default function Form() {
   const dispatch = useAppDispatch();
-  const formData = useAppSelector((state: RootState) => state.form);
+  const formData = useAppSelector((state) => state.form);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    dispatch({ type: 'UPDATE_FORM_FIELD', fieldName: name, fieldValue: value });
+    dispatch(updateFormField({ fieldName: name, fieldValue: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
