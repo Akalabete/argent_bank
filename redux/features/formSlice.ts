@@ -5,11 +5,13 @@ import { AppDispatch } from "../store";
 interface FormState {
   username: string;
   password: string;
+  nickname: string;
 }
 
 const initialState: FormState = {
   username: "",
   password: "",
+  nickname: "",
 };
 
 const formSlice = createSlice({

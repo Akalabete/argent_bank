@@ -28,7 +28,7 @@ export default function  Header() {
                 
                 { isConnected ?(
                     <div className={styles.loginContainer}>
-                    <Link href="/profile">
+                    <Link href="/login">
                         <FontAwesomeIcon 
                             size="3x" 
                             icon={faCircleUser} 

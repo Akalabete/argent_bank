@@ -1,13 +1,14 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/redux/hook"; // Assurez-vous que le chemin est correct
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import styles from './page.module.scss';
 import { updateFormField  } from '../../redux/features/formSlice'
-import {setConnected } from '../../redux/features/userSlice'; 
-
+import {setConnected, selectIsConnected } from '../../redux/features/userSlice'; 
+import {useRouter } from 'next/navigation';
 export default function Form() {
   const dispatch = useAppDispatch();
   const formData = useAppSelector((state) => state.form);
-
+  const isConnected = useAppSelector(selectIsConnected);
+  const router = useRouter();
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     dispatch(updateFormField({ fieldName: name, fieldValue: value }));
@@ -20,12 +21,31 @@ export default function Form() {
       alors générer jsw token et passer prop en logged in et pointer sur account{username};
     } sinon {popup "incorrect credentials, try again"}*/
     dispatch(setConnected(true));
+    router.push('/account');
   };
-
+  const handleProfileChange = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(formData)
+  }
   return (
+
+    
     <>
       <div className={styles.form}>
-        <form onSubmit={handleSubmit}>
+        {isConnected ? ! (
+         
+          <form onSubmit={handleProfileChange}>
+          <label>Nickname</label>
+          <input
+            type="text"
+            value={formData.nickname}
+            id="nickname"
+            name="nickname"
+            onChange={handleInputChange}
+          />
+          </form>
+        ):(
+          <form onSubmit={handleSubmit}>
           <label>Username</label>
           <input
             type="text"
@@ -44,6 +64,8 @@ export default function Form() {
           />
           <button type="submit">Submit</button>
         </form>
+        )}
+        
       </div>
     </>
   );
