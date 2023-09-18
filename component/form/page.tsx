@@ -1,8 +1,8 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/redux/hook"; // Assurez-vous que le chemin est correct
 import styles from './page.module.scss';
-import { updateFormField } from '../../redux/features/formSlice'
-
+import { updateFormField  } from '../../redux/features/formSlice'
+import {setConnected } from '../../redux/features/userSlice'; 
 
 export default function Form() {
   const dispatch = useAppDispatch();
@@ -16,6 +16,10 @@ export default function Form() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log(formData);
+    /* si formData.username est dans listUser est si formData.password ===e listUser.username.password) {
+      alors générer jsw token et passer prop en logged in et pointer sur account{username};
+    } sinon {popup "incorrect credentials, try again"}*/
+    dispatch(setConnected(true));
   };
 
   return (
