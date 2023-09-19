@@ -2,6 +2,9 @@
 import { createAsyncThunk, createSlice, PayloadAction, createAction } from "@reduxjs/toolkit";
 import { setConnected } from "./userSlice";
 import { AppDispatch } from "../store";
+import { openModal } from "./modalSlice";
+
+
 interface FormState {
   email: string;
   password: string;
@@ -41,16 +44,23 @@ export const submitForm = createAsyncThunk(
         dispatch(updateAuthToken(authToken));
         console.log(data);
         console.log(authToken);
-      } else {
-        
-        console.error("Erreur lors de l'envoi du formulaire au serveur");
+      } else if (response.status === 400) {
+        dispatch(
+          openModal({
+            title: "Incorrect credentials",
+            message: "Please verify your credentials",
+            
+          })
+        );
       }
     } catch (error) {
-      console.error("Erreur lors de la requête au serveur :", error);
+      console.error("error while connecting to server:", error);
     }
   }
 );
 export const updateAuthToken = createAction<string>("form/updateAuthToken");
+
+
 const formSlice = createSlice({
   name: "form",
   initialState,
@@ -85,28 +95,3 @@ export const logout = () => (dispatch: AppDispatch) => {
 
 export default formSlice.reducer;
 
-
-/*
-submitForm:  async (state, action: PayloadAction<FormSubmitData>) => {
-      const { email, password } = action.payload;
-      try {
-        const response = await fetch("http://localhost:3001/api/v1/user/login",{
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password}),
-        });
-
-        if(response.status === 200){
-
-          const token = response.token;
-          dispatch(setConnected(true));
-        }else {
-          console.error("Erreur lors de l'envoi du formulaire au serveur");
-        }
-      }catch (error) {
-        console.error("Erreur lors de la requête au serveur :", error);
-      } 
-    },
-    */

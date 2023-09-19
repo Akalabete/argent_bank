@@ -5,7 +5,7 @@ import {useRouter } from 'next/navigation';
 
 
 export default function Account() {
-    const username = useAppSelector((state)=> state.form.username);
+    const username = useAppSelector((state)=> state.form.email);
     const nickname = useAppSelector((state)=> state.form.nickname);
     const router = useRouter();
 

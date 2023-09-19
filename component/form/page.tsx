@@ -2,13 +2,15 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import styles from './page.module.scss';
 import { updateFormField, submitForm  } from '../../redux/features/formSlice'
-import {setConnected, selectIsConnected } from '../../redux/features/userSlice'; 
-import {useRouter } from 'next/navigation';
+import { selectIsConnected } from '../../redux/features/userSlice'; 
+import { useRouter } from 'next/navigation';
 export default function Form() {
+
   const dispatch = useAppDispatch();
   const formData = useAppSelector((state) => state.form);
   const isConnected = useAppSelector(selectIsConnected);
-  
+  const router = useRouter();
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     dispatch(updateFormField({ fieldName: name, fieldValue: value }));
