@@ -24,6 +24,7 @@ export default function Login() {
               />
               <h3>Edit profile</h3>
               <Form />
+              
             </div>
           ):(
             <div className={styles.loginWindow}>
