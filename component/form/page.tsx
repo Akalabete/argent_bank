@@ -20,7 +20,7 @@ export default function Form() {
     dispatch(updateFormField({ fieldName: name, fieldValue: value }));
   };
   const onChangeCheckBox = () => {
-    const newStorageLocation = !tokenStorageLocation ? 'sessionStorage' : 'localStorage';
+    const newStorageLocation = !tokenStorageLocation
     dispatch(setTokenStorageLocation(newStorageLocation)); 
     
   };

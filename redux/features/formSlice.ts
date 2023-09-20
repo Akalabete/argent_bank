@@ -51,6 +51,7 @@ export const submitForm = createAsyncThunk(
         if (tokenStorageLocation){
           localStorage.setItem("userData", JSON.stringify(userData));
           sessionStorage.removeItem("userData");
+          console.log(userData)
         } else { 
           sessionStorage.setItem("userData", JSON.stringify(userData));
           localStorage.removeItem("userData");
