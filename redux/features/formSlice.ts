@@ -3,17 +3,19 @@ import { createAsyncThunk, createSlice, PayloadAction, createAction } from "@red
 import { setConnected } from "./userSlice";
 import { AppDispatch } from "../store";
 import { openModal } from "./modalSlice";
-
+import { useRouter } from 'next/navigation';
 
 interface FormState {
   email: string;
   password: string;
   nickname: string;
   authToken: string | null;
+
 }
 interface FormSubmitData {
   email: string;
   password: string;
+  tokenStorageLocation: boolean,
 }
 
 const initialState: FormState = {
@@ -21,12 +23,13 @@ const initialState: FormState = {
   password: "",
   nickname: "User",
   authToken: "",
+  
 };
 
 export const submitForm = createAsyncThunk(
   "form/submitForm",
   async (formData: FormSubmitData, { dispatch }) => {
-    const { email, password } = formData;
+    const { email, password, tokenStorageLocation } = formData;
     console.log(formData);
     try {
       const response = await fetch("http://localhost:3001/api/v1/user/login", {
@@ -40,10 +43,19 @@ export const submitForm = createAsyncThunk(
       if (response.status===200) {
         const data = await response.json()
         const authToken = data.body.token
+        const userData = { email, password, authToken}
         dispatch(setConnected(true));
         dispatch(updateAuthToken(authToken));
         console.log(data);
         console.log(authToken);
+        if (tokenStorageLocation){
+          localStorage.setItem("userData", JSON.stringify(userData));
+          sessionStorage.removeItem("userData");
+        } else { 
+          sessionStorage.setItem("userData", JSON.stringify(userData));
+          localStorage.removeItem("userData");
+        }
+        
       } else if (response.status === 400) {
         dispatch(
           openModal({
@@ -73,6 +85,8 @@ const formSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(submitForm.fulfilled, (state) => {
+      
+      
     });
     builder.addCase(submitForm.rejected, (state) => {
     });
