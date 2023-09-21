@@ -11,7 +11,7 @@ export default function Account() {
 
     const handleEditButtonClick = (e: React.FormEvent) => {
         e.preventDefault();
-        router.push('/login');
+        router.push('/profile');
       }
       
     return (

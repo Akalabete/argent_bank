@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction, createAction } from "@red
 import { setConnected } from "./userSlice";
 import { AppDispatch } from "../store";
 import { openModal } from "./modalSlice";
-import { useRouter } from 'next/navigation';
+
 
 interface FormState {
   email: string;
@@ -43,19 +43,39 @@ export const submitForm = createAsyncThunk(
       if (response.status===200) {
         const data = await response.json()
         const authToken = data.body.token
-        const userData = { email, password, authToken}
+        const userData = { email, password, authToken, tokenStorageLocation}
         dispatch(setConnected(true));
         dispatch(updateAuthToken(authToken));
         console.log(data);
         console.log(authToken);
-        if (tokenStorageLocation){
-          localStorage.setItem("userData", JSON.stringify(userData));
-          sessionStorage.removeItem("userData");
-          console.log(userData)
-        } else { 
-          sessionStorage.setItem("userData", JSON.stringify(userData));
-          localStorage.removeItem("userData");
+
+        try {
+          const profileResponse = await fetch("http://localhost:3001/api/v1/user/profile", {
+            method : "POST",
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+              "Content-type": "application/json",
+              Accept: "application.json",
+            },
+            body: JSON.stringify({})
+          });
+
+          if (profileResponse.status===200){
+            const profileData = await profileResponse.json();
+            console.log(profileData)
+          }else {
+            console.log("error")
+          }
         }
+        catch(error){
+            console.error(error);
+        }
+      if (tokenStorageLocation){
+        localStorage.setItem("userData", JSON.stringify(userData));
+        console.log(userData)
+      } else { 
+        sessionStorage.setItem("userData", JSON.stringify(userData));
+      }
         
       } else if (response.status === 400) {
         dispatch(
