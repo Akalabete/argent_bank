@@ -3,14 +3,14 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import styles from './page.module.scss';
 import { updateFormField, submitForm  } from '../../redux/features/formSlice'
 import { setTokenStorageLocation, selectTokenStorageLocation } from "@/redux/features/authSlice";
-
+import { useRouter } from 'next/navigation';
 export default function Form() {
 
   const dispatch = useAppDispatch();
   const formData = useAppSelector((state) => state.form);
   const tokenStorageLocation = useAppSelector(selectTokenStorageLocation);
   const userData = JSON.parse(localStorage.getItem('userData') || "{}");
-  
+  const router = useRouter();
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     dispatch(updateFormField({ fieldName: name, fieldValue: value }));
@@ -32,6 +32,13 @@ export default function Form() {
       tokenStorageLocation: tokenStorageLocation,
     }
     dispatch(submitForm(formattedData))
+
+    const profileData = sessionStorage.getItem("profile");
+    console.log("Oo", profileData)
+    const customId = profileData.body.id;
+    
+    router.push(`/account/${customId}`);
+    
   };
    
   return (

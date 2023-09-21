@@ -3,14 +3,14 @@ import { createAsyncThunk, createSlice, PayloadAction, createAction } from "@red
 import { setConnected } from "./userSlice";
 import { AppDispatch } from "../store";
 import { openModal } from "./modalSlice";
-
+import { RootState } from '../store';
 
 interface FormState {
   email: string;
   password: string;
   nickname: string;
   authToken: string | null;
-
+  profileData: any | null;
 }
 interface FormSubmitData {
   email: string;
@@ -23,7 +23,7 @@ const initialState: FormState = {
   password: "",
   nickname: "User",
   authToken: "",
-  
+  profileData: null,
 };
 
 export const submitForm = createAsyncThunk(
@@ -61,8 +61,11 @@ export const submitForm = createAsyncThunk(
           });
 
           if (profileResponse.status===200){
+            
             const profileData = await profileResponse.json();
-            console.log(profileData)
+            console.log(profileData);
+            sessionStorage.setItem("profile", JSON.stringify(profileData));
+            
           }else {
             console.log("error")
           }
@@ -102,6 +105,9 @@ const formSlice = createSlice({
       const { fieldName, fieldValue } = action.payload;
       state[fieldName as keyof FormState] = fieldValue;
     },
+    updateProfileData: (state, action: PayloadAction<any>) => {
+      state.profileData = action.payload;
+    },
     
   },
   extraReducers: (builder) => {
@@ -119,7 +125,7 @@ const formSlice = createSlice({
 
 
 export const { updateFormField } = formSlice.actions;
-
+export const selectProfileData = (state: RootState) => state.form.profileData;
 export const login = () => (dispatch: AppDispatch) => {
   dispatch(setConnected(true));
 };
