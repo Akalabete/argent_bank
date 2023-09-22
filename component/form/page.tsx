@@ -4,6 +4,8 @@ import styles from './page.module.scss';
 import { updateFormField, submitForm  } from '../../redux/features/formSlice'
 import { setTokenStorageLocation, selectTokenStorageLocation } from "@/redux/features/authSlice";
 import { useRouter } from 'next/navigation';
+import { updateProfileData } from '@/redux/features/formSlice';
+
 export default function Form() {
 
   const dispatch = useAppDispatch();
@@ -33,11 +35,17 @@ export default function Form() {
     }
     dispatch(submitForm(formattedData))
 
-    const profileData = sessionStorage.getItem("profile");
-    console.log("Oo", profileData)
+    const profileDataStored = sessionStorage.getItem("profile");
+  if (profileDataStored) {
+    const profileData = JSON.parse(profileDataStored);
+    console.log("Parsed profile data:", profileData);
     const customId = profileData.body.id;
-    
-    router.push(`/account/${customId}`);
+    dispatch(updateProfileData(profileData));
+    console.log(customId);
+    router.push(`/accounts/${customId}`)
+  } else {
+    console.log("Profile data not found in sessionStorage");
+  }
     
   };
    

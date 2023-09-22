@@ -50,6 +50,9 @@ export default function  Header() {
                     <Link href="/login">
                     Sign in
                     </Link>
+                    <Link href="/accounts/new">
+                        Register
+                    </Link>
                     </div>
                 )}
             

@@ -124,7 +124,7 @@ const formSlice = createSlice({
 });
 
 
-export const { updateFormField } = formSlice.actions;
+export const { updateFormField, updateProfileData } = formSlice.actions;
 export const selectProfileData = (state: RootState) => state.form.profileData;
 export const login = () => (dispatch: AppDispatch) => {
   dispatch(setConnected(true));
