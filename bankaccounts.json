@@ -1,0 +1,86 @@
+{ "randomUser": {
+    "account1":{
+            "accountName": "Argent Bank",
+            "accountRefs": "(x8349)",
+            "accountType": "Checking",
+            "previousAccountBalance": 1500,
+            "accountTransactions":[
+                {
+                    "transactionId": "123",
+                    "transactionDate": "2023-08-15T12:00:00.000Z",
+                    "transactionLocation":"Restaurant la bonne fourchette",
+                    "transactionType": "payment",
+                    "transactionAmount": "-150",
+                    "transactionDetails": "Restaurant la bonne fourchette"
+                },
+                {
+                    "transactionId": "124",
+                    "transactionDate": "2023-08-15T15:00:00.000Z",
+                    "transactionLocation":"Cinema le bon navet",
+                    "transactionType": "payment",
+                    "transactionAmount": "-50",
+                    "transactionDetails": "Cinéma le bon navet"
+                },
+                {
+                    "transactionId": "125",
+                    "transactionDate": "2023-08-15T17:00:00.000Z",
+                    "transactionLocation":"Argent Bank Cash machine",
+                    "transactionType": "withdraw",
+                    "transactionAmount": "-200",
+                    "transactionDetails": "Cash withdrawal"
+                },
+                {
+                    "transactionId": "126",
+                    "transactionDate": "2023-08-16T00:01:00.000Z",
+                    "transactionLocation":"Dev'your synergy",
+                    "transactionType": "transfer",
+                    "transactionAmount": "2000",
+                    "transactionDetails": "transfer received from Dev'your synergy"
+                },
+                {
+                    "transactionId": "127",
+                    "transactionDate": "2023-08-17T12:00:00.000Z",
+                    "transactionLocation":"Internal",
+                    "transactionType": "transfer",
+                    "transactionAmount": "-1000",
+                    "transactionDetails": "Transfer"
+                },
+                {
+                    "transactionId": "128",
+                    "transactionDate": "2023-08-28T00:08:00.000Z",
+                    "transactionLocation":"Internal",
+                    "transactionType": "transfer",
+                    "transactionAmount": "+600",
+                    "transactionDetails": "Transfer"
+                }
+            ]
+            
+        },
+    "account2":{
+            "accountName": "Argent Bank",
+            "accountRefs": "(x8348)",
+            "accountType": "Savings",
+            "previousAccountBalance": 2200,
+            "accountTransactions":[
+                {
+                    "transactionId": "45",
+                    "transactionDate": "2023-08-17T12:00:00.000Z",
+                    "transactionLocation":"Internal",
+                    "transactionType": "transfer",
+                    "transactionAmount": "1000",
+                    "transactionDetails": "Transfer"
+                },
+                
+                {
+                    "transactionId": "46",
+                    "transactionDate": "2023-08-28T00:08:00.000Z",
+                    "transactionLocation":"Internal",
+                    "transactionType": "transfer",
+                    "transactionAmount": "-600",
+                    "transactionDetails": "Transfer"
+                }
+            ]
+            
+        }
+    }
+}

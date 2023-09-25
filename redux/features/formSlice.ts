@@ -30,7 +30,6 @@ export const submitForm = createAsyncThunk(
   "form/submitForm",
   async (formData: FormSubmitData, { dispatch }) => {
     const { email, password, tokenStorageLocation } = formData;
-    console.log(formData);
     try {
       const response = await fetch("http://localhost:3001/api/v1/user/login", {
         method: "POST",
@@ -46,9 +45,6 @@ export const submitForm = createAsyncThunk(
         const userData = { email, password, authToken, tokenStorageLocation}
         dispatch(setConnected(true));
         dispatch(updateAuthToken(authToken));
-        console.log(data);
-        console.log(authToken);
-
         try {
           const profileResponse = await fetch("http://localhost:3001/api/v1/user/profile", {
             method : "POST",
@@ -63,7 +59,6 @@ export const submitForm = createAsyncThunk(
           if (profileResponse.status===200){
             
             const profileData = await profileResponse.json();
-            console.log(profileData);
             sessionStorage.setItem("profile", JSON.stringify(profileData));
             
           }else {
@@ -75,7 +70,6 @@ export const submitForm = createAsyncThunk(
         }
       if (tokenStorageLocation){
         localStorage.setItem("userData", JSON.stringify(userData));
-        console.log(userData)
       } else { 
         sessionStorage.setItem("userData", JSON.stringify(userData));
       }

@@ -23,7 +23,6 @@ export default function Form() {
     localStorage.removeItem("userData");
     const newStorageLocation = !tokenStorageLocation
     dispatch(setTokenStorageLocation(newStorageLocation));
-    console.log("clicked");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -38,10 +37,8 @@ export default function Form() {
     const profileDataStored = sessionStorage.getItem("profile");
   if (profileDataStored) {
     const profileData = JSON.parse(profileDataStored);
-    console.log("Parsed profile data:", profileData);
     const customId = profileData.body.id;
     dispatch(updateProfileData(profileData));
-    console.log(customId);
     router.push(`/accounts/${customId}`)
   } else {
     console.log("Profile data not found in sessionStorage");

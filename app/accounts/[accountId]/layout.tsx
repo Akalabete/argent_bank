@@ -7,8 +7,8 @@ export default function layout({
     params: { accountId: string }
     
     }>) {
-    return <div>
-        <h1>account ici {params.accountId}</h1>
+    return <div className="layoutAccountWrapper">
+        <h2>Welcome back</h2>
         {children}
         </div>
     }
