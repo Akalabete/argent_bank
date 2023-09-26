@@ -13,12 +13,3 @@ export default function layout({
         {children}
         </div>
     }
-
-    /* pour recuperer une list 
-    const boards = objet avec la liste ...
-    { boards.map((board) =>{
-        <Component key={boards.id} board= {board} />
-
-    })}
-
-    */

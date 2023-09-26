@@ -1,7 +1,9 @@
 'use client';
 import { useAppSelector } from '@/redux/hook';
 import bankAccountsList from '../../../bankaccounts.json';
-import { selectProfileData } from '../../../redux/features/formSlice'
+import { selectProfileData } from '../../../redux/features/formSlice';
+import styles from './page.module.scss';
+import {useRouter } from 'next/navigation';
 const balanceCalculator = (account: { accountTransactions: any[] }) => {
   let accountBalance = 0;
 
@@ -17,7 +19,8 @@ const balanceCalculator = (account: { accountTransactions: any[] }) => {
 
   return accountBalance;
 };
-const randomUser: {
+
+const randomUser: {  // can be real account from ApI using userId as on the url
   [accountId: string]: {
     accountName: string;
     accountRefs: string;
@@ -34,16 +37,26 @@ const randomUser: {
   };
 } = bankAccountsList.randomUser;
 
+const expandTransactions= () =>{
+  return;
+}
+
 export default function BankAccounts( {
   params,
   searchParams,
 }: {
-  params: {accountId: string }
+  params: {accountId: string}
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const accountElements = [];
   const profileData = useAppSelector(selectProfileData);
-  console.log(profileData.body.firstName);
+  const router = useRouter();
+
+  const navigateToProfile = () => {
+    const { accountId } = params;
+    router.push(`/profile/${accountId}`);
+  };
+
   for (const accountId in randomUser) {
     const account = randomUser[accountId];
     const accountName = account.accountName;
@@ -52,21 +65,29 @@ export default function BankAccounts( {
     const accountBalance = balanceCalculator(account);
 
     const accountElement = (
-      <div key={accountId}>
-        <h1>Compte</h1>
-        <p>{accountName} {accountType} ref: {accountRefs}</p>
-        <p>Solde : ${accountBalance.toFixed(2)}</p>
-      </div>
+        
+          <div key={accountRefs} className={styles.accountWrapper}>
+            
+            <h3>{accountName} {accountType} ref: {accountRefs}</h3>
+            <p className={styles.bankBalance}>$ {accountBalance.toFixed(2)}</p>
+            <p>Available Balance</p>
+            <button className={styles.accountButton} onClick={expandTransactions}>View Transactions</button>
+          </div>
+          
+        
+      
     );
-
     accountElements.push(accountElement);
   }
+
   return (
     <>
-    <h2>{profileData.body.firstName}</h2>
-    <div className="bankAccounts">
+    <h2>{profileData.body.firstName} {profileData.body.userName}</h2>
+    <button className={styles.accountButton} onClick={navigateToProfile}>Edit Profile</button>
+    <div className={styles.accountsWrapper}>
       {accountElements}
     </div>
+    
     </>
   )
 }

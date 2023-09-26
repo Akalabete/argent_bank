@@ -45,6 +45,7 @@ export const submitForm = createAsyncThunk(
         const userData = { email, password, authToken, tokenStorageLocation}
         dispatch(setConnected(true));
         dispatch(updateAuthToken(authToken));
+        console.log(data)
         try {
           const profileResponse = await fetch("http://localhost:3001/api/v1/user/profile", {
             method : "POST",
@@ -60,7 +61,7 @@ export const submitForm = createAsyncThunk(
             
             const profileData = await profileResponse.json();
             sessionStorage.setItem("profile", JSON.stringify(profileData));
-            
+            console.log(profileData);
           }else {
             console.log("error")
           }

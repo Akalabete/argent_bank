@@ -1,0 +1,62 @@
+
+.layoutAccountWrapper{
+    text-align: center;
+    margin: auto;
+    background-color:#12002b;
+    height:600px;
+    width: 100%;
+    color: white;
+    h2{
+        margin: none;
+        padding-top: 15px 0 0 0;
+    }
+    h3{
+        margin: none;
+        padding: none;
+    }
+   
+}
+.accountButton {
+    background-color: #00bc77;
+    border-color: #00bc77;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+}
+.accountsWrapper{
+    margin: 50px 0 0 20px;
+    text-align: left;
+   
+}
+
+.accountWrapper{
+    height : 100px;
+    width : 75%;
+    margin : 30px auto;
+    background-color: white;
+    color: black;
+    padding: 20px;
+    position: relative;
+    p{
+        padding : 2px;
+    }
+    h3{
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    button{
+        position: absolute;
+        top: 50px;
+        right: 20px;
+        font-size: 12px;
+    }
+}
+
+.bankBalance {
+    font-size: 2.3em;
+    line-height: 0em;
+    font-weight: bolder;
+    margin-bottom: 0;
+    margin-top: 0.8em;
+    padding-bottom: 0;
+}
