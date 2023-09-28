@@ -9,7 +9,7 @@ export default function layout({
     
     }>) {
     return <div className={styles.layoutAccountWrapper}>
-        <h2>Welcome back</h2>
+        <h2>Profile Edition</h2>
         {children}
         </div>
     }

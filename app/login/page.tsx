@@ -11,7 +11,7 @@ import Modal from '../../component/modal/page'
     
 export default function Login() {
 
-  const modal = useAppSelector((state) => state.modal);
+  const modal = useAppSelector((state: { modal: any; }) => state.modal);
   const dispatch = useAppDispatch();
 
   const handleOpenModal = () => {

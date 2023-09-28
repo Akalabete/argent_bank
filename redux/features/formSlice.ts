@@ -8,9 +8,11 @@ import { RootState } from '../store';
 interface FormState {
   email: string;
   password: string;
-  nickname: string;
+  username: string;
   authToken: string | null;
   profileData: any | null;
+  firstname: string | null;
+  lastname: string | null;
 }
 interface FormSubmitData {
   email: string;
@@ -21,9 +23,11 @@ interface FormSubmitData {
 const initialState: FormState = {
   email: "",
   password: "",
-  nickname: "User",
+  username: "",
   authToken: "",
   profileData: null,
+  firstname: "",
+  lastname: "",
 };
 
 export const submitForm = createAsyncThunk(
@@ -71,6 +75,7 @@ export const submitForm = createAsyncThunk(
         }
       if (tokenStorageLocation){
         localStorage.setItem("userData", JSON.stringify(userData));
+        sessionStorage.setItem("userData", JSON.stringify(userData));
       } else { 
         sessionStorage.setItem("userData", JSON.stringify(userData));
       }

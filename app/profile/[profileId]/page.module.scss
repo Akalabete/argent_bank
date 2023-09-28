@@ -1,0 +1,53 @@
+.layoutAccountWrapper{
+    text-align: center;
+    margin: auto;
+    background-color:#12002b;
+    height:600px;
+    width: 100%;
+    color: white;
+    h2{
+        margin: none;
+        padding-top: 15px 0 0 0;
+    }
+    h3{
+        margin: none;
+        padding: none;
+    }
+   
+}
+
+
+
+.form {
+    display: block;
+    background-color: white;
+    color: black;
+    
+}
+
+.form label {
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.form button {
+    
+    display: block;
+    margin: 15px auto;
+}
+
+.loginWindow{
+    margin: auto;
+    text-align: center;
+    width: 300px;
+    background-color: white;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    h3{
+        margin-top: 10px;
+        font-size: 30px;
+    }
+    
+}

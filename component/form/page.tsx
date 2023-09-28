@@ -1,10 +1,10 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import styles from './page.module.scss';
-import { updateFormField, submitForm  } from '../../redux/features/formSlice'
+import { updateFormField, submitForm, updateProfileData  } from '@/redux/features/formSlice'
 import { setTokenStorageLocation, selectTokenStorageLocation } from "@/redux/features/authSlice";
 import { useRouter } from 'next/navigation';
-import { updateProfileData } from '@/redux/features/formSlice';
+
 
 export default function Form() {
 
@@ -49,24 +49,22 @@ export default function Form() {
   return (
     <div className={styles.form}>
       <form onSubmit={handleSubmit}>
-        <label>Username</label>
-        <input
-          type="text"
-          defaultValue={userData.email}
-          value={formData.email}
-          id="email"
-          name="email"
-          onChange={handleInputChange}
-        />
+        <label>Email</label>
+          <input
+            type="text"
+            value={formData.email}
+            id="email"
+            name="email"
+            onChange={handleInputChange}
+          />
         <label>Password</label>
-        <input
-          type="password"
-          value={formData.password}
-          defaultValue={userData.password}
-          id="password"
-          name="password"
-          onChange={handleInputChange}
-        />
+          <input
+            type="password"
+            value={formData.password}
+            id="password"
+            name="password"
+            onChange={handleInputChange}
+          />
         <label>Remember me</label>
         <input
           type="checkbox"
