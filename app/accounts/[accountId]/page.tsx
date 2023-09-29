@@ -3,7 +3,7 @@ import { useAppSelector } from '@/redux/hook';
 import bankAccountsList from '../../../bankaccounts.json';
 import { selectProfileData } from '../../../redux/features/formSlice';
 import styles from './page.module.scss';
-import {useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 const balanceCalculator = (account: { accountTransactions: any[] }) => {
   let accountBalance = 0;
 

@@ -8,7 +8,7 @@ import { RootState } from '../store';
 interface FormState {
   email: string;
   password: string;
-  username: string;
+  userName: string;
   authToken: string | null;
   profileData: any | null;
   firstname: string | null;
@@ -23,7 +23,7 @@ interface FormSubmitData {
 const initialState: FormState = {
   email: "",
   password: "",
-  username: "",
+  userName: "",
   authToken: "",
   profileData: null,
   firstname: "",
@@ -49,7 +49,6 @@ export const submitForm = createAsyncThunk(
         const userData = { email, password, authToken, tokenStorageLocation}
         dispatch(setConnected(true));
         dispatch(updateAuthToken(authToken));
-        console.log(data)
         try {
           const profileResponse = await fetch("http://localhost:3001/api/v1/user/profile", {
             method : "POST",

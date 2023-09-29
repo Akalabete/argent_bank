@@ -35,7 +35,11 @@ export default function  Header() {
                          />
                     </Link>
                    
-                    <Link href="/" onClick={() => dispatch(setConnected(false))}> 
+                    <Link href="/" onClick={() =>{
+                        dispatch(setConnected(false)); 
+                        sessionStorage.removeItem("userData"); 
+                        sessionStorage.removeItem("profile");
+                    }}> 
                     Sign out 
                     </Link>
                     </div>

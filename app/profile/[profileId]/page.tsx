@@ -19,21 +19,53 @@ export default function Profile( {
     const userDataString = sessionStorage.getItem("userData");
 
     const userData = userDataString? JSON.parse(userDataString): null;
-    console.log(userData);
-  
+    const { accountId } = params;
+    const router = useRouter()
+    let inputValue = "";
 
     
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
-      console.log("++");
+      inputValue = value
       dispatch(updateFormField({ fieldName: name, fieldValue: value }));
+      
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-      dispatch(updateProfileData(profileData))
-      // + api put 
       
+      e.preventDefault();
+      
+      const authToken = userData?.authToken
+      if(!authToken){
+        console.error('missing authentification token');
+        return;
+      }
+      
+      try {
+        const profileUpdateResponse = await fetch("http://localhost:3001/api/v1/user/profile", {
+          method : "PUT",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-type": "application/json",
+            Accept: "application.json",
+          },
+          body: JSON.stringify({userName: inputValue })
+        });
+
+        if (profileUpdateResponse.status===200){
+          
+          const updatedProfileData = await profileUpdateResponse.json();
+          sessionStorage.setItem("profile", JSON.stringify(updatedProfileData));
+          console.log(updatedProfileData);
+          dispatch(updateProfileData(updatedProfileData));
+          router.push(`/accounts/${accountId}`)
+        }else {
+          console.log("error")
+        }
+      }
+      catch(error){
+          console.error(error);
+      }
     }
     return(
       <>
@@ -79,6 +111,7 @@ export default function Profile( {
                 <input
                   type="text"
                   defaultValue={profileData.body.userName}
+                  value={profileData.userName}
                   id="username"
                   name="username"
                   onChange={handleInputChange}

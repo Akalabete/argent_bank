@@ -43,16 +43,16 @@ export default function Form() {
   } else {
     console.log("Profile data not found in sessionStorage");
   }
-    
   };
-   
+  
   return (
     <div className={styles.form}>
       <form onSubmit={handleSubmit}>
         <label>Email</label>
           <input
             type="text"
-            value={formData.email}
+            defaultValue={userData.email}
+            value={formData.email}            
             id="email"
             name="email"
             onChange={handleInputChange}
@@ -60,6 +60,7 @@ export default function Form() {
         <label>Password</label>
           <input
             type="password"
+            defaultValue={userData.email}
             value={formData.password}
             id="password"
             name="password"
