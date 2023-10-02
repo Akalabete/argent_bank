@@ -35,7 +35,7 @@ export default function Form() {
     dispatch(submitForm(formattedData))
 
     const profileDataStored = sessionStorage.getItem("profile");
-  if (profileDataStored) {
+    if (profileDataStored) {
     const profileData = JSON.parse(profileDataStored);
     const customId = profileData.body.id;
     dispatch(updateProfileData(profileData));

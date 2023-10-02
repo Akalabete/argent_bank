@@ -3,6 +3,7 @@ import formReducer from "./features/formSlice";
 import userReducer from "./features/userSlice";
 import modalReducer from "./features/modalSlice";
 import authReducer from "./features/authSlice";
+import transactionReducer from "./features/transactionSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     user: userReducer,
     modal: modalReducer,
     auth: authReducer,
+    transactions: transactionReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 });
