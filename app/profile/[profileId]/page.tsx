@@ -3,6 +3,9 @@ import { useAppSelector, useAppDispatch } from '@/redux/hook';
 import { updateFormField, selectProfileData, updateProfileData } from '@/redux/features/formSlice'
 import styles from './page.module.scss';
 import { useRouter } from 'next/navigation';
+import { openModal, closeModal } from "@/redux/features//modalSlice";
+import Modal from '../../../component/modal/page';
+
 
 export default function Profile( {
     params,
@@ -58,7 +61,14 @@ export default function Profile( {
           sessionStorage.setItem("profile", JSON.stringify(updatedProfileData));
           console.log(updatedProfileData);
           dispatch(updateProfileData(updatedProfileData));
-          router.push(`/accounts/${accountId}`)
+          dispatch(
+            openModal({
+              title: "Success!",
+              message: "Profile updated successfully.",
+              
+            }))
+
+          
         }else {
           console.log("error")
         }
@@ -67,11 +77,29 @@ export default function Profile( {
           console.error(error);
       }
     }
+    const modal = useAppSelector((state: { modal: any; }) => state.modal);
+   
+
+    const handleOpenModal = () => {
+      dispatch(openModal({ title: 'Modal Title', message: 'Modal Message' }));
+    };
+
+    const handleCloseModal = () => {
+      dispatch(closeModal());
+      router.push(`/accounts/${accountId}`)
+    };
     return(
       <>
         <h2>User informations:</h2>
         <div className={styles.loginWindow}>
-        
+        {modal.isOpen && (
+        <Modal
+          isOpen={modal.isOpen}
+          title={modal.title}
+          message={modal.message}
+          onClose={handleCloseModal}
+        />
+      )}   
           <div className={styles.form}>
 
             <form onSubmit={handleSubmit}>
@@ -101,7 +129,7 @@ export default function Profile( {
                 />
               <label>Password</label>
                 <input
-                  type="text"
+                  type="password"
                   value={userData.password}
                   id="password"
                   name="password"

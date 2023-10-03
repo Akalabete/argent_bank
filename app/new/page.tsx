@@ -12,13 +12,20 @@ export default function RegistrationForm() {
   };
   const handleRegistrationSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const registrationFormData = registrationForm;
+    const registrationFormData = {
+      "email" : registrationForm.email,
+      "password" : registrationForm.password,
+      "firstName": registrationForm.firstname,
+      "lastName": registrationForm.lastname,
+      "userName": registrationForm.username,
+    };
     console.log(registrationFormData)
     try {
       const response = await fetch("http://localhost:3001/api/v1/user/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "accept":"application/json"
         },
         body: JSON.stringify({registrationFormData}),
       });
@@ -37,7 +44,10 @@ export default function RegistrationForm() {
   }
   return(
     <>
-    <p>Please fill the registration form below:</p>
+    <h2>Please fill the registration form below:</h2>
+    <div className={styles.loginWindow}>
+      
+    <div className={styles.form}>
     <form>
       <label>Email: </label>
       <input 
@@ -88,6 +98,8 @@ export default function RegistrationForm() {
       
       <button type="submit" className={styles.registrationFormSubmit} onClick={handleRegistrationSubmit}>Sign in !</button>
     </form>
+    </div>
+    </div>
     </>
   )
 }

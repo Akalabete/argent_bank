@@ -4,8 +4,10 @@ import bankAccountsList from '../../../bankaccounts.json';
 import { selectProfileData } from '../../../redux/features/formSlice';
 import styles from './page.module.scss';
 import { useRouter } from 'next/navigation';
-import { expandTransaction, collapseTransaction } from "@/redux/features/transactionSlice";
-import { updateFormField } from '@/redux/features/formSlice'
+import { expandTransaction, collapseTransaction, updateTransactionDetails } from "@/redux/features/transactionSlice";
+
+
+
 const balanceCalculator = (account: { accountTransactions: any[] }) => {
   let accountBalance = 0;
 
@@ -66,14 +68,30 @@ export default function BankAccounts( {
   };
   const saveTransactionDetails = () => {
     return;
+    //API CALL put
   }
-  
-  const handleTransactionDetailsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const resetTransactionDetails = () => {
+    return;
+    // reset de la valeur par defaut
+  }
+  const handleTransactionDetailsChange = (accountId: string, transactionId: string) => (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
-   
-    dispatch(updateFormField({ fieldName: name, fieldValue: value }));
-    
-  }
+    console.log("modded")
+    dispatch(
+      updateTransactionDetails({
+        accountId: accountId,
+        transactionId: transactionId,
+        transactionDetails: value,
+      })
+    );
+  };
+
+  const formattedDate = (transactionDate: string | number | Date) => {
+    const date = new Date(transactionDate);
+    return date.toLocaleString("en-US");
+  };
   return (
     <>
       <h2>{profileData.body.firstName} {profileData.body.userName}</h2>
@@ -96,22 +114,22 @@ export default function BankAccounts( {
                 className={styles.accountButton}
                 onClick={() => expandTransactions(accountId)} 
               >
-                View Transactions
+                {expandedTransactions.includes(accountId) ? "Hide transactions" : "View transactions"}
               </button>
               {expandedTransactions.includes(accountId) &&  (
                 <div className={styles.expandablesTransactionsContainer}>
                   {accountTransactions.map((transaction) => (
                     <div key={transaction.transactionId} className={styles.transactionWrapper}>
-                      <h4>transaction N°{transaction.transactionId} date:{transaction.transactionDate} type: {transaction.transactionType} amount: {transaction.transactionAmount}</h4>
+                      <h4>transaction N°{transaction.transactionId} || date: {formattedDate(transaction.transactionDate)} || type: {transaction.transactionType} ||  amount: <span>{transaction.transactionAmount}</span></h4>
                       <p>location: {transaction.transactionLocation}</p>
                       <form>
-                        <label>transaction details:</label>
+                        <label>transaction details: </label>
                         <input
                           type="text"
                           name="transactionDetails"
                           id="inputTransactionDetails"
                           value={transaction.transactionDetails}
-                          onChange={handleTransactionDetailsChange}
+                          onChange={handleTransactionDetailsChange(accountId, transaction.transactionId)}
                         />
                         <button 
                           type="submit" 
@@ -119,7 +137,15 @@ export default function BankAccounts( {
                           name="saveTransactionDetails"
                           onClick={saveTransactionDetails}
                           >
-                        save details 
+                        ✅
+                        </button>
+                        <button 
+                          type="submit" 
+                          
+                          name="resetTransactionDetails"
+                          onClick={resetTransactionDetails}
+                          >
+                        ❌
                         </button>
                       </form>
                     </div>

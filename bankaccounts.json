@@ -50,7 +50,7 @@
                     "transactionDate": "2023-08-28T00:08:00.000Z",
                     "transactionLocation":"Internal",
                     "transactionType": "transfer",
-                    "transactionAmount": "+600",
+                    "transactionAmount": "600",
                     "transactionDetails": "Transfer"
                 }
             ]
