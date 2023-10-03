@@ -60,7 +60,7 @@ export default function RegistrationForm() {
         />
       <label>Password</label>
       <input
-        type="text"
+        type="password"
         name="password"
         id="password"
         value={registrationForm.password}

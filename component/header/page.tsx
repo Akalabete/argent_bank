@@ -30,7 +30,7 @@ export default function  Header() {
                     <div className={styles.loginContainer}>
                     <Link href="/login">
                         <FontAwesomeIcon 
-                            size="3x" 
+                            size="xl" 
                             icon={faCircleUser} 
                          />
                     </Link>

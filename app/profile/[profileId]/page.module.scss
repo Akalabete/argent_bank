@@ -25,13 +25,17 @@
     
 }
 
+
 .form label {
     display: block;
+    text-align: left;;
     font-weight: bold;
     font-size: 16px;
-    margin: 10px 0;
+    margin: 10px 0 10px 25px;   
 }
-
+.form input {
+    width : 80%;
+}
 .form button {
     background-color: #00bc77;
     border-color: #00bc77;
@@ -54,4 +58,7 @@
         font-size: 30px;
     }
     
+}
+.greyedInput {
+    background-color: lightgrey;
 }

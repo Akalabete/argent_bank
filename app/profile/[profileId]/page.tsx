@@ -5,14 +5,15 @@ import styles from './page.module.scss';
 import { useRouter } from 'next/navigation';
 import { openModal, closeModal } from "@/redux/features//modalSlice";
 import Modal from '../../../component/modal/page';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 
 export default function Profile( {
     params,
-    searchParams,
+    
   }: {
     params: {accountId: string}
-    searchParams: { [key: string]: string | string[] | undefined }
+    
   }) {
 
 
@@ -92,6 +93,7 @@ export default function Profile( {
       <>
         <h2>User informations:</h2>
         <div className={styles.loginWindow}>
+        
         {modal.isOpen && (
         <Modal
           isOpen={modal.isOpen}
@@ -101,10 +103,14 @@ export default function Profile( {
         />
       )}   
           <div className={styles.form}>
-
+          <FontAwesomeIcon 
+          size="2x" 
+          icon={faCircleUser} 
+        />
             <form onSubmit={handleSubmit}>
               <label>Firstname:</label>
               <input
+                className={styles.greyedInput}
                 type="text"
                 value={profileData.body.firstName}
                 id="firstname"
@@ -113,6 +119,7 @@ export default function Profile( {
               />
               <label>Lastname</label>
                 <input
+                  className={styles.greyedInput}
                   type="text"
                   value={profileData.body.lastName}
                   id="lastname"
@@ -121,6 +128,7 @@ export default function Profile( {
                 />
               <label>Email</label>
                 <input
+                  className={styles.greyedInput}
                   type="text"
                   value={profileData.body.email}
                   id="email"
@@ -129,6 +137,7 @@ export default function Profile( {
                 />
               <label>Password</label>
                 <input
+                  className={styles.greyedInput}
                   type="password"
                   value={userData.password}
                   id="password"

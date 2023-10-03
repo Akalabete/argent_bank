@@ -45,10 +45,8 @@ const randomUser: {  // can be real account from ApI using userId as on the url
 
 export default function BankAccounts( {
   params,
-  searchParams,
 }: {
   params: {accountId: string}
-  searchParams: { [key: string]: string | string[] | undefined }
 }) {
 
   const profileData = useAppSelector(selectProfileData);
