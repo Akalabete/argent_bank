@@ -4,6 +4,7 @@
 .layoutAccountWrapper{
     text-align: center;
     margin: auto;
+    padding-bottom: 30px;
     background-color:$background-purple;
     min-height:600px;
     width: 100%;
@@ -26,7 +27,7 @@
     padding: 10px;
 }
 .accountsWrapper{
-    margin: 50px 0 0 20px;
+    margin: 50px 0 0 0;
     padding-bottom: 30px;
     text-align: left;
    
@@ -40,7 +41,6 @@
     color: black;
     padding: 20px;
     position: relative;
-    overflow: auto;
     p {
         padding: 2px;
     }
@@ -64,16 +64,28 @@
     margin-top: 0.8em;
     padding-bottom: 0;
 }
-.transactionWrapper {
+.transactionsWrapper{
+    width: 75%;
+    margin: 30px auto;
+    background-color: white;
+    color: black;
+    padding: 20px;
+    
 
+}
+.transactionWrapper {
+    width:90%;
+    background-color: white;
+    position: relative;
     border:none;
-    margin-bottom: 10px;
+    margin: 10px auto 20px auto;
     padding : 10px 10px;
     box-shadow: 0 0 3px 3px rgba(76,76,76,0.5) ;
     h4 span {
         font-size: 24px;
         position: absolute;
         right: 50px;
+        bottom: 40px;;
     }
     input {
         margin-right : 10px;
@@ -84,6 +96,20 @@
         background-color: white;
     }
 }
-.hidden {
-    display: none;
+.boardRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
   }
+  
+  .date, .description, .amount, .balance {
+    flex: 1;
+    text-align: center;
+    padding: 5px;
+  }
+  
+  .description {
+    flex: 3;
+  }
+  

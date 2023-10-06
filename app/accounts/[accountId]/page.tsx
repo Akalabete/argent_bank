@@ -95,15 +95,16 @@ export default function BankAccounts({
   };
 
   return (
-    <div>
-      {activeAccount === null && (
-        <div>
-          <h2>Welcome back</h2>
-          <h2>{profileData.body.firstName} {profileData.body.userName}</h2>
-          <button className={styles.accountButton} onClick={navigateToProfile}>Edit Profile</button>
-        </div>
-          )
-      }
+      <div>
+        {activeAccount === null ? (
+          <div>
+            <h2>Welcome back</h2>
+            <h2>{profileData.body.firstName} {profileData.body.userName}</h2>
+            <button className={styles.accountButton} onClick={navigateToProfile}>Edit Profile</button>
+          </div>
+        ) : (
+          <div>&nbsp;</div>
+        )}
       
       <div className={styles.accountsWrapper}>
         {Object.keys(randomUser).map((accountId) => {
@@ -132,14 +133,20 @@ export default function BankAccounts({
         })}
       </div>
 
-      <div className={styles.transactionsDetailsWrapper}>
+      <div>
         {Object.keys(randomUser).map((accountId) => {
           const account = randomUser[accountId];
           const accountTransactions = account.accountTransactions;
 
           return (
             expandedTransactions.includes(accountId) && (
-              <div key={accountId} className={styles.transactionWrapper}>
+              <div key={accountId} className={styles.transactionsWrapper}>
+                <div className={styles.boardRow}>
+                  <span className={styles.date}>Date</span>
+                  <span className={styles.description}>Description</span>
+                  <span className={styles.ampount}>Amount</span>
+                  <span className={styles.balance}>Balance</span>
+                </div>
                 {accountTransactions.map((transaction) => (
                   <div key={transaction.transactionId} className={styles.transactionWrapper}>
                     <h4>transaction N°{transaction.transactionId} || date: {formattedDate(transaction.transactionDate)} || type: {transaction.transactionType} ||  amount: <span>{transaction.transactionAmount}</span></h4>
@@ -178,79 +185,3 @@ export default function BankAccounts({
     </div>
   );
 }
-
-
-/* 
-
-
-
-
-<>{(activeAccount === null)? : ""}
-      <h2>{profileData.body.firstName} {profileData.body.userName}</h2>
-      <button className={styles.accountButton} onClick={navigateToProfile}>Edit Profile</button>
-      <div className={styles.accountsWrapper}>
-        {Object.keys(randomUser).map((accountId) => {
-          const account = randomUser[accountId];
-          const accountName = account.accountName;
-          const accountRefs = account.accountRefs;
-          const accountType = account.accountType;
-          const accountBalance = balanceCalculator(account);
-          const isAccountActive = activeAccountId === accountId;
-          return (
-            <div key={accountRefs} className={styles.accountWrapper}>
-              <h3>{accountName} {accountType} ref: {accountRefs}</h3>
-              <p className={styles.bankBalance}>$ {accountBalance.toFixed(2)}</p>
-              <p>Available Balance</p>
-              <button
-                className={styles.accountButton}
-                onClick={() => toggleAccountHandler(accountId)} // Utilisez l'action pour ouvrir/fermer le compte
-               >
-                {expandedTransactions.includes(accountId) ? "Hide transactions" : "View transactions"}
-              </button>
-            </div>
-          );
-        })}
-      </div>
-      {Object.keys(randomUser).map((accountId) => {
-        const account = randomUser[accountId];
-        const accountTransactions = account.accountTransactions;
-
-        return (
-          expandedTransactions.includes(accountId) && (
-            <div key={accountId} className={styles.transactionsDetailsWrapper}>
-              {accountTransactions.map((transaction) => (
-                <div key={transaction.transactionId} className={styles.transactionWrapper}>
-                  <h4>transaction N°{transaction.transactionId} || date: {formattedDate(transaction.transactionDate)} || type: {transaction.transactionType} ||  amount: <span>{transaction.transactionAmount}</span></h4>
-                  <p>location: {transaction.transactionLocation}</p>
-                  <form>
-                    <label>transaction details: </label>
-                    <input
-                      type="text"
-                      name="transactionDetails"
-                      id="inputTransactionDetails"
-                      value={transaction.transactionDetails}
-                      onChange={handleTransactionDetailsChange(accountId, transaction.transactionId)}
-                    />
-                    <button
-                      type="submit"
-                      name="saveTransactionDetails"
-                      onClick={saveTransactionDetails}
-                    >
-                      ✅
-                    </button>
-                    <button
-                      type="submit"
-                      name="resetTransactionDetails"
-                      onClick={resetTransactionDetails}
-                    >
-                      ❌
-                    </button>
-                  </form>
-                </div>
-              ))}
-            </div>
-          )
-        );
-      })}
-    </>
-  */
