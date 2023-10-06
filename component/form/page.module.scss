@@ -1,3 +1,7 @@
+@import "../../app/mixins.module.scss";
+@import "../../app/variables.module.scss";
+
+
 .form {
     display: block;
     
@@ -14,8 +18,8 @@
     width : 80%;
 }
 .form button {
-    background-color: #00bc77;
-    border-color: #00bc77;
+    background-color: $primary-green;
+    border-color: $primary-green;
     color: white;
     font-weight: bold;
     padding: 10px;
@@ -23,9 +27,7 @@
     margin: 15px auto;
 }
 
-.form p {
-    color : red;
-}
+
 .secureCookie {
     margin-left: -50px;
     display: inline-block;

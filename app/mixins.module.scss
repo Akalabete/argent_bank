@@ -1,0 +1,28 @@
+@mixin flex-row{
+    display: flex;
+    flex-direction: row;
+}
+
+@mixin med-screens-typo {
+    @media screen and (min-width: $mid-width){
+        h1{
+            font-size: 24px;
+        }
+        h2{
+            font-size: 16px;
+        }
+        h3{
+            font-size: 10px;
+        }
+        p{
+            font-size: 8px;
+        }
+    }   
+}
+
+@mixin med-screen-display-col{
+    @media screen and (min-width: $mid-width){
+        flex-direction: column;
+    }
+}
+

@@ -43,21 +43,24 @@ export default function  Header() {
                     Sign out 
                     </Link>
                     </div>
-                ):(
+                ):( <>
+                    
                     <div className={styles.loginContainer}>
-                    
-                        <FontAwesomeIcon 
-                            size="3x" 
-                            icon={faCircleUser} 
-                         />
-                    
+                    <div className={styles.loginFont}>
+
+                    <FontAwesomeIcon 
+                        size="2x" 
+                        icon={faCircleUser} 
+                    />
+                    </div>
                     <Link href="/login">
-                    Sign in
+                    Sign&thinsp;in
                     </Link>
                     <Link href="/new">
                         Register
                     </Link>
                     </div>
+                    </>
                 )}
             
             

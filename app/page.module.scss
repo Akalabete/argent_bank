@@ -1,3 +1,9 @@
+@import "./variables.module.scss";
+@import "./mixins.module.scss";
+
+.body{
+    min-width: 330px;
+}
 .coverImageContainer {
     margin-top: 1%;
     position: relative;
@@ -8,27 +14,41 @@
 
 .servicesWrapper {
     margin-top: 1%;
-    display: flex;
-    flex-direction: row;
+    @include flex-row;
     justify-content: space-around;
     text-align: center;
     padding-bottom: 1%;
     border-bottom: solid 3px grey;
+    @media screen and (max-width: 640px){
+        
+        flex-direction: column;
+    }
+}
+
+.service {
+    margin: auto;
+    width : 20%;
+    min-width: 240px;
 }
 
 .hookContainer {
     background-color: white;
-    padding-top: 35px;
-    width: 320px;
-    height: 200px;
+    width: 25%;
+    height: 50%;
     position: absolute;
     top: 25%;
     right: 10%;
-    h3, p {
-        font-size: 24px;
-        padding-left: 10%;
-        padding-top: 1%;
-        margin: 0;
+    .hookContent{
+        margin: auto;
+        width: 80%;
+        height: 80%;
+        h3, p {
+            font-size: 20px;
+            padding-left: 10%;
+            padding-top: 1%;
+            margin: 0;
+            }
+    
     }
     
 }
@@ -36,15 +56,14 @@
 .serviceLogoWrapper {
     margin: auto;
     width: 100px;
-    border: solid 10px #00bc77;
+    border: solid 10px $primary-green;
     border-radius: 100px;
 }
 
 
 
 .header {
-    display: flex;
-    flex-direction: row;
+    @include flex-row;
     justify-content: space-between;
     text-align: center;
     align-items: center;
@@ -54,21 +73,5 @@
     position: relative;
     width: 300px;
     height: 70px;
+    
 }
-
-.loginContainer {
-    width: 10%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-right : 3%;
-    align-items: center;
-    a{
-        font-size: 34px;
-        font-weight: bold;
-        font-family: Avenir, Helvetica, sans-serif;
-        text-decoration: none;
-        color: black;
-    }
-}
-

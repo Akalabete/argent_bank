@@ -1,37 +1,56 @@
-
-
+@import "../../app/mixins.module.scss";
+@import "../../app/variables.module.scss";
 
 .header {
-    display: flex;
-    flex-direction: row;
+    @include flex-row;
     justify-content: space-between;
     text-align: center;
-    align-items: center;
-    
+    align-items: center;  
 }
+
 .imageWrapper {
     position: relative;
     width: 300px;
     height: 70px;
+    @media screen and (max-width: 640px){
+        width: 250px;
+        height: 55px;
+    }
+    @media screen and (max-width: 400px){
+        width: 180px;
+        height: 35px;
+    }
 }
+
 .loginContainer {
-    width: 20%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-right : 3%;
+    width: 50%;
+    @include flex-row;
+    justify-content: flex-end;
+    margin-right : 2%;
     align-items: center;
-    a{
-        font-size: 34px;
+    a{  
+        font-size: 28px;
+        letter-spacing: 0.01em;
         font-weight: bold;
         font-family: Avenir, Helvetica, sans-serif;
         text-decoration: none;
         color: black;
+        margin: 0 5px;
+        @media screen and (max-width: 640px){
+            font-size: 24px;
+            margin: 0 6px;  
+        }
+        @media screen and (max-width: 530px){ 
+            font-size: 16px;
+            margin: 0 4px;
+        }
     }
     a:hover {
         text-decoration: underline;
-        text-decoration-color:  #00bc77;
-
+        text-decoration-color:  $primary-green;
     }
 }
 
+.loginFont{
+    margin: auto 0px;
+}

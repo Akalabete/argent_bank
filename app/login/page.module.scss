@@ -1,5 +1,8 @@
+@import "../mixins.module.scss";
+@import "../variables.module.scss";
+
 .loginBackground{
-    background-color:#12002b;
+    background-color: $background-purple;
     height:600px;
     width: 100%;
     padding-top: 6%;

@@ -15,11 +15,13 @@ export default function Home() {
           priority
         />
         <div className={styles.hookContainer}>
-          <h3>No fees.</h3>
-          <h3>No minimum deposit.</h3>
-          <h3>High interest rates.</h3>
-          <p>Open a savings account with</p>
-          <p>Argent Bank today!</p>
+          <div className={styles.hookContent}>
+            <h3>No fees.</h3>
+            <h3>No minimum deposit.</h3>
+            <h3>High interest rates.</h3>
+            <p>Open a savings account with</p>
+            <p>Argent Bank today!</p>
+          </div>
         </div>
       </div>
       <section className={styles.servicesWrapper}>
@@ -34,9 +36,9 @@ export default function Home() {
               />
             </div>
             <h3>You are our #1 priority</h3>
-            <p> Need to talk to a representative? You can get in</p>
-            <p>touch through our 24/7 chat or through a phone</p>
-            <p>call in less than 5 minutes.</p>
+            <p> Need to talk to a representative? You can get in
+            touch through our 24/7 chat or through a phone
+            call in less than 5 minutes.</p>
           </div>
           <div className={styles.service}>
             <div className={styles.serviceLogoWrapper}>
@@ -49,8 +51,8 @@ export default function Home() {
               />              
             </div>
             <h3>More savings means higher rates</h3>
-            <p>The more you save with us, the higher your</p>
-            <p>interest rate will be!</p>
+            <p>The more you save with us, the higher your
+            interest rate will be!</p>
           </div>
           <div className={styles.service}>
             <div className={styles.serviceLogoWrapper}>
@@ -63,8 +65,8 @@ export default function Home() {
               />
             </div>
             <h3>Security you can trust</h3>
-            <p>We use top of the line encryption to make sure</p>
-            <p>your data and money is always safe.</p>
+            <p>We use top of the line encryption to make sure
+            your data and money is always safe.</p>
           </div>
       </section>
     </main>

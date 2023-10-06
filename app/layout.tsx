@@ -7,6 +7,9 @@ import Header from '../component/header/page'
 import Footer from '../component/footer/page'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
+import styles from './page.module.scss'
+
+
 config.autoAddCss = false
 
 const inter = Inter({ subsets: ['latin'] })
@@ -23,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body >
+      <body className={styles.body}>
         <Providers>
           <Header />
           {children}
