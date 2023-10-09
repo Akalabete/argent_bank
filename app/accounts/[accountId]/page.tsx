@@ -6,6 +6,9 @@ import {  updateTransactionDetails, selectExpandedTransactions, toggleAccount } 
 import bankAccountsList from '../../../bankaccounts.json';
 import { selectProfileData } from '../../../redux/features/formSlice';
 import styles from './page.module.scss';
+import { openModal, closeModal } from "@/redux/features//modalSlice";
+import Modal from '../../../component/modal/page';
+
 
 const balanceCalculator = (account: { accountTransactions: any[] }) => {
   let accountBalance = 0;
@@ -19,7 +22,6 @@ const balanceCalculator = (account: { accountTransactions: any[] }) => {
       accountBalance += transactionAmount;
     }
   }
-
   return accountBalance;
 };
 
@@ -48,11 +50,14 @@ export default function BankAccounts({
 }) {
   const [activeAccount, setActiveAccount] = useState<string | null>(null);
   const [openTransactions, setOpenTransactions] = useState<{ [key: string]: boolean }>({});
+  const [detailsChanged, setDetailsChanged] = useState<{ [key: string]: boolean }>({});
+  const [selectedCategory, setSelectedCategory] = useState<{ [key: string]: string }>({});
+  const [detailsEditing, setDetailsEditing] = useState<{ [key: string]: boolean }>({});
   const profileData = useAppSelector(selectProfileData);
   const router = useRouter();
   const dispatch = useAppDispatch();
   const expandedTransactions = useAppSelector(selectExpandedTransactions);
-
+  
   const navigateToProfile = () => {
     const { accountId } = params;
     router.push(`/profile/${accountId}`);
@@ -67,27 +72,43 @@ export default function BankAccounts({
       setActiveAccount(accountId);
     }
   };
+
   const toggleTransaction = (transactionId: string) => {
     setOpenTransactions((prevState) => ({
       ...prevState,
       [transactionId]: !prevState[transactionId],
     }));
   };
-  const saveTransactionDetails = () => {
-    return;
-    //API CALL put
+
+  const handleSaveDetails = (accountId: string, transactionId: string) => () => {
+    // API CALL Put 
+    setDetailsEditing((prevState) => ({
+      ...prevState,
+      [transactionId]: false, 
+    }));
+    setDetailsChanged((prevState) => ({
+      ...prevState,
+      [transactionId]: false, 
+    }));
+    openModal({
+      title: "Success!",
+      message: "Details updated successfully.",
+    });
   };
 
   const resetTransactionDetails = () => {
     return;
-    // reset de la valeur par défaut
+
   };
 
   const handleTransactionDetailsChange = (accountId: string, transactionId: string) => (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { name, value } = e.target;
-    console.log("modded");
+    setDetailsChanged((prevState) => ({
+      ...prevState,
+      [transactionId]: true,
+    }));
     dispatch(
       updateTransactionDetails({
         accountId: accountId,
@@ -97,9 +118,45 @@ export default function BankAccounts({
     );
   };
 
+  const handleCategoryChange = (accountId: string, transactionId: string) => (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const { value } = e.target;
+    setSelectedCategory((prevState) => ({
+      ...prevState,
+      [transactionId]: value, 
+    }));
+  };
+
+  const handleCategoryConfirmation = (accountId: string, transactionId: string) => () => {
+    openModal({
+      title: "Success!",
+      message: "Category updated successfully.",  
+    });
+  };
+
   const formattedDate = (transactionDate: string | number | Date) => {
     const date = new Date(transactionDate);
     return date.toLocaleString("en-US");
+  };
+
+  const handleToggleDetailsEditing = (accountId: string, transactionId: string) => () => {
+    setDetailsEditing((prevState) => ({
+      ...prevState,
+      [transactionId]: !prevState[transactionId], 
+    }));
+  };
+
+  const modal = useAppSelector((state: { modal: any; }) => state.modal);
+   
+
+  const handleOpenModal = () => {
+    dispatch(openModal({ title: 'Modal Title', message: 'Modal Message' }));
+  };
+
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+    
   };
 
   return (
@@ -124,6 +181,7 @@ export default function BankAccounts({
         const accountTransactions = account.accountTransactions;
 
         return (
+          
           activeAccount === accountId || activeAccount === null ? (
             <div key={accountRefs} className={styles.accountWrapper}>
               <h3>{accountName} {accountType} ref: {accountRefs}</h3>
@@ -140,7 +198,14 @@ export default function BankAccounts({
           );
         })}
       </div>
-
+      {modal.isOpen && (
+        <Modal
+          isOpen={modal.isOpen}
+          title={modal.title}
+          message={modal.message}
+          onClose={handleCloseModal}
+        />
+      )}  
       <div>
         {Object.keys(randomUser).map((accountId) => {
           const account = randomUser[accountId];
@@ -171,56 +236,58 @@ export default function BankAccounts({
                     </div>
                     {openTransactions[transaction.transactionId] && (
                     <div className={styles.transactionDetails}>
-                    <form>
-                    <label>transaction details: </label>
-                    <input
-                      type="text"
-                      name="transactionDetails"
-                      id="inputTransactionDetails"
-                      value={transaction.transactionDetails}
-                      onChange={handleTransactionDetailsChange(accountId, transaction.transactionId)}
-                    />
-                    <button
-                      type="submit"
-                      name="saveTransactionDetails"
-                      onClick={saveTransactionDetails}
-                    >
-                      ✅
-                    </button>
-                    <button
-                      type="submit"
-                      name="resetTransactionDetails"
-                      onClick={resetTransactionDetails}
-                    >
-                      ❌
-                    </button>
-                  </form>
-                  <form>
-                    <label>transaction category: </label>
-                    <input
-                      type="text"
-                      name="transactionDetails"
-                      id="inputTransactionDetails"
-                      value={transaction.transactionCategory}
-                      onChange={handleTransactionDetailsChange(accountId, transaction.transactionId)}
-                    />
-                    <button
-                      type="submit"
-                      name="saveTransactionDetails"
-                      onClick={saveTransactionDetails}
-                    >
-                      ✅
-                    </button>
-                    <button
-                      type="submit"
-                      name="resetTransactionDetails"
-                      onClick={resetTransactionDetails}
-                    >
-                      ❌
-                    </button>
-                  </form>
-                  <p>type: {transaction.transactionType}</p>
-                </div>
+                      <form>
+                        <label>transaction details: </label>
+                        <input
+                          type="text"
+                          name="transactionDetails"
+                          id="inputTransactionDetails"
+                          value={transaction.transactionDetails}
+                          readOnly={!detailsEditing[transaction.transactionId]}
+                          onChange={handleTransactionDetailsChange(accountId, transaction.transactionId)}
+                        />
+                         {detailsEditing[transaction.transactionId] ? (
+                          <button
+                            type="button"
+                            name="transactionDetailsButton"
+                            id="transactionDetailsButton"
+                            onClick={handleSaveDetails(accountId, transaction.transactionId)}
+                          >
+                            ✅
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            name="transactionDetailsButton"
+                            id="transactionDetailsButton"
+                            onClick={handleToggleDetailsEditing(accountId, transaction.transactionId)}
+                          >
+                            ✏️
+                          </button>
+                        )}
+                      </form>
+                      <form>
+                        <label>transaction category: </label>
+                        <select
+                          id="transactionCategory"
+                          name="transactionCategory"
+                          >
+                          <option value="default">Select a category for the transaction</option>
+                          <option value="Option1">Option 1</option>
+                          <option value="Option1">Option 1</option>
+                          <option value="Option1">Option 1</option>
+                          <option value="Option1">Option 1</option>
+                        </select>
+                        <button
+                            type="button"
+                            name="categoryConfirmationButton"
+                            onClick={handleCategoryConfirmation(accountId, transaction.transactionId)}
+                          >
+                            ✅
+                          </button>
+                    </form>
+                    <p>type: {transaction.transactionType}</p>
+                  </div>
                 )}
               </div>
             ))}
@@ -232,34 +299,3 @@ export default function BankAccounts({
     </div>
   );
 }
-/*<h4>transaction N°{transaction.transactionId} || date: {} || type: {transaction.transactionType} ||  amount: <span></span></h4>
-                    <p>location: </p>
-                    
-                    
-                    
-                    <form>
-                      <label>transaction details: </label>
-                      <input
-                        type="text"
-                        name="transactionDetails"
-                        id="inputTransactionDetails"
-                        value={transaction.transactionDetails}
-                        onChange={handleTransactionDetailsChange(accountId, transaction.transactionId)}
-                      />
-                      <button
-                        type="submit"
-                        name="saveTransactionDetails"
-                        onClick={saveTransactionDetails}
-                      >
-                        ✅
-                      </button>
-                      <button
-                        type="submit"
-                        name="resetTransactionDetails"
-                        onClick={resetTransactionDetails}
-                      >
-                        ❌
-                      </button>
-                    </form>
-                    
-                    */

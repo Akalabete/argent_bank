@@ -125,3 +125,27 @@
     right: 0px;
     cursor: pointer;
 }
+.transactionDetails {
+    border: solid 1px $primary-green;
+    padding: 10px 5px;
+    text-align: left;
+    margin-left: 25px;
+    form {
+        line-height: 20px;
+        input, select {
+            width: 250px;
+            border: 1px solid $primary-green;
+        }
+        select {
+            margin-right: 10px;
+        }
+        button {
+            border: none;
+            background-color: white;
+        }
+    }   
+
+    p { 
+        margin: 0 auto;
+    }
+}
