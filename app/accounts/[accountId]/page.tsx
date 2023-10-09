@@ -36,6 +36,7 @@ const randomUser: {
       transactionType: string;
       transactionAmount: string;
       transactionDetails: string;
+      transactionCategory: string;
     }[];
   };
 } = bankAccountsList.randomUser;
@@ -46,6 +47,7 @@ export default function BankAccounts({
   params: { accountId: string };
 }) {
   const [activeAccount, setActiveAccount] = useState<string | null>(null);
+  const [openTransactions, setOpenTransactions] = useState<{ [key: string]: boolean }>({});
   const profileData = useAppSelector(selectProfileData);
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -64,6 +66,12 @@ export default function BankAccounts({
     }else {
       setActiveAccount(accountId);
     }
+  };
+  const toggleTransaction = (transactionId: string) => {
+    setOpenTransactions((prevState) => ({
+      ...prevState,
+      [transactionId]: !prevState[transactionId],
+    }));
   };
   const saveTransactionDetails = () => {
     return;
@@ -149,8 +157,86 @@ export default function BankAccounts({
                 </div>
                 {accountTransactions.map((transaction) => (
                   <div key={transaction.transactionId} className={styles.transactionWrapper}>
-                    <h4>transaction N°{transaction.transactionId} || date: {formattedDate(transaction.transactionDate)} || type: {transaction.transactionType} ||  amount: <span>{transaction.transactionAmount}</span></h4>
-                    <p>location: {transaction.transactionLocation}</p>
+                    <div className={styles.transactionHeader}>
+                      <span className={styles.date}>{formattedDate(transaction.transactionDate)}</span>
+                      <span className={styles.description}>{transaction.transactionLocation}</span>
+                      <span className={styles.amount}>{transaction.transactionAmount}</span>
+                      <span className={styles.balance}>TBI</span>
+                      <button
+                        className={styles.transactionDetailsButton}
+                        onClick={() => toggleTransaction(transaction.transactionId)}
+                      >
+                        {openTransactions[transaction.transactionId] ? '<' : '>'}
+                      </button>
+                    </div>
+                    {openTransactions[transaction.transactionId] && (
+                    <div className={styles.transactionDetails}>
+                    <form>
+                    <label>transaction details: </label>
+                    <input
+                      type="text"
+                      name="transactionDetails"
+                      id="inputTransactionDetails"
+                      value={transaction.transactionDetails}
+                      onChange={handleTransactionDetailsChange(accountId, transaction.transactionId)}
+                    />
+                    <button
+                      type="submit"
+                      name="saveTransactionDetails"
+                      onClick={saveTransactionDetails}
+                    >
+                      ✅
+                    </button>
+                    <button
+                      type="submit"
+                      name="resetTransactionDetails"
+                      onClick={resetTransactionDetails}
+                    >
+                      ❌
+                    </button>
+                  </form>
+                  <form>
+                    <label>transaction category: </label>
+                    <input
+                      type="text"
+                      name="transactionDetails"
+                      id="inputTransactionDetails"
+                      value={transaction.transactionCategory}
+                      onChange={handleTransactionDetailsChange(accountId, transaction.transactionId)}
+                    />
+                    <button
+                      type="submit"
+                      name="saveTransactionDetails"
+                      onClick={saveTransactionDetails}
+                    >
+                      ✅
+                    </button>
+                    <button
+                      type="submit"
+                      name="resetTransactionDetails"
+                      onClick={resetTransactionDetails}
+                    >
+                      ❌
+                    </button>
+                  </form>
+                  <p>type: {transaction.transactionType}</p>
+                </div>
+                )}
+              </div>
+            ))}
+          </div>
+            )
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+/*<h4>transaction N°{transaction.transactionId} || date: {} || type: {transaction.transactionType} ||  amount: <span></span></h4>
+                    <p>location: </p>
+                    
+                    
+                    
                     <form>
                       <label>transaction details: </label>
                       <input
@@ -175,13 +261,5 @@ export default function BankAccounts({
                         ❌
                       </button>
                     </form>
-                  </div>
-                ))}
-              </div>
-            )
-          );
-        })}
-      </div>
-    </div>
-  );
-}
+                    
+                    */

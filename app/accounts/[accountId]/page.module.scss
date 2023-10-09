@@ -74,11 +74,10 @@
 
 }
 .transactionWrapper {
-    width:90%;
     background-color: white;
     position: relative;
     border:none;
-    margin: 10px auto 20px auto;
+    margin: 30px auto;
     padding : 10px 10px;
     box-shadow: 0 0 3px 3px rgba(76,76,76,0.5) ;
     h4 span {
@@ -90,26 +89,39 @@
     input {
         margin-right : 10px;
     }
-    button {
-        margin: 0 10px;
-        border: none;
-        background-color: white;
-    }
+    
 }
-.boardRow {
+.boardRow, .transactionHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #ccc;
-  }
+    .date, .description, .amount, .balance {
+        flex: 1;
+        text-align: center;
+        padding: 5px;
+      }
+    .description {
+        flex: 3;
+    }    
+}
   
-  .date, .description, .amount, .balance {
-    flex: 1;
+.transactionHeader{
+    position: relative;
+    border-bottom: none;
+}
+  
+.transactionDetailsButton{
     text-align: center;
-    padding: 5px;
-  }
-  
-  .description {
-    flex: 3;
-  }
-  
+    width: 30px;
+    height: 30px;
+    color: white;
+    font-size: 20px;
+    background-color: $primary-green;
+    border-color: $primary-green;
+    transform: rotate(90deg);
+    transform-origin: center;
+    position: absolute;
+    right: 0px;
+    cursor: pointer;
+}

@@ -11,7 +11,8 @@
                     "transactionLocation":"Restaurant la bonne fourchette",
                     "transactionType": "payment",
                     "transactionAmount": "-150",
-                    "transactionDetails": "Restaurant la bonne fourchette"
+                    "transactionDetails": "Restaurant la bonne fourchette",
+                    "transactionCategory": ""
                 },
                 {
                     "transactionId": "124",
@@ -19,7 +20,8 @@
                     "transactionLocation":"Cinema le bon navet",
                     "transactionType": "payment",
                     "transactionAmount": "-50",
-                    "transactionDetails": "Cinéma le bon navet"
+                    "transactionDetails": "Cinéma le bon navet",
+                    "transactionCategory": ""
                 },
                 {
                     "transactionId": "125",
@@ -27,7 +29,8 @@
                     "transactionLocation":"Argent Bank Cash machine",
                     "transactionType": "withdraw",
                     "transactionAmount": "-200",
-                    "transactionDetails": "Cash withdrawal"
+                    "transactionDetails": "Cash withdrawal",
+                    "transactionCategory": ""
                 },
                 {
                     "transactionId": "126",
@@ -35,7 +38,8 @@
                     "transactionLocation":"Dev'your synergy",
                     "transactionType": "transfer",
                     "transactionAmount": "2000",
-                    "transactionDetails": "transfer received from Dev'your synergy"
+                    "transactionDetails": "transfer received from Dev'your synergy",
+                    "transactionCategory": ""
                 },
                 {
                     "transactionId": "127",
@@ -43,7 +47,8 @@
                     "transactionLocation":"Internal",
                     "transactionType": "transfer",
                     "transactionAmount": "-1000",
-                    "transactionDetails": "Transfer"
+                    "transactionDetails": "Transfer",
+                    "transactionCategory": ""
                 },
                 {
                     "transactionId": "128",
@@ -51,7 +56,8 @@
                     "transactionLocation":"Internal",
                     "transactionType": "transfer",
                     "transactionAmount": "600",
-                    "transactionDetails": "Transfer"
+                    "transactionDetails": "Transfer",
+                    "transactionCategory": ""
                 }
             ]
             
@@ -68,7 +74,8 @@
                     "transactionLocation":"Internal",
                     "transactionType": "transfer",
                     "transactionAmount": "1000",
-                    "transactionDetails": "Transfer"
+                    "transactionDetails": "Transfer",
+                    "transactionCategory": ""
                 },
                 
                 {
@@ -77,7 +84,8 @@
                     "transactionLocation":"Internal",
                     "transactionType": "transfer",
                     "transactionAmount": "-600",
-                    "transactionDetails": "Transfer"
+                    "transactionDetails": "Transfer",
+                    "transactionCategory": ""
                 }
             ]
             
