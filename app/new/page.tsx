@@ -56,7 +56,7 @@ export default function RegistrationForm() {
         dispatch(setConnected(true));
         //const profileData = await newUserResponse.json();
         //const customId = profileData.body.id;
-        sessionStorage.setItem("profile", JSON.stringify(profileData));
+        //sessionStorage.setItem("profile", JSON.stringify(profileData));
         dispatch(
           openModal({
             title: "Success",
