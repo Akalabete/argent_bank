@@ -1,0 +1,292 @@
+swagger: '2.0'
+info:
+  title: Bank Argent API documentation
+  description: Contains all available API endpoints in this codebase
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /user/login:
+    post:
+      tags:
+        - User Module
+      summary: Login
+      description: API for Login
+      parameters:
+        - in: body
+          name: body
+          description: Login Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Login'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Login Successfully
+          schema:
+            $ref: '#/definitions/LoginResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/signup:
+    post:
+      tags:
+        - User Module
+      summary: Signup
+      description: API for Signup
+      parameters:
+        - in: body
+          name: body
+          description: Signup Payload
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Signup Successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/profile:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for fetching a user profile
+      #produces:
+       # - application/json
+      responses:
+        '200':
+          description: User profile retrieved successully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+            examples:
+            application/json:
+              status: 200
+              message: "User Successfully loged in"
+              body:
+                id: "12345"
+                email: "example@gmail.com"
+                accounts:
+                  account:
+                    accountrefs: "ABC123"
+                    accounttype: "Savings"
+                    accountname: "Argent Bank"
+                    prevaccountbalance: 1000.00
+                    accounttransactions:
+                      transactionid: "T123"
+                      transactiondate: "2023-09-13"
+                      transactionlocation: "Grocery Store"
+                      transactiontype: "Electronic"
+                      transactionamount: 50.00
+                      transactiondetails: "Groceries"
+                      transactioncategory: "Food"
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for updating a user profile
+      parameters:
+        - in: body
+          name: body
+          description: Update user profile attributes
+          required: true
+          schema:
+            $ref: '#/definitions/UserProfile'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User profile retrieved successully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/profile/accounts/account/transactions/updateCategory:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for updating a transaction category
+      parameters:
+        - in: body
+          name: body
+          description: Update transaction category attributes
+          required: false
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User transaction category updated successully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/profile/accounts/account/transactions/updateNote:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for updating a transaction note
+      parameters:
+        - in: body
+          name: body
+          description: Update transaction note attributes
+          required: false
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User transaction note updated successully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  User:
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+      firstName:
+        type: string
+        description: user first name
+      lastName:
+        type: string
+        description: user last name
+      userName:
+        type: string
+        description: user public name
+  Login:
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+  ApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
+          accounts:
+            type: object
+            properties:
+              account:
+                type: object
+                properties:  
+                  accountrefs:
+                    type: string
+                  accounttype:
+                    type: string
+                  accountname:
+                    type: string
+                  prevaccountbalance:
+                    type: number
+                  accounttransactions:
+                    type: object
+                    properties:
+                      transactionid:
+                        type: string
+                      transactiondate:
+                        type: string
+                      transactionlocation:
+                        type: string
+                      transactiontype:
+                        type: string
+                      transactionamount:
+                        type: number
+                      transactiondetails:
+                        type: string
+                      transactioncategory:
+                        type:string
+  LoginResponse:
+    type: object
+    properties:
+      token:
+        type: string
+  UserProfile:
+    type: object
+    properties:
+      userName:
+        type: string
+  TransactionDetailsUpdate:
+    properties:
+      accountId:
+        type: string
+        description: ID of the account's transaction
+      transactionId:
+        type: string
+        description: Id of the transaction to update
+      transactionDetails:
+        type: string
+        description: Transaction details update
+    example:
+      accountId: "12345"
+      transactionId: "T123"
+      transactionDetails: "New Transaction Details"
+  TransactionCategoryUpdate:
+    properties:
+      accountId:
+        type: string
+        description: ID of the account's transaction
+      transactionId:
+        type: string
+        description: ID of the transaction to update
+      transactionCategory:
+        type: string
+        description: New transaction category
+    example:
+      accountId: "12345"
+      transactionId: "T123"
+      transactionCategory: "New Transaction Category"
