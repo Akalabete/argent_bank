@@ -13,6 +13,7 @@ export default function Form() {
   const tokenStorageLocation = useAppSelector(selectTokenStorageLocation);
   const userData = JSON.parse(localStorage.getItem('userData') || "{}");
   const router = useRouter();
+  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     dispatch(updateFormField({ fieldName: name, fieldValue: value }));
@@ -33,16 +34,15 @@ export default function Form() {
       tokenStorageLocation: tokenStorageLocation,
     }
     dispatch(submitForm(formattedData))
-
     const profileDataStored = sessionStorage.getItem("profile");
     if (profileDataStored) {
     const profileData = JSON.parse(profileDataStored);
     const customId = profileData.body.id;
     dispatch(updateProfileData(profileData));
     router.push(`/accounts/${customId}`)
-  } else {
-    console.log("Profile data not found in sessionStorage");
-  }
+    } else {
+      console.log("Profile data not found in sessionStorage");
+    }
   };
   
   return (
@@ -50,7 +50,7 @@ export default function Form() {
       <form onSubmit={handleSubmit}>
         <label>Email</label>
         <input
-          type="text"
+          type="email"
           defaultValue={userData.email}
           value={formData.email}            
           id="email"

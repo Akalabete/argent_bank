@@ -11,13 +11,10 @@ import Modal from '../../component/modal/page'
     
 export default function Login() {
 
-  const modal = useAppSelector((state: { modal: any; }) => state.modal);
+  
   const dispatch = useAppDispatch();
-
-  const handleOpenModal = () => {
-    dispatch(openModal({ title: 'Modal Title', message: 'Modal Message' }));
-  };
-
+  
+  const modal = useAppSelector((state: { modal: any; }) => state.modal);
   const handleCloseModal = () => {
     dispatch(closeModal());
   };

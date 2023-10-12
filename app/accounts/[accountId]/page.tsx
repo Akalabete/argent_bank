@@ -12,7 +12,6 @@ import Modal from '../../../component/modal/page';
 
 const balanceCalculator = (account: { accountTransactions: any[] }) => {
   let accountBalance = 0;
-
   for (let i = 0; i < account.accountTransactions.length; i++) {
     const transaction = account.accountTransactions[i];
     const transactionAmount = parseFloat(transaction.transactionAmount);
@@ -57,13 +56,18 @@ export default function BankAccounts({
   const router = useRouter();
   const dispatch = useAppDispatch();
   const expandedTransactions = useAppSelector(selectExpandedTransactions);
-  
+  const { accountId } = params;
+
+  // action du bouton d'édition de profile
   const navigateToProfile = () => {
-    const { accountId } = params;
     router.push(`/profile/${accountId}`);
   };
-
- 
+  // converti le format de l'heure
+  const formattedDate = (transactionDate: string | number | Date) => {
+    const date = new Date(transactionDate);
+    return date.toLocaleString("en-US");
+  };
+  // state de l'account actif
   const toggleAccountHandler = (accountId: string) => {
     dispatch(toggleAccount(accountId));
     if (activeAccount === accountId){
@@ -72,35 +76,21 @@ export default function BankAccounts({
       setActiveAccount(accountId);
     }
   };
-
+  // action du bouton qui fait apparaitre les transactions
   const toggleTransaction = (transactionId: string) => {
     setOpenTransactions((prevState) => ({
       ...prevState,
       [transactionId]: !prevState[transactionId],
     }));
   };
-
-  const handleSaveDetails = (accountId: string, transactionId: string) => () => {
-    // API CALL Put 
+  // action qui fait apparaitre les details d'une transaction
+  const handleToggleDetailsEditing = (accountId: string, transactionId: string) => () => {
     setDetailsEditing((prevState) => ({
       ...prevState,
-      [transactionId]: false, 
+      [transactionId]: !prevState[transactionId], 
     }));
-    setDetailsChanged((prevState) => ({
-      ...prevState,
-      [transactionId]: false, 
-    }));
-    openModal({
-      title: "Success!",
-      message: "Details updated successfully.",
-    });
   };
-
-  const resetTransactionDetails = () => {
-    return;
-
-  };
-
+  // mise a jour de l'affichage des données fournies par l'utilisateur
   const handleTransactionDetailsChange = (accountId: string, transactionId: string) => (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -117,7 +107,6 @@ export default function BankAccounts({
       })
     );
   };
-
   const handleCategoryChange = (accountId: string, transactionId: string) => (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -127,7 +116,22 @@ export default function BankAccounts({
       [transactionId]: value, 
     }));
   };
-
+  // validation et traitement des nouvelles données
+  const handleSaveDetails = (accountId: string, transactionId: string) => () => {
+    // API CALL Put 
+    setDetailsEditing((prevState) => ({
+      ...prevState,
+      [transactionId]: false, 
+    }));
+    setDetailsChanged((prevState) => ({
+      ...prevState,
+      [transactionId]: false, 
+    }));
+    openModal({
+      title: "Success!",
+      message: "Details updated successfully.",
+    });
+  };
   const handleCategoryConfirmation = (accountId: string, transactionId: string) => () => {
     openModal({
       title: "Success!",
@@ -135,28 +139,10 @@ export default function BankAccounts({
     });
   };
 
-  const formattedDate = (transactionDate: string | number | Date) => {
-    const date = new Date(transactionDate);
-    return date.toLocaleString("en-US");
-  };
-
-  const handleToggleDetailsEditing = (accountId: string, transactionId: string) => () => {
-    setDetailsEditing((prevState) => ({
-      ...prevState,
-      [transactionId]: !prevState[transactionId], 
-    }));
-  };
-
   const modal = useAppSelector((state: { modal: any; }) => state.modal);
-   
-
-  const handleOpenModal = () => {
-    dispatch(openModal({ title: 'Modal Title', message: 'Modal Message' }));
-  };
-
   const handleCloseModal = () => {
-    dispatch(closeModal());
-    
+    dispatch(closeModal()); 
+    router.push(`/profile/${accountId}`);
   };
 
   return (
@@ -178,7 +164,7 @@ export default function BankAccounts({
         const accountRefs = account.accountRefs;
         const accountType = account.accountType;
         const accountBalance = balanceCalculator(account);
-        const accountTransactions = account.accountTransactions;
+        
 
         return (
           
@@ -271,12 +257,14 @@ export default function BankAccounts({
                         <select
                           id="transactionCategory"
                           name="transactionCategory"
+                          onChange={handleCategoryChange(accountId, transaction.transactionId)}
+                          value={selectedCategory[transaction.transactionId]}
                           >
                           <option value="default">Select a category for the transaction</option>
                           <option value="Option1">Option 1</option>
-                          <option value="Option1">Option 1</option>
-                          <option value="Option1">Option 1</option>
-                          <option value="Option1">Option 1</option>
+                          <option value="Option1">Option 2</option>
+                          <option value="Option1">Option 3</option>
+                          <option value="Option1">Option 4</option>
                         </select>
                         <button
                             type="button"

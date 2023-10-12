@@ -2,19 +2,11 @@
 @import "../variables.module.scss";
 
 .loginBackground{
-    background-color: $background-purple;
-    height:600px;
-    width: 100%;
-    padding-top: 6%;
+    @include layoutWrapper;
 }
 
 .loginWindow{
-    margin: auto;
-    text-align: center;
-    width: 300px;
-    background-color: white;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    @include userWindow;
     h3{
         margin-top: 10px;
         font-size: 30px;

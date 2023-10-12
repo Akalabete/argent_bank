@@ -13,13 +13,9 @@ import { setConnected } from "../../redux/features/userSlice";
 export default function RegistrationForm() {
   const registrationForm = useAppSelector((state) => state.form.registrationData);
   const dispatch = useAppDispatch();
-  const modal = useAppSelector((state: { modal: any; }) => state.modal);
   const router = useRouter()
 
-    const handleOpenModal = () => {
-      dispatch(openModal({ title: 'Modal Title', message: 'Modal Message' }));
-    };
-
+  const modal = useAppSelector((state: { modal: any; }) => state.modal);
     const handleCloseModal = () => {
       dispatch(closeModal());
       router.push(`/`)
@@ -89,7 +85,7 @@ export default function RegistrationForm() {
     <form>
       <label>Email: </label>
       <input 
-        type="text"
+        type="email"
         name="email"
         id="email"
         value={registrationForm.email}

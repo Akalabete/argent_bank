@@ -2,12 +2,7 @@
 @import "../variables.module.scss";
 
 .layoutAccountWrapper{
-    text-align: center;
-    margin: auto;
-    background-color: $background-purple;
-    min-height:600px;
-    width: 100%;
-    color: white;
+    @include layoutWrapper;
     h2{
         margin: none;
         padding-top: 15px 0 0 0;
@@ -20,12 +15,7 @@
 }
 
 .loginWindow{
-    margin: auto;
-    text-align: center;
-    width: 300px;
-    background-color: white;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    @include userWindow;
     h3{
         margin-top: 10px;
         font-size: 30px;
@@ -48,10 +38,7 @@
 }
 
 .form button {
-    background-color: $primary-green;
-    border-color: $primary-green;
-    color: white;
-    font-weight: bold;
+    @include buttonShape;
     padding: 10px;
     display: block;
     margin: 15px auto;

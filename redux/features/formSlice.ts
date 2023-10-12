@@ -88,19 +88,17 @@ export const submitForm = createAsyncThunk(
         catch(error){
             console.error(error);
         }
-      if (tokenStorageLocation){
-        localStorage.setItem("userData", JSON.stringify(userData));
-        sessionStorage.setItem("userData", JSON.stringify(userData));
-      } else { 
-        sessionStorage.setItem("userData", JSON.stringify(userData));
-      }
-        
+        if (tokenStorageLocation){
+          localStorage.setItem("userData", JSON.stringify(userData));
+          sessionStorage.setItem("userData", JSON.stringify(userData));
+        } else { 
+          sessionStorage.setItem("userData", JSON.stringify(userData));
+        }
       } else if (response.status === 400) {
         dispatch(
           openModal({
             title: "Incorrect credentials",
             message: "Please verify your credentials",
-            
           })
         );
       }
@@ -132,9 +130,7 @@ const formSlice = createSlice({
      },
   },
   extraReducers: (builder) => {
-    builder.addCase(submitForm.fulfilled, (state) => {
-      
-      
+    builder.addCase(submitForm.fulfilled, (state) => {  
     });
     builder.addCase(submitForm.rejected, (state) => {
     });

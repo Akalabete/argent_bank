@@ -1,7 +1,6 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-
 const initialState = {
   isAuthenticated: false, 
   tokenStorageLocation: false, 
@@ -19,10 +18,12 @@ const authSlice = createSlice({
     },
   },
 });
+
 export const selectAuthState = (state: RootState) => state.auth;
 export const selectTokenStorageLocation = createSelector(
   selectAuthState,
   (authState) => authState.tokenStorageLocation
 );
+
 export const { toggleAuthentication, setTokenStorageLocation } = authSlice.actions;
 export default authSlice.reducer;

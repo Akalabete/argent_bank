@@ -7,10 +7,14 @@ import styles from './page.module.scss'
 import Link from 'next/link';
 import { useAppSelector, useAppDispatch } from '@/redux/hook';
 import { setConnected, selectIsConnected } from '@/redux/features/userSlice'; 
+
+
 export default function  Header() {
+
     const isConnected = useAppSelector(selectIsConnected);
     const dispatch = useAppDispatch();
-      return (
+
+    return (
         <header className={styles.header}>
             <div className={styles.imageWrapper}>
                 <Link href="/">
@@ -24,8 +28,6 @@ export default function  Header() {
                     />
                 </Link>
             </div>
-            
-                
                 { isConnected ?(
                     <div className={styles.loginContainer}>
                     <Link href="/login">
@@ -44,10 +46,8 @@ export default function  Header() {
                     </Link>
                     </div>
                 ):( <>
-                    
                     <div className={styles.loginContainer}>
                     <div className={styles.loginFont}>
-
                     <FontAwesomeIcon 
                         size="2x" 
                         icon={faCircleUser} 
@@ -62,9 +62,6 @@ export default function  Header() {
                     </div>
                     </>
                 )}
-            
-            
-            
         </header>
     )
 }

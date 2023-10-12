@@ -2,12 +2,7 @@
 @import "../../variables.module.scss";
 
 .layoutAccountWrapper{
-    text-align: center;
-    margin: auto;
-    background-color:#12002b;
-    height:600px;
-    width: 100%;
-    color: white;
+    @include layoutWrapper;
     h2{
         margin: none;
         padding-top: 15px 0 0 0;
@@ -15,11 +10,8 @@
     h3{
         margin: none;
         padding: none;
-    }
-   
+    }  
 }
-
-
 
 .form {
     display: block;
@@ -28,7 +20,6 @@
     
 }
 
-
 .form label {
     display: block;
     text-align: left;;
@@ -36,32 +27,26 @@
     font-size: 16px;
     margin: 10px 0 10px 25px;   
 }
+
 .form input {
     width : 80%;
 }
+
 .form button {
-    background-color: #00bc77;
-    border-color: #00bc77;
-    color: white;
-    font-weight: bold;
+    @include buttonShape;
     padding: 10px;
     display: block;
     margin: 15px auto;
 }
 
 .loginWindow{
-    margin: auto;
-    text-align: center;
-    width: 300px;
-    background-color: white;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    @include userWindow;
     h3{
         margin-top: 10px;
         font-size: 30px;
-    }
-    
+    }    
 }
+
 .greyedInput {
     background-color: lightgrey;
 }

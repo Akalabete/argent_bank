@@ -1,10 +1,8 @@
 @import "../../app/mixins.module.scss";
 @import "../../app/variables.module.scss";
 
-
 .form {
     display: block;
-    
 }
 
 .form label {
@@ -14,19 +12,17 @@
     font-size: 16px;
     margin: 10px 0 10px 25px;   
 }
+
 .form input {
     width : 80%;
 }
+
 .form button {
-    background-color: $primary-green;
-    border-color: $primary-green;
-    color: white;
-    font-weight: bold;
+    @include buttonShape;
     padding: 10px;
     display: block;
     margin: 15px auto;
 }
-
 
 .secureCookie {
     margin-left: -50px;

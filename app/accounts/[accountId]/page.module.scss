@@ -2,13 +2,7 @@
 @import '../../mixins.module.scss';
 
 .layoutAccountWrapper{
-    text-align: center;
-    margin: auto;
-    padding-bottom: 30px;
-    background-color:$background-purple;
-    min-height:600px;
-    width: 100%;
-    color: white;
+    @include layoutWrapper;
     h2{
         margin: none;
         padding-top: 15px 0 0 0;
@@ -17,15 +11,13 @@
         margin: none;
         padding: none;
     }
-   
 }
+
 .accountButton {
-    background-color: $primary-green;
-    border-color: $primary-green;
-    color: white;
-    font-weight: bold;
+    @include buttonShape;
     padding: 10px;
 }
+
 .accountsWrapper{
     margin: 50px 0 0 0;
     padding-bottom: 30px;
@@ -47,6 +39,9 @@
     h3 {
         margin-top: 0;
         margin-bottom: 0;
+        @media screen and (max-width: 900px){ 
+            font-size: 16px;
+        }
     }
     .accountButton {
         position: absolute;
@@ -63,16 +58,19 @@
     margin-bottom: 0;
     margin-top: 0.8em;
     padding-bottom: 0;
+    @media screen and (max-width: 900px){
+        font-size: 1.8em;
+    }
 }
+
 .transactionsWrapper{
     width: 75%;
     margin: 30px auto;
     background-color: white;
     color: black;
     padding: 20px;
-    
-
 }
+
 .transactionWrapper {
     background-color: white;
     position: relative;
@@ -90,8 +88,8 @@
     input {
         margin-right : 10px;
     }
-    
 }
+
 .boardRow, .transactionHeader {
     display: flex;
     justify-content: space-between;
@@ -113,13 +111,11 @@
 }
   
 .transactionDetailsButton{
+    @include buttonShape;
     text-align: center;
     width: 30px;
     height: 30px;
-    color: white;
     font-size: 20px;
-    background-color: $primary-green;
-    border-color: $primary-green;
     transform: rotate(90deg);
     transform-origin: center;
     position: absolute;
@@ -130,6 +126,7 @@
         bottom: -10px;
     }
 }
+
 .transactionDetails {
     box-shadow: 0 0 3px 3px rgba(76,76,76,0.5) ;
     padding: 10px 5px;
@@ -159,18 +156,8 @@
             background-color: white;
         }
     }   
-
     p { 
         margin: 0 auto;
     }
 }
-@media screen and (max-width: 900px){ 
-    .accountWrapper h3{
-        font-size: 16px;
-    }
-    
-    .bankBalance {
-        font-size: 1.8em;
-        
-    }
-}
+
