@@ -7,9 +7,6 @@ import { openModal, closeModal } from '../../redux/features/modalSlice';
 import Modal from '../../component/modal/page'
 import { setConnected } from "../../redux/features/userSlice";
 
-
-
-
 export default function RegistrationForm() {
   const registrationForm = useAppSelector((state) => state.form.registrationData);
   const dispatch = useAppDispatch();
@@ -57,19 +54,15 @@ export default function RegistrationForm() {
           openModal({
             title: "Success",
             message: "User successfully registered",
-
           })
         );
-        
-      }
-
-    } catch(error){
-
+        }
+      } catch(error){
     }
   }
+  
   return(
     <>
-    
     {modal.isOpen && (
         <Modal
           isOpen={modal.isOpen}

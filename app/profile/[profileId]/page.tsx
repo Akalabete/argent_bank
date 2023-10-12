@@ -79,12 +79,6 @@ export default function Profile( {
       }
     }
     const modal = useAppSelector((state: { modal: any; }) => state.modal);
-   
-
-    const handleOpenModal = () => {
-      dispatch(openModal({ title: 'Modal Title', message: 'Modal Message' }));
-    };
-
     const handleCloseModal = () => {
       dispatch(closeModal());
       router.push(`/accounts/${accountId}`)

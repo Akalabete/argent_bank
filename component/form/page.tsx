@@ -2,7 +2,7 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import styles from './page.module.scss';
 import { updateFormField, submitForm, updateProfileData  } from '@/redux/features/formSlice'
-import { setTokenStorageLocation, selectTokenStorageLocation } from "@/redux/features/authSlice";
+import { setuserCredentialStorageLocation, selectuserCredentialStorageLocation } from "@/redux/features/authSlice";
 import { useRouter } from 'next/navigation';
 
 
@@ -10,7 +10,7 @@ export default function Form() {
 
   const dispatch = useAppDispatch();
   const formData = useAppSelector((state) => state.form);
-  const tokenStorageLocation = useAppSelector(selectTokenStorageLocation);
+  const userCredentialStorageLocation = useAppSelector(selectuserCredentialStorageLocation);
   const userData = JSON.parse(localStorage.getItem('userData') || "{}");
   const router = useRouter();
   
@@ -22,8 +22,8 @@ export default function Form() {
   const onChangeCheckBox = () => {
     sessionStorage.removeItem("userData");
     localStorage.removeItem("userData");
-    const newStorageLocation = !tokenStorageLocation
-    dispatch(setTokenStorageLocation(newStorageLocation));
+    const newStorageLocation = !userCredentialStorageLocation
+    dispatch(setuserCredentialStorageLocation(newStorageLocation));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,7 +31,7 @@ export default function Form() {
     const formattedData = {
       email: formData.email,
       password: formData.password,
-      tokenStorageLocation: tokenStorageLocation,
+      userCredentialStorageLocation: userCredentialStorageLocation,
     }
     dispatch(submitForm(formattedData))
     const profileDataStored = sessionStorage.getItem("profile");
@@ -73,7 +73,7 @@ export default function Form() {
               id="secureCookie"
               name="secureCookie"
               onChange={onChangeCheckBox}
-              checked={userData.tokenStorageLocation ?? tokenStorageLocation}
+              checked={userData.userCredentialStorageLocation ?? userCredentialStorageLocation}
             />
           </div>
           <label htmlFor="secureCookie" style={{ display: 'inline-block', verticalAlign: 'middle' }}>

@@ -2,7 +2,6 @@ import './globals.css'
 import { Providers } from "@/redux/provider";
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { useRouter } from 'next/router'
 import Header from '../component/header/page'
 import Footer from '../component/footer/page'
 import { config } from '@fortawesome/fontawesome-svg-core'

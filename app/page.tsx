@@ -5,25 +5,27 @@ export default function Home() {
   return (
     <>
       <main>
-        <div className={styles.coverImageContainer}>
-          <Image 
-            src="/bank-tree.avif" 
-            className={styles.coverImage}
-            alt="Arbre qui pousse dans un pot de pièces"
-            fill
-            style={{objectFit:"cover",objectPosition:"center left"  }}
-            priority
-          />
-          <div className={styles.hookContainer}>
-            <div className={styles.hookContent}>
-              <h3>No fees.</h3>
-              <h3>No minimum deposit.</h3>
-              <h3>High interest rates.</h3>
-              <p>Open a savings account with</p>
-              <p>Argent Bank today!</p>
+        <section>
+          <div className={styles.coverImageContainer}>
+            <Image 
+              src="/bank-tree.avif" 
+              className={styles.coverImage}
+              alt="Arbre qui pousse dans un pot de pièces"
+              fill
+              style={{objectFit:"cover",objectPosition:"center left"  }}
+              priority
+            />
+            <div className={styles.hookContainer}>
+              <div className={styles.hookContent}>
+                <h3>No fees.</h3>
+                <h3>No minimum deposit.</h3>
+                <h3>High interest rates.</h3>
+                <p>Open a savings account with</p>
+                <p>Argent Bank today!</p>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
         <section className={styles.servicesWrapper}>
             <div className={styles.service}>
               <div className={styles.serviceLogoWrapper}>

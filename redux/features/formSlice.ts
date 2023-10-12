@@ -26,7 +26,7 @@ interface RegistrationForm {
 interface FormSubmitData {
   email: string;
   password: string;
-  tokenStorageLocation: boolean,
+  userCredentialStorageLocation: boolean,
 }
 
 const initialState: FormState = {
@@ -49,7 +49,7 @@ const initialState: FormState = {
 export const submitForm = createAsyncThunk(
   "form/submitForm",
   async (formData: FormSubmitData, { dispatch }) => {
-    const { email, password, tokenStorageLocation } = formData;
+    const { email, password, userCredentialStorageLocation } = formData;
     try {
       const response = await fetch("http://localhost:3001/api/v1/user/login", {
         method: "POST",
@@ -62,7 +62,7 @@ export const submitForm = createAsyncThunk(
       if (response.status===200) {
         const data = await response.json()
         const authToken = data.body.token
-        const userData = { email, password, authToken, tokenStorageLocation}
+        const userData = { email, password, authToken, userCredentialStorageLocation}
         dispatch(setConnected(true));
         dispatch(updateAuthToken(authToken));
         try {
@@ -77,10 +77,8 @@ export const submitForm = createAsyncThunk(
           });
 
           if (profileResponse.status===200){
-            
             const profileData = await profileResponse.json();
             sessionStorage.setItem("profile", JSON.stringify(profileData));
-            console.log(profileData);
           }else {
             console.log("error")
           }
@@ -88,7 +86,7 @@ export const submitForm = createAsyncThunk(
         catch(error){
             console.error(error);
         }
-        if (tokenStorageLocation){
+        if (userCredentialStorageLocation){
           localStorage.setItem("userData", JSON.stringify(userData));
           sessionStorage.setItem("userData", JSON.stringify(userData));
         } else { 
@@ -107,7 +105,7 @@ export const submitForm = createAsyncThunk(
     }
   }
 );
-export const updateAuthToken = createAction<string>("form/updateAuthToken");
+
 
 
 const formSlice = createSlice({
@@ -140,6 +138,8 @@ const formSlice = createSlice({
   }
 });
 
+
+export const updateAuthToken = createAction<string>("form/updateAuthToken");
 export const { updateFormField, updateProfileData, updateRegistrationFormField } = formSlice.actions;
 export const selectProfileData = (state: RootState) => state.form.profileData;
 export const selectRegistrationData = (state: RootState) => state.form.registrationData;
