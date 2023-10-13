@@ -83,7 +83,7 @@ export default function BankAccounts({
       [transactionId]: !prevState[transactionId],
     }));
   };
-  // action qui fait apparaitre les details d'une transaction
+  // action qui permute le bouton d'edition et le onchange
   const handleToggleDetailsEditing = (accountId: string, transactionId: string) => () => {
     setDetailsEditing((prevState) => ({
       ...prevState,

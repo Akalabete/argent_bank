@@ -87,7 +87,7 @@ paths:
                     prevaccountbalance: 1000.00
                     accounttransactions:
                       transactionid: "T123"
-                      transactiondate: "2023-09-13"
+                      transactiondate: "2023-08-15T17:00:00.000Z"
                       transactionlocation: "Grocery Store"
                       transactiontype: "Electronic"
                       transactionamount: 50.00
