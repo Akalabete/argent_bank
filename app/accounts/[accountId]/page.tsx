@@ -10,8 +10,11 @@ import { openModal, closeModal } from "@/redux/features//modalSlice";
 import Modal from '../../../component/modal/page';
 
 
-const balanceCalculator = (account: { accountTransactions: any[] }) => {
-  let accountBalance = 0;
+const balanceCalculator = (account: {
+    previousAccountBalance: number;
+     accountTransactions: any[] 
+}) => {
+  let accountBalance = account.previousAccountBalance;
   for (let i = 0; i < account.accountTransactions.length; i++) {
     const transaction = account.accountTransactions[i];
     const transactionAmount = parseFloat(transaction.transactionAmount);
