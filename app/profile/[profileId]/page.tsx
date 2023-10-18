@@ -60,7 +60,6 @@ export default function Profile( {
           
           const updatedProfileData = await profileUpdateResponse.json();
           sessionStorage.setItem("profile", JSON.stringify(updatedProfileData));
-          console.log(updatedProfileData);
           dispatch(updateProfileData(updatedProfileData));
           dispatch(
             openModal({
@@ -68,8 +67,6 @@ export default function Profile( {
               message: "Profile updated successfully.",
               
             }))
-
-          
         }else {
           console.log("error")
         }

@@ -45,7 +45,6 @@ export default function RegistrationForm() {
         dispatch(updateRegistrationFormField({ fieldName: "email", fieldValue: "" }));
         dispatch(updateRegistrationFormField({ fieldName: "password", fieldValue: "" }));
         dispatch(updateRegistrationFormField({ fieldName: "username", fieldValue: "" }));
-        console.log("cheer");
         dispatch(setConnected(true));
         //const profileData = await newUserResponse.json();
         //const customId = profileData.body.id;
