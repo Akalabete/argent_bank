@@ -65,34 +65,13 @@ paths:
         - User Module
       summary: User Profile API
       description: API for fetching a user profile
-      #produces:
-       # - application/json
+      produces:
+        - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile retrieved successfully
           schema:
             $ref: '#/definitions/ApiResponse'
-            examples:
-            application/json:
-              status: 200
-              message: "User Successfully loged in"
-              body:
-                id: "12345"
-                email: "example@gmail.com"
-                accounts:
-                  account:
-                    accountrefs: "ABC123"
-                    accounttype: "Savings"
-                    accountname: "Argent Bank"
-                    prevaccountbalance: 1000.00
-                    accounttransactions:
-                      transactionid: "T123"
-                      transactiondate: "2023-08-15T17:00:00.000Z"
-                      transactionlocation: "Grocery Store"
-                      transactiontype: "Electronic"
-                      transactionamount: 50.00
-                      transactiondetails: "Groceries"
-                      transactioncategory: "Food"
         '400':
           description: Invalid Fields
         '500':
@@ -115,96 +94,199 @@ paths:
         - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile updated successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/profile/accounts/account/transactions/updateCategory:
+  /user/accounts:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Account API
+      description: API for receiving user accounts lists
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: Bearer authentication token
+        - name: UserID
+          in: query
+          required: true
+          type: string
+          description: User ID
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Account list successfully retrieved
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserAccount'
+        '401':
+          description: Missing authentication token
+  /user/accounts/account:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Account API
+      description: API for receiving user account transactions list
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: Bearer authentication token
+        - name: accountId
+          in: query
+          required: true
+          type: string
+          description: Account ID
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Account list successfully retrieved
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AccountTransactions'
+        '401':
+          description: Missing authentication token
+  /user/accounts/account/transactions:
     put:
       security:
         - Bearer: []
       tags:
         - User Module
-      summary: User Profile API
-      description: API for updating a transaction category
+      summary: User Account API
+      description: API for modifying a transaction category
       parameters:
-        - in: body
-          name: body
-          description: Update transaction category attributes
-          required: false
-          schema:
-            $ref: '#/definitions/ApiResponse'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: Bearer authentication token
+        - name: accountID
+          in: query
+          required: true
+          type: string
+          description: Account ID
+        - name: TransactionID
+          in: query
+          required: true
+          type: string
+          description: Transaction ID
+        - name: TransactionCategory
+          in: body
+          required: true
+          type: string
       produces:
         - application/json
       responses:
         '200':
-          description: User transaction category updated successully
+          description: Account transaction category successfully updated
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
-  /user/profile/accounts/account/transactions/updateNote:
-    put:
-      security:
-        - Bearer: []
-      tags:
-        - User Module
-      summary: User Profile API
-      description: API for updating a transaction note
-      parameters:
-        - in: body
-          name: body
-          description: Update transaction note attributes
-          required: false
-          schema:
-            $ref: '#/definitions/ApiResponse'
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: User transaction note updated successully
-          schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
+            $ref: '#/definitions/TransactionID'
+        '401':
+          description: Missing authentication token
+
 securityDefinitions:
   Bearer:
     type: apiKey
     name: Authorization
     in: header
+
 definitions:
+  AccountTransactions:
+    type: object
+    properties:
+      transactionId:
+        type: string
+        description: Transaction ID
+      transactionDate:
+        type: string
+        description: Date of the transaction
+      transactionCategory:
+        type: string
+        description: Category of the transaction
+      transactionNote:
+        type: string
+        description: Transaction note
+      transactionAmount:
+        type: number
+        description: Amount of the transaction
+      transactionLocation:
+        type: string
+        description: Transaction location
+
+  TransactionID:
+    type: object
+    properties:
+      transactionDate:
+        type: string
+        description: Date of the transaction
+      transactionCategory:
+        type: string
+        description: Category of the transaction
+      transactionNote:
+        type: string
+        description: Transaction note
+      transactionAmount:
+        type: number
+        description: Amount of the transaction
+      transactionLocation:
+        type: string
+        description: Transaction location
+
+  UserAccount:
+    type: object
+    properties:
+      accountId:
+        type: string
+        description: Account ID
+      accountName:
+        type: string
+        description: Account name
+      accountType:
+        type: string
+        description: Account type
+
   User:
     properties:
       email:
         type: string
-        description: user email
+        description: User email
       password:
         type: string
-        description: user password
+        description: User password
       firstName:
         type: string
-        description: user first name
+        description: User first name
       lastName:
         type: string
-        description: user last name
+        description: User last name
       userName:
         type: string
-        description: user public name
+        description: User public name
+
   Login:
     properties:
       email:
         type: string
-        description: user email
+        description: User email
       password:
         type: string
-        description: user password
+        description: User password
+
   ApiResponse:
     type: object
     properties:
@@ -219,74 +301,15 @@ definitions:
             type: string
           email:
             type: string
-          accounts:
-            type: object
-            properties:
-              account:
-                type: object
-                properties:  
-                  accountrefs:
-                    type: string
-                  accounttype:
-                    type: string
-                  accountname:
-                    type: string
-                  prevaccountbalance:
-                    type: number
-                  accounttransactions:
-                    type: object
-                    properties:
-                      transactionid:
-                        type: string
-                      transactiondate:
-                        type: string
-                      transactionlocation:
-                        type: string
-                      transactiontype:
-                        type: string
-                      transactionamount:
-                        type: number
-                      transactiondetails:
-                        type: string
-                      transactioncategory:
-                        type:string
+
   LoginResponse:
     type: object
     properties:
       token:
         type: string
+
   UserProfile:
     type: object
     properties:
       userName:
         type: string
-  TransactionDetailsUpdate:
-    properties:
-      accountId:
-        type: string
-        description: ID of the account's transaction
-      transactionId:
-        type: string
-        description: Id of the transaction to update
-      transactionDetails:
-        type: string
-        description: Transaction details update
-    example:
-      accountId: "12345"
-      transactionId: "T123"
-      transactionDetails: "New Transaction Details"
-  TransactionCategoryUpdate:
-    properties:
-      accountId:
-        type: string
-        description: ID of the account's transaction
-      transactionId:
-        type: string
-        description: ID of the transaction to update
-      transactionCategory:
-        type: string
-        description: New transaction category
-    example:
-      accountId: "12345"
-      transactionId: "T123"
-      transactionCategory: "New Transaction Category"
