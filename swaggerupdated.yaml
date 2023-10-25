@@ -115,7 +115,7 @@ paths:
           required: true
           type: string
           description: Bearer authentication token
-        - name: UserID
+        - name: userID
           in: query
           required: true
           type: string
@@ -131,7 +131,8 @@ paths:
               $ref: '#/definitions/UserAccount'
         '401':
           description: Missing authentication token
-  /user/accounts/account:
+
+  /user/accounts/{accountID}:
     get:
       security:
         - Bearer: []
@@ -145,8 +146,8 @@ paths:
           required: true
           type: string
           description: Bearer authentication token
-        - name: accountId
-          in: query
+        - name: accountID
+          in: path
           required: true
           type: string
           description: Account ID
@@ -161,7 +162,8 @@ paths:
               $ref: '#/definitions/AccountTransactions'
         '401':
           description: Missing authentication token
-  /user/accounts/account/transactions:
+
+  /user/accounts/{accountID}/{transactionID}/category:
     put:
       security:
         - Bearer: []
@@ -176,12 +178,12 @@ paths:
           type: string
           description: Bearer authentication token
         - name: accountID
-          in: query
+          in: path
           required: true
           type: string
           description: Account ID
-        - name: TransactionID
-          in: query
+        - name: transactionID
+          in: path
           required: true
           type: string
           description: Transaction ID
@@ -189,11 +191,51 @@ paths:
           in: body
           required: true
           type: string
+          description: Transaction Category Body
       produces:
         - application/json
       responses:
         '200':
           description: Account transaction category successfully updated
+          schema:
+            $ref: '#/definitions/TransactionID'
+        '401':
+          description: Missing authentication token
+
+  /user/accounts/{accountID}/{transactionID}/note:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Account API
+      description: API for modifying a transaction note
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: Bearer authentication token
+        - name: accountID
+          in: path
+          required: true
+          type: string
+          description: Account ID
+        - name: transactionID
+          in: path
+          required: true
+          type: string
+          description: Transaction ID
+        - name: TransactionNote
+          in: body
+          required: true
+          type: string
+          description: Transaction Note Body
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Account transaction note successfully updated
           schema:
             $ref: '#/definitions/TransactionID'
         '401':
