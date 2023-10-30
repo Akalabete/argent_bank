@@ -3,7 +3,7 @@
 
 
 .servicesWrapper {
-    margin-top: 1%;
+    margin-top: 0;
     @include flex-row;
     justify-content: space-around;
     text-align: center;
@@ -15,12 +15,16 @@
 }
 
 .service {
-    margin: auto;
+    padding: 40px;;
     width : 20%;
     min-width: 240px;
+    p {
+        @include generalFontStyle;
+    }
 }
 
 .serviceLogoWrapper {
+    padding: 16px;
     margin: auto;
     width: 100px;
     border: solid 10px $primary-green;

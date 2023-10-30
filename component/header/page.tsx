@@ -31,10 +31,13 @@ export default function  Header() {
                 { isConnected ?(
                     <div className={styles.loginContainer}>
                     <Link href="/login">
-                        <FontAwesomeIcon 
-                            size="xl" 
-                            icon={faCircleUser} 
-                         />
+                    <div className={styles.loginFont}>
+                    <FontAwesomeIcon 
+                        size="lg" 
+                        icon={faCircleUser}
+                        className={styles.loginIcon} 
+                    />
+                    </div>
                     </Link>
                    
                     <Link href="/" onClick={() =>{
@@ -49,7 +52,7 @@ export default function  Header() {
                     <div className={styles.loginContainer}>
                     <div className={styles.loginFont}>
                     <FontAwesomeIcon 
-                        size="2x" 
+                        size="lg" 
                         icon={faCircleUser} 
                     />
                     </div>

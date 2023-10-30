@@ -29,5 +29,16 @@
     background-color: white;
     padding-top: 15px;
     padding-bottom: 15px;
-    color: black;
+    color: $primaryFontColors;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin generalFontStyle {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: $primaryFontColors;
 }

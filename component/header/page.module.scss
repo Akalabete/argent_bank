@@ -2,6 +2,7 @@
 @import "../../app/variables.module.scss";
 
 .header {
+    height: 60px;
     @include flex-row;
     justify-content: space-between;
     text-align: center;
@@ -10,14 +11,14 @@
 
 .imageWrapper {
     position: relative;
-    width: 300px;
-    height: 70px;
+    width: 200px;
+    height: 55px;
     @media screen and (max-width: 640px){
-        width: 250px;
-        height: 55px;
+        width: 180px;
+        height: 45px;
     }
     @media screen and (max-width: 400px){
-        width: 180px;
+        width: 160px;
         height: 35px;
     }
 }
@@ -29,28 +30,36 @@
     margin-right : 2%;
     align-items: center;
     a{  
-        font-size: 28px;
+        font-size: 18px;
         letter-spacing: 0.01em;
         font-weight: bold;
         font-family: Avenir, Helvetica, sans-serif;
+        color: #2c3e50;
         text-decoration: none;
-        color: black;
         margin: 0 5px;
         @media screen and (max-width: 640px){
-            font-size: 24px;
+            font-size: 16px;
             margin: 0 6px;  
         }
         @media screen and (max-width: 530px){ 
-            font-size: 16px;
+            font-size: 12px;
             margin: 0 4px;
         }
     }
     a:hover {
-        text-decoration: underline;
-        text-decoration-color:  $primary-green;
+        text-decoration: underline 2px;
+        text-underline-offset: 2px;
+        text-decoration-color: #2c3e50;
     }
 }
 
 .loginFont{
+    
     margin: auto 0px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+.loginIcon {
+    height: 14px;
+    width: 14px;
 }

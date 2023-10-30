@@ -1,3 +1,7 @@
+@import '../../app/mixins.module.scss';
+@import '../../app/variables.module.scss';
+
 .footer {
+    @include generalFontStyle;
     text-align: center;
 }
