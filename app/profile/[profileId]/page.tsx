@@ -44,36 +44,50 @@ export default function Profile( {
         console.error('missing authentification token');
         return;
       }
-      
-      try {
-        const profileUpdateResponse = await fetch("http://localhost:3001/api/v1/user/profile", {
-          method : "PUT",
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-            "Content-type": "application/json",
-            Accept: "application.json",
-          },
-          body: JSON.stringify({userName: inputValue })
-        });
-
-        if (profileUpdateResponse.status===200){
-          
-          const updatedProfileData = await profileUpdateResponse.json();
-          sessionStorage.setItem("profile", JSON.stringify(updatedProfileData));
-          dispatch(updateProfileData(updatedProfileData));
-          dispatch(
-            openModal({
-              title: "Success!",
-              message: "Profile updated successfully.",
-              
-            }))
-        }else {
-          console.log("error")
+      if (inputValue !== profileData.body.userName && inputValue !== "") {
+        try {
+          const profileUpdateResponse = await fetch("http://localhost:3001/api/v1/user/profile", {
+            method : "PUT",
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+              "Content-type": "application/json",
+              Accept: "application.json",
+            },
+            body: JSON.stringify({userName: inputValue })
+          });
+  
+          if (profileUpdateResponse.status===200){
+            
+            const updatedProfileData = await profileUpdateResponse.json();
+            sessionStorage.setItem("profile", JSON.stringify(updatedProfileData));
+            dispatch(updateProfileData(updatedProfileData));
+            dispatch(
+              openModal({
+                title: "Success!",
+                message: "Profile updated successfully.",
+                
+              }))
+          }else {
+            console.log("error")
+          }
         }
+        catch(error){
+            console.error(error);
+        }
+
+      } else if (inputValue === profileData.body.userName){
+        dispatch(openModal({
+          title:"Error!",
+          message:"Please enter a différent username"
+        }))
+
+      } else {
+        dispatch(openModal({
+          title: "Error!",
+          message: "Please enter a username"
+        }))
       }
-      catch(error){
-          console.error(error);
-      }
+      
     }
     const modal = useAppSelector((state: { modal: any; }) => state.modal);
     const handleCloseModal = () => {
