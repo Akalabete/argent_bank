@@ -12,6 +12,7 @@
     overflow: hidden;
 }
 
+
 .servicesWrapper {
     margin-top: 1%;
     @include flex-row;
@@ -22,12 +23,6 @@
     @media screen and (max-width: 640px){  
         flex-direction: column;
     }
-}
-
-.service {
-    margin: auto;
-    width : 20%;
-    min-width: 240px;
 }
 
 .hookContainer {
@@ -57,12 +52,6 @@
     }
 }
 
-.serviceLogoWrapper {
-    margin: auto;
-    width: 100px;
-    border: solid 10px $primary-green;
-    border-radius: 100px;
-}
 
 .header {
     @include flex-row;
