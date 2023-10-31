@@ -47,27 +47,29 @@ export default function Form() {
   
   return (
     <div className={styles.form}>
+      
       <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input
-          type="email"
-          defaultValue={userData.email}
-          value={formData.email}            
-          id="email"
-          name="email"
-          onChange={handleInputChange}
-        />
-        <label>Password</label>
-        <input
-          type="password"
-          defaultValue={userData.email}
-          value={formData.password}
-          id="password"
-          name="password"
-          onChange={handleInputChange}
-        />
-        <div>
-          <div className={styles.secureCookie}  >
+        <div className={styles.formBold}>
+          <label>Username</label>
+          <input
+            type="email"
+            defaultValue={userData.email}
+            value={formData.email}            
+            id="email"
+            name="email"
+            onChange={handleInputChange}
+          />
+          <label>Password</label>
+          <input
+            type="password"
+            defaultValue={userData.email}
+            value={formData.password}
+            id="password"
+            name="password"
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className={styles.secureCookie}  >
             <input
               type="checkbox"
               id="secureCookie"
@@ -75,10 +77,10 @@ export default function Form() {
               onChange={onChangeCheckBox}
               checked={userData.userCredentialStorageLocation ?? userCredentialStorageLocation}
             />
-          </div>
-          <label htmlFor="secureCookie" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+            <label htmlFor="secureCookie" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
             Remember me
           </label>
+          
         </div>
         <button type="submit">Sign in</button>
       </form>

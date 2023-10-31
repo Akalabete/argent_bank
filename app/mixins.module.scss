@@ -6,9 +6,16 @@
 @mixin buttonShape {
     background-color: $primary-green;
     border-color: $primary-green;
-    color: white;
+    
+    
+    
+    
+    padding: 8px;
+    font-size: 1.1rem;
     font-weight: bold;
-    padding: 10px;
+    margin-top: 1rem;
+    
+    color: #fff;
 }
 
 @mixin layoutWrapper{
@@ -23,12 +30,14 @@
 }
 
 @mixin userWindow {
-    margin: auto;
-    text-align: center;
-    width: 300px;
+    
+    text-align: center;    
+    box-sizing: border-box;
     background-color: white;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 3rem;
+    padding: 2rem;
     color: $primaryFontColors;
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

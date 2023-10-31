@@ -14,11 +14,11 @@ paths:
       tags:
         - User Module
       summary: Login
-      description: API for Login
+      description: API for user login
       parameters:
         - in: body
           name: body
-          description: Login Payload
+          description: Login payload
           required: true
           schema:
             $ref: '#/definitions/Login'
@@ -26,19 +26,19 @@ paths:
         - application/json
       responses:
         '200':
-          description: Login Successfully
+          description: Login successful
           schema:
             $ref: '#/definitions/LoginResponse'
         '400':
-          description: Invalid Fields
+          description: Invalid fields
         '500':
-          description: Internal Server Error
+          description: Internal server error
   /user/signup:
     post:
       tags:
         - User Module
       summary: Signup
-      description: API for Signup
+      description: API for user signup
       parameters:
         - in: body
           name: body
@@ -47,16 +47,16 @@ paths:
           schema:
             $ref: '#/definitions/User'
       produces:
-        - application/json
+        - application json
       responses:
         '200':
-          description: Signup Successfully
+          description: Signup successful
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
-          description: Invalid Fields
+          description: Invalid fields
         '500':
-          description: Internal Server Error
+          description: Internal server error
   /user/profile:
     post:
       security:
@@ -73,9 +73,9 @@ paths:
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
-          description: Invalid Fields
+          description: Invalid fields
         '500':
-          description: Internal Server Error
+          description: Internal server error
     put:
       security:
         - Bearer: []
@@ -98,9 +98,9 @@ paths:
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
-          description: Invalid Fields
+          description: Invalid fields
         '500':
-          description: Internal Server Error
+          description: Internal server error
   /user/accounts:
     get:
       security:
@@ -191,18 +191,61 @@ paths:
           in: body
           required: true
           type: string
-          description: Transaction Category Body
+          description: Transaction category body
       produces:
         - application/json
       responses:
         '200':
           description: Account transaction category successfully updated
           schema:
-            $ref: '#/definitions/TransactionID'
+            $ref: '#/definitions/TransactionCategory'
         '401':
           description: Missing authentication token
 
   /user/accounts/{accountID}/{transactionID}/note:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Account API
+      description: API for creating a transaction note
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: Bearer authentication token
+        - name: accountID
+          in: path
+          required: true
+          type: string
+          description: Account ID
+        - name: transactionID
+          in: path
+          required: true
+          type: string
+          description: Transaction ID
+        - name: TransactionNote
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionNote'
+          description: Transaction Note Body
+      produces:
+        - application/json
+      responses:
+        '201':
+          description: Transaction note created successfully
+          schema:
+            $ref: '#/definitions/TransactionNote'
+        '400':
+          description: Invalid fields
+        '401':
+          description: Missing authentication token
+        '500':
+          description: Internal server error
+    /user/accounts/{accountID}/{transactionID}/{noteId}:
     put:
       security:
         - Bearer: []
@@ -226,18 +269,58 @@ paths:
           required: true
           type: string
           description: Transaction ID
-        - name: TransactionNote
+        - name: TransactionNoteindex
+          in: path
+          required: true
+          type: number
+          description: Transaction note index
+        - name: TransactionNotebody
           in: body
           required: true
           type: string
-          description: Transaction Note Body
+          description: Transaction note ID
       produces:
         - application/json
       responses:
         '200':
           description: Account transaction note successfully updated
           schema:
-            $ref: '#/definitions/TransactionID'
+            $ref: '#/definitions/TransactionNote'
+        '401':
+          description: Missing authentication token
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Account API
+      description: API for deleting a transaction note
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: Bearer authentication token
+        - name: accountID
+          in: path
+          required: true
+          type: string
+          description: Account ID
+        - name: transactionID
+          in: path
+          required: true
+          type: string
+          description: Transaction ID
+        - name: TransactionNoteindex
+          in: path
+          required: true
+          type: number
+          description: Transaction note index
+      produces:
+        - application/json
+      responses:
+        '204':
+          description: Transaction note successfully deleted
         '401':
           description: Missing authentication token
 
@@ -258,11 +341,18 @@ definitions:
         type: string
         description: Date of the transaction
       transactionCategory:
-        type: string
+        type: array
+        items:
+          type: string 
         description: Category of the transaction
       transactionNote:
-        type: string
-        description: Transaction note
+        type: array
+        items:
+          type: object
+          properties:
+            note:
+              type: string
+              description: Transaction note
       transactionAmount:
         type: number
         description: Amount of the transaction
@@ -270,24 +360,19 @@ definitions:
         type: string
         description: Transaction location
 
-  TransactionID:
+  TransactionCategory:
     type: object
     properties:
-      transactionDate:
+      category:
         type: string
-        description: Date of the transaction
-      transactionCategory:
+    description: Transaction category
+
+  TransactionNote:
+    type: object
+    properties:
+      note:
         type: string
-        description: Category of the transaction
-      transactionNote:
-        type: string
-        description: Transaction note
-      transactionAmount:
-        type: number
-        description: Amount of the transaction
-      transactionLocation:
-        type: string
-        description: Transaction location
+    description: Note content
 
   UserAccount:
     type: object
@@ -303,6 +388,7 @@ definitions:
         description: Account type
 
   User:
+    type: object
     properties:
       email:
         type: string
@@ -321,6 +407,7 @@ definitions:
         description: User public name
 
   Login:
+    type: object
     properties:
       email:
         type: string
@@ -355,3 +442,4 @@ definitions:
     properties:
       userName:
         type: string
+

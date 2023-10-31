@@ -32,10 +32,10 @@ export default function Login() {
       )}   
       <div className={styles.loginWindow}>
         <FontAwesomeIcon 
-          size="2x" 
+          size="lg" 
           icon={faCircleUser} 
         />
-        <h3>Sign in</h3>
+        <h1>Sign in</h1>
         <Form />
         </div>
     </section>

@@ -74,3 +74,23 @@
     }
 }
 
+
+.boardRow, .transactionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    .date, .description, .amount, .balance {
+        flex: 1;
+        text-align: center;
+        padding: 5px;
+      }
+    .description {
+        flex: 3;
+    }    
+}
+  
+.transactionHeader{
+    position: relative;
+    border-bottom: none;
+}

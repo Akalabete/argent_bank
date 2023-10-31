@@ -26,6 +26,7 @@ export default function  Header() {
                         fill
                         priority
                     />
+                    <h1 className={styles.sronly}>Argent Bank</h1>
                 </Link>
             </div>
                 { isConnected ?(
