@@ -8,7 +8,7 @@ import { selectProfileData } from '../../../redux/features/formSlice';
 import styles from './page.module.scss';
 import { openModal, closeModal } from "@/redux/features//modalSlice";
 import Modal from '../../../component/modal/page';
-
+import Transaction from '../../../component/transactionModule/page'
 
 const balanceCalculator = (account: {
     previousAccountBalance: number;
@@ -196,94 +196,35 @@ export default function BankAccounts({
           />
         )}  
         <div>
-          {Object.keys(randomUser).map((accountId) => {
-            const account = randomUser[accountId];
-            const accountTransactions = account.accountTransactions;
-
-            return (
-              expandedTransactions.includes(accountId) && (
-                <div key={accountId} className={styles.transactionsWrapper}>
-                  <div className={styles.boardRow}>
-                    <span className={styles.date}>Date</span>
-                    <span className={styles.description}>Description</span>
-                    <span className={styles.ampount}>Amount</span>
-                    <span className={styles.balance}>Balance</span>
-                  </div>
-                  {accountTransactions.map((transaction) => (
-                    <div key={transaction.transactionId} className={styles.transactionWrapper}>
-                      <div className={styles.transactionHeader}>
-                        <span className={styles.date}>{formattedDate(transaction.transactionDate)}</span>
-                        <span className={styles.description}>{transaction.transactionLocation}</span>
-                        <span className={styles.amount}>{transaction.transactionAmount}</span>
-                        <span className={styles.balance}>TBI</span>
-                        <button
-                          className={styles.transactionDetailsButton}
-                          onClick={() => toggleTransaction(transaction.transactionId)}
-                        >
-                          {openTransactions[transaction.transactionId] ? '<' : '>'}
-                        </button>
-                      </div>
-                      {openTransactions[transaction.transactionId] && (
-                      <div className={styles.transactionDetails}>
-                        <form>
-                          <label>transaction details: </label>
-                          <input
-                            type="text"
-                            name="transactionDetails"
-                            id="inputTransactionDetails"
-                            value={transaction.transactionDetails}
-                            readOnly={!detailsEditing[transaction.transactionId]}
-                            onChange={handleTransactionDetailsChange(accountId, transaction.transactionId)}
-                          />
-                          {detailsEditing[transaction.transactionId] ? (
-                            <button
-                              type="button"
-                              name="transactionDetailsButton"
-                              id="transactionDetailsButton"
-                              onClick={handleSaveDetails(accountId, transaction.transactionId)}
-                            >
-                              ✅
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              name="transactionDetailsButton"
-                              id="transactionDetailsButton"
-                              onClick={handleToggleDetailsEditing(accountId, transaction.transactionId)}
-                            >
-                              ✏️
-                            </button>
-                          )}
-                        </form>
-                        <form>
-                          <label>transaction category: </label>
-                          <select
-                            id="transactionCategory"
-                            name="transactionCategory"
-                            onChange={handleCategoryChange(accountId, transaction.transactionId)}
-                            value={selectedCategory[transaction.transactionId]}
-                            >
-                            <option value="default">Select a category for the transaction</option>
-                            <option value="Option1">Option 1</option>
-                            <option value="Option1">Option 2</option>
-                            <option value="Option1">Option 3</option>
-                            <option value="Option1">Option 4</option>
-                          </select>
-                          <button
-                              type="button"
-                              name="categoryConfirmationButton"
-                              onClick={handleCategoryConfirmation(accountId, transaction.transactionId)}
-                            >
-                              ✅
-                            </button>
-                      </form>
-                      <p>type: {transaction.transactionType}</p>
-                    </div>
-                  )}
-                </div>
+        {Object.keys(randomUser).map((accountId) => {
+          const account = randomUser[accountId];
+          const accountTransactions = account.accountTransactions;
+          return expandedTransactions.includes(accountId) && (
+            <div key={accountId} className={styles.transactionsWrapper}>
+              <div className={styles.boardRow}>
+                <span className={styles.date}>Date</span>
+                <span className={styles.description}>Description</span>
+                <span className={styles.ampount}>Amount</span>
+                <span className={styles.balance}>Balance</span>
+              </div>
+              {accountTransactions.map((transaction) => (
+                <Transaction
+                  key={transaction.transactionId}
+                  transaction={transaction}
+                  openTransactions={openTransactions}
+                  detailsEditing={detailsEditing}
+                  selectedCategory={selectedCategory}
+                  accountId={accountId}
+                  toggleTransaction={toggleTransaction}
+                  formattedDate={formattedDate}
+                  handleTransactionDetailsChange={handleTransactionDetailsChange}
+                  handleSaveDetails={handleSaveDetails}
+                  handleToggleDetailsEditing={handleToggleDetailsEditing}
+                  handleCategoryChange={handleCategoryChange}
+                  handleCategoryConfirmation={handleCategoryConfirmation}
+                />
               ))}
             </div>
-              )
             );
           })}
         </div>
