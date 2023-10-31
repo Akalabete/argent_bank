@@ -190,7 +190,8 @@ paths:
         - name: TransactionCategory
           in: body
           required: true
-          type: string
+          schema:
+            type: string
           description: Transaction category body
       produces:
         - application/json
@@ -202,14 +203,14 @@ paths:
         '401':
           description: Missing authentication token
 
-  /user/accounts/{accountID}/{transactionID}/note:
+  /user/accounts/{accountID}/{transactionID}/{transactionNotes}:
     post:
       security:
         - Bearer: []
       tags:
         - User Module
       summary: User Account API
-      description: API for creating a transaction note
+      description: API for creating a new transaction note
       parameters:
         - name: Authorization
           in: header
@@ -226,11 +227,18 @@ paths:
           required: true
           type: string
           description: Transaction ID
-        - name: TransactionNote
+        - name: transactionNotes
+          in: path
+          required: true
+          type: array
+          description: Transaction notes array
+          items:
+            type: string
+        - name: TransactionNote 
           in: body
           required: true
           schema:
-            $ref: '#/definitions/TransactionNote'
+            $ref: '#/definitions/TransactionNote'  
           description: Transaction Note Body
       produces:
         - application/json
@@ -238,14 +246,14 @@ paths:
         '201':
           description: Transaction note created successfully
           schema:
-            $ref: '#/definitions/TransactionNote'
+            $ref: '#/definitions/TransactionNote'  # Mettez à jour la référence ici
         '400':
           description: Invalid fields
         '401':
           description: Missing authentication token
         '500':
           description: Internal server error
-    /user/accounts/{accountID}/{transactionID}/{noteId}:
+  
     put:
       security:
         - Bearer: []
@@ -269,16 +277,19 @@ paths:
           required: true
           type: string
           description: Transaction ID
-        - name: TransactionNoteindex
+        - name: transactionNotes
           in: path
           required: true
-          type: number
-          description: Transaction note index
-        - name: TransactionNotebody
+          type: array
+          description: Transaction notes array
+          items:
+            type: string
+        - name: TransactionNote
           in: body
           required: true
-          type: string
-          description: Transaction note ID
+          description: Transaction note content
+          schema:
+            $ref: '#/definitions/TransactionNote' 
       produces:
         - application/json
       responses:
@@ -311,11 +322,18 @@ paths:
           required: true
           type: string
           description: Transaction ID
-        - name: TransactionNoteindex
+        - name: transactionNotes
           in: path
           required: true
-          type: number
-          description: Transaction note index
+          type: array
+          description: Transaction notes array
+          items:
+            type: string
+        - name: transactionNote
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionNote'
       produces:
         - application/json
       responses:
@@ -341,18 +359,13 @@ definitions:
         type: string
         description: Date of the transaction
       transactionCategory:
-        type: array
-        items:
-          type: string 
+        type: string 
         description: Category of the transaction
-      transactionNote:
+      transactionNotes:
         type: array
+        description: Transaction notes array
         items:
-          type: object
-          properties:
-            note:
-              type: string
-              description: Transaction note
+          type: string
       transactionAmount:
         type: number
         description: Amount of the transaction
@@ -360,19 +373,13 @@ definitions:
         type: string
         description: Transaction location
 
-  TransactionCategory:
-    type: object
-    properties:
-      category:
-        type: string
-    description: Transaction category
-
   TransactionNote:
-    type: object
-    properties:
-      note:
-        type: string
+    type: string
     description: Note content
+
+  TransactionCategory:
+    type: string
+    description: Transaction category
 
   UserAccount:
     type: object
@@ -442,4 +449,3 @@ definitions:
     properties:
       userName:
         type: string
-
