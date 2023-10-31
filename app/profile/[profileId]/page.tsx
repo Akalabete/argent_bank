@@ -26,7 +26,7 @@ export default function Profile( {
     const { accountId } = params;
     const router = useRouter()
     let inputValue = "";
-
+    
     
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
@@ -94,6 +94,7 @@ export default function Profile( {
       dispatch(closeModal());
       router.push(`/accounts/${accountId}`)
     };
+    if ( profileData !== null) {
     return(
       <>
         <h2>User informations:</h2>
@@ -163,5 +164,6 @@ export default function Profile( {
           </div>
         </div>
       </>
-    )
+    )}
+    else {router.push('/');}
   }

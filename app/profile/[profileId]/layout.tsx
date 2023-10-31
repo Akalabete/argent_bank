@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 import styles from './page.module.scss';
 
-export default function layout({
+export default function Layout({
     params,
     children,
     }: PropsWithChildren<{

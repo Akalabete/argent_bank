@@ -147,146 +147,149 @@ export default function BankAccounts({
     dispatch(closeModal()); 
     router.push(`/profile/${accountId}`);
   };
-
-  return (
-      <div>
-        {activeAccount === null ? (
-          <div>
-            <h2>Welcome back</h2>
-            <h2>{profileData.body.firstName} {profileData.body.userName}</h2>
-            <button className={styles.accountButton} onClick={navigateToProfile}>Edit Profile</button>
-          </div>
-        ) : (
-          <div>&nbsp;</div>
-        )}
-      
-      <div className={styles.accountsWrapper}>
-        {Object.keys(randomUser).map((accountId) => {
-        const account = randomUser[accountId];
-        const accountName = account.accountName;
-        const accountRefs = account.accountRefs;
-        const accountType = account.accountType;
-        const accountBalance = balanceCalculator(account);
+  if ( profileData !== null) {
+    return (
+        <div>
+          {activeAccount === null ? (
+            <div>
+              <h2>Welcome back</h2>
+              <h2>{profileData.body.firstName} {profileData.body.userName}</h2>
+              <button className={styles.accountButton} onClick={navigateToProfile}>Edit Profile</button>
+            </div>
+          ) : (
+            <div>&nbsp;</div>
+          )}
         
-
-        return (
-          
-          activeAccount === accountId || activeAccount === null ? (
-            <div key={accountRefs} className={styles.accountWrapper}>
-              <h3>{accountName} {accountType} ref: {accountRefs}</h3>
-              <p className={styles.bankBalance}>$ {accountBalance.toFixed(2)}</p>
-              <p>Available Balance</p>
-              <button
-                className={styles.accountButton}
-                onClick={() => toggleAccountHandler(accountId)}
-              >
-                {expandedTransactions.includes(accountId) ? "Hide transactions" : "View transactions"}
-              </button>
-              </div>
-            ) : null
-          );
-        })}
-      </div>
-      {modal.isOpen && (
-        <Modal
-          isOpen={modal.isOpen}
-          title={modal.title}
-          message={modal.message}
-          onClose={handleCloseModal}
-        />
-      )}  
-      <div>
-        {Object.keys(randomUser).map((accountId) => {
+        <div className={styles.accountsWrapper}>
+          {Object.keys(randomUser).map((accountId) => {
           const account = randomUser[accountId];
-          const accountTransactions = account.accountTransactions;
+          const accountName = account.accountName;
+          const accountRefs = account.accountRefs;
+          const accountType = account.accountType;
+          const accountBalance = balanceCalculator(account);
+          
 
           return (
-            expandedTransactions.includes(accountId) && (
-              <div key={accountId} className={styles.transactionsWrapper}>
-                <div className={styles.boardRow}>
-                  <span className={styles.date}>Date</span>
-                  <span className={styles.description}>Description</span>
-                  <span className={styles.ampount}>Amount</span>
-                  <span className={styles.balance}>Balance</span>
+            
+            activeAccount === accountId || activeAccount === null ? (
+              <div key={accountRefs} className={styles.accountWrapper}>
+                <h3>{accountName} {accountType} ref: {accountRefs}</h3>
+                <p className={styles.bankBalance}>$ {accountBalance.toFixed(2)}</p>
+                <p>Available Balance</p>
+                <button
+                  className={styles.accountButton}
+                  onClick={() => toggleAccountHandler(accountId)}
+                >
+                  {expandedTransactions.includes(accountId) ? "Hide transactions" : "View transactions"}
+                </button>
                 </div>
-                {accountTransactions.map((transaction) => (
-                  <div key={transaction.transactionId} className={styles.transactionWrapper}>
-                    <div className={styles.transactionHeader}>
-                      <span className={styles.date}>{formattedDate(transaction.transactionDate)}</span>
-                      <span className={styles.description}>{transaction.transactionLocation}</span>
-                      <span className={styles.amount}>{transaction.transactionAmount}</span>
-                      <span className={styles.balance}>TBI</span>
-                      <button
-                        className={styles.transactionDetailsButton}
-                        onClick={() => toggleTransaction(transaction.transactionId)}
-                      >
-                        {openTransactions[transaction.transactionId] ? '<' : '>'}
-                      </button>
-                    </div>
-                    {openTransactions[transaction.transactionId] && (
-                    <div className={styles.transactionDetails}>
-                      <form>
-                        <label>transaction details: </label>
-                        <input
-                          type="text"
-                          name="transactionDetails"
-                          id="inputTransactionDetails"
-                          value={transaction.transactionDetails}
-                          readOnly={!detailsEditing[transaction.transactionId]}
-                          onChange={handleTransactionDetailsChange(accountId, transaction.transactionId)}
-                        />
-                         {detailsEditing[transaction.transactionId] ? (
-                          <button
-                            type="button"
-                            name="transactionDetailsButton"
-                            id="transactionDetailsButton"
-                            onClick={handleSaveDetails(accountId, transaction.transactionId)}
-                          >
-                            ✅
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            name="transactionDetailsButton"
-                            id="transactionDetailsButton"
-                            onClick={handleToggleDetailsEditing(accountId, transaction.transactionId)}
-                          >
-                            ✏️
-                          </button>
-                        )}
-                      </form>
-                      <form>
-                        <label>transaction category: </label>
-                        <select
-                          id="transactionCategory"
-                          name="transactionCategory"
-                          onChange={handleCategoryChange(accountId, transaction.transactionId)}
-                          value={selectedCategory[transaction.transactionId]}
-                          >
-                          <option value="default">Select a category for the transaction</option>
-                          <option value="Option1">Option 1</option>
-                          <option value="Option1">Option 2</option>
-                          <option value="Option1">Option 3</option>
-                          <option value="Option1">Option 4</option>
-                        </select>
-                        <button
-                            type="button"
-                            name="categoryConfirmationButton"
-                            onClick={handleCategoryConfirmation(accountId, transaction.transactionId)}
-                          >
-                            ✅
-                          </button>
-                    </form>
-                    <p>type: {transaction.transactionType}</p>
+              ) : null
+            );
+          })}
+        </div>
+        {modal.isOpen && (
+          <Modal
+            isOpen={modal.isOpen}
+            title={modal.title}
+            message={modal.message}
+            onClose={handleCloseModal}
+          />
+        )}  
+        <div>
+          {Object.keys(randomUser).map((accountId) => {
+            const account = randomUser[accountId];
+            const accountTransactions = account.accountTransactions;
+
+            return (
+              expandedTransactions.includes(accountId) && (
+                <div key={accountId} className={styles.transactionsWrapper}>
+                  <div className={styles.boardRow}>
+                    <span className={styles.date}>Date</span>
+                    <span className={styles.description}>Description</span>
+                    <span className={styles.ampount}>Amount</span>
+                    <span className={styles.balance}>Balance</span>
                   </div>
-                )}
-              </div>
-            ))}
-          </div>
-            )
-          );
-        })}
+                  {accountTransactions.map((transaction) => (
+                    <div key={transaction.transactionId} className={styles.transactionWrapper}>
+                      <div className={styles.transactionHeader}>
+                        <span className={styles.date}>{formattedDate(transaction.transactionDate)}</span>
+                        <span className={styles.description}>{transaction.transactionLocation}</span>
+                        <span className={styles.amount}>{transaction.transactionAmount}</span>
+                        <span className={styles.balance}>TBI</span>
+                        <button
+                          className={styles.transactionDetailsButton}
+                          onClick={() => toggleTransaction(transaction.transactionId)}
+                        >
+                          {openTransactions[transaction.transactionId] ? '<' : '>'}
+                        </button>
+                      </div>
+                      {openTransactions[transaction.transactionId] && (
+                      <div className={styles.transactionDetails}>
+                        <form>
+                          <label>transaction details: </label>
+                          <input
+                            type="text"
+                            name="transactionDetails"
+                            id="inputTransactionDetails"
+                            value={transaction.transactionDetails}
+                            readOnly={!detailsEditing[transaction.transactionId]}
+                            onChange={handleTransactionDetailsChange(accountId, transaction.transactionId)}
+                          />
+                          {detailsEditing[transaction.transactionId] ? (
+                            <button
+                              type="button"
+                              name="transactionDetailsButton"
+                              id="transactionDetailsButton"
+                              onClick={handleSaveDetails(accountId, transaction.transactionId)}
+                            >
+                              ✅
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              name="transactionDetailsButton"
+                              id="transactionDetailsButton"
+                              onClick={handleToggleDetailsEditing(accountId, transaction.transactionId)}
+                            >
+                              ✏️
+                            </button>
+                          )}
+                        </form>
+                        <form>
+                          <label>transaction category: </label>
+                          <select
+                            id="transactionCategory"
+                            name="transactionCategory"
+                            onChange={handleCategoryChange(accountId, transaction.transactionId)}
+                            value={selectedCategory[transaction.transactionId]}
+                            >
+                            <option value="default">Select a category for the transaction</option>
+                            <option value="Option1">Option 1</option>
+                            <option value="Option1">Option 2</option>
+                            <option value="Option1">Option 3</option>
+                            <option value="Option1">Option 4</option>
+                          </select>
+                          <button
+                              type="button"
+                              name="categoryConfirmationButton"
+                              onClick={handleCategoryConfirmation(accountId, transaction.transactionId)}
+                            >
+                              ✅
+                            </button>
+                      </form>
+                      <p>type: {transaction.transactionType}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+              )
+            );
+          })}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }else {
+    router.push('/');
+  }
 }
