@@ -19,7 +19,7 @@ export default function  Header() {
             <div className={styles.imageWrapper}>
                 <Link href="/">
                     <Image 
-                        src="/argentBankLogo.avif" 
+                        src="/argentBankLogo.webp" 
                         className="App-logo"
                         alt="Argent Bank logo"
                         style={{objectFit:"cover"}}

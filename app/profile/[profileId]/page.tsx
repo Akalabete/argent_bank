@@ -7,15 +7,16 @@ import { openModal, closeModal } from "@/redux/features//modalSlice";
 import Modal from '../../../component/modal/page';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
+import { cp } from 'fs';
 
 export default function Profile( {
     params,
     
   }: {
-    params: {accountId: string}
+    params: {profileId: string}
     
   }) {
-
+    console.log('params:', params);
 
     const profileData = useAppSelector(selectProfileData);
     const dispatch = useAppDispatch();
@@ -23,10 +24,10 @@ export default function Profile( {
     const userDataString = sessionStorage.getItem("userData");
 
     const userData = userDataString? JSON.parse(userDataString): null;
-    const { accountId } = params;
+    const { profileId } = params;
     const router = useRouter()
     let inputValue = "";
-    
+    console.log(profileId);
     
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
@@ -90,9 +91,15 @@ export default function Profile( {
       
     }
     const modal = useAppSelector((state: { modal: any; }) => state.modal);
-    const handleCloseModal = () => {
-      dispatch(closeModal());
-      router.push(`/accounts/${accountId}`)
+    const handleCloseModal = (profileId:string) => {
+      
+      if (modal.title ===  "Success!"){
+        dispatch(closeModal())
+          router.push(`/accounts/${profileId}`)
+      } else {
+        dispatch(closeModal());
+      }
+      
     };
     if ( profileData !== null) {
     return(
@@ -105,7 +112,7 @@ export default function Profile( {
           isOpen={modal.isOpen}
           title={modal.title}
           message={modal.message}
-          onClose={handleCloseModal}
+          onClose={() => handleCloseModal(profileId)}
         />
       )}   
           <div className={styles.form}>

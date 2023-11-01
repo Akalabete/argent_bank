@@ -5,7 +5,7 @@ export default function Layout({
     params,
     children,
     }: PropsWithChildren<{
-    params: { accountId: string }
+    params: { profileId: string }
     
     }>) {
     return <div className={styles.layoutAccountWrapper}>

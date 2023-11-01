@@ -19,14 +19,17 @@
 }
 
 @mixin layoutWrapper{
+    
     text-align: center;
     margin: auto;
     padding-top: 6px;
     padding-bottom: 30px;
     background-color:$background-purple;
-    min-height:600px;
+    min-height: 80vh;
     width: 100%;
     color: white;
+    flex: 1;
+    
 }
 
 @mixin userWindow {
