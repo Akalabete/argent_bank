@@ -50,6 +50,7 @@ export default function BankAccounts({
 }: {
   params: { accountId: string };
 }) {
+  /*
   const [activeAccount, setActiveAccount] = useState<string | null>(null);
   const [openTransactions, setOpenTransactions] = useState<{ [key: string]: boolean }>({});
   const [detailsChanged, setDetailsChanged] = useState<{ [key: string]: boolean }>({});
@@ -145,7 +146,7 @@ export default function BankAccounts({
   const modal = useAppSelector((state: { modal: any; }) => state.modal);
   const handleCloseModal = () => {
     dispatch(closeModal()); 
-    router.push(`/profile/${accountId}`);
+    
   };
   if ( profileData !== null) {
     return (
@@ -232,5 +233,5 @@ export default function BankAccounts({
     );
   }else {
     router.push('/');
-  }
+  }*/
 }

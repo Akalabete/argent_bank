@@ -46,7 +46,7 @@ const initialState: FormState = {
   lastName: "",
 };
 
-export const submitForm = createAsyncThunk(
+/*export const submitForm = createAsyncThunk(
   "form/submitForm",
   async (formData: FormSubmitData, { dispatch }) => {
     const { email, password, userCredentialStorageLocation } = formData;
@@ -108,7 +108,7 @@ export const submitForm = createAsyncThunk(
   }
 );
 
-
+*/
 
 const formSlice = createSlice({
   name: "form",
@@ -129,15 +129,7 @@ const formSlice = createSlice({
       state.registrationData[fieldName as keyof RegistrationForm] = fieldValue;
      },
   },
-  extraReducers: (builder) => {
-    builder.addCase(submitForm.fulfilled, (state) => {  
-    });
-    builder.addCase(submitForm.rejected, (state) => {
-    });
-    builder.addCase(updateAuthToken, (state, action) => {
-      state.authToken = action.payload;
-    });
-  }
+  
 });
 
 

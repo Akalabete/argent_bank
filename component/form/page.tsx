@@ -1,11 +1,14 @@
 "use client";
-import { useState, useEffect } from 'react';
+
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import styles from './page.module.scss';
-import { updateFormField, submitForm, updateProfileData  } from '@/redux/features/formSlice'
+import { updateFormField } from '@/redux/features/formSlice'
 import { setuserCredentialStorageLocation, selectuserCredentialStorageLocation, updateAuthToken } from "@/redux/features/authSlice";
 import { useRouter } from 'next/navigation';
-import { selectAuthToken } from '@/redux/features/authSlice'
+import { setUser } from '@/redux/features/globalUserSlice';
+import { openModal, closeModal } from '@/redux/features/modalSlice';
+import Modal from '../modal/page';
+
 
 export default function Form() {
 
@@ -14,7 +17,11 @@ export default function Form() {
   const userCredentialStorageLocation = useAppSelector(selectuserCredentialStorageLocation);
   const userData = JSON.parse(localStorage.getItem('userData') || "{}");
   const router = useRouter();
-  const authToken = useAppSelector(selectAuthToken)
+  const modal = useAppSelector((state: { modal: any; }) => state.modal);
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
+  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     dispatch(updateFormField({ fieldName: name, fieldValue: value }));
@@ -26,49 +33,91 @@ export default function Form() {
     const newStorageLocation = !userCredentialStorageLocation
     dispatch(setuserCredentialStorageLocation(newStorageLocation));
   };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent)=>{
     e.preventDefault();
     const formattedData = {
       email: formData.email,
       password: formData.password,
       userCredentialStorageLocation: userCredentialStorageLocation,
     };
-  
     try {
-      const response = await dispatch(submitForm(formattedData));
-  
-      if (response.meta.requestStatus === 'fulfilled') {
+      const response = await fetch("http://localhost:3001/api/v1/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formattedData),
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        const authToken = data.body.token;
         
-        
-        console.log(authToken,"666")
-        const userData = { email: formData.email, password: formData.password, authToken, userCredentialStorageLocation };
-  
-        if (userCredentialStorageLocation) {
-          localStorage.setItem("userData", JSON.stringify(userData));
-        }
-        sessionStorage.setItem("userData", JSON.stringify(userData));
-        
-        const profileDataStored = sessionStorage.getItem("profile");
-        if (profileDataStored) {
-          const profileData = JSON.parse(profileDataStored);
-          const customId = profileData.body.id;
-          dispatch(updateProfileData(profileData));
+      if (userCredentialStorageLocation) {
+        localStorage.setItem("userData", JSON.stringify(formattedData));
+      } else {
+        localStorage.removeItem("userData");
+      };
+      try {
+        const profileResponse = await fetch("http://localhost:3001/api/v1/user/profile", {
+            method : "POST",
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+              "Content-type": "application/json",
+              Accept: "application.json",
+            },
+            body: JSON.stringify({})
+          });
+          if (profileResponse.status===200){
+            const profileData = await profileResponse.json();
+            const customId = profileData.body.id;
+            const userName = profileData.body.userName;
+            const lastName = profileData.body.lastName;
+            const firstName = profileData.body.firstName
+            dispatch(setUser({
+              authToken: authToken,
+              email: formData.email,
+              username: userName,
+              lastName: lastName,
+              password: formData.password,
+              firstName: firstName,
+              userId: customId,
+          }));
           router.push(`/accounts/${customId}`);
-        } else {
-          console.log("Profile data not found in sessionStorage");
+          }else {
+            console.log("error")
+          }
         }
+        catch(error){
+            console.error(error);
+        }
+      
+      }else if (response.status === 400) {
+        dispatch(
+          openModal({
+            title: "Incorrect credentials",
+            message: "Please verify your credentials",
+          })
+        );
       }
     } catch (error) {
       console.error("error while connecting to server:", error);
     }
-  };
+  }
+
+  
   
   return (
-    <div className={styles.form}>
-      
+    <>
+      {modal.isOpen && (
+        <Modal
+          isOpen={modal.isOpen}
+          title={modal.title}
+          message={modal.message}
+          onClose={handleCloseModal}
+        />
+      )}
       <form onSubmit={handleSubmit}>
-        <div className={styles.formBold}>
+        <div className={styles.inputWrapper}>
           <label>Username</label>
           <input
             type="email"
@@ -78,6 +127,8 @@ export default function Form() {
             name="email"
             onChange={handleInputChange}
           />
+        </div>
+        <div className={styles.inputWrapper}>
           <label>Password</label>
           <input
             type="password"
@@ -88,21 +139,28 @@ export default function Form() {
             onChange={handleInputChange}
           />
         </div>
-        <div className={styles.secureCookie}  >
+        <div className={styles.inputRemember}  >
             <input
               type="checkbox"
-              id="secureCookie"
-              name="secureCookie"
+              id="inputRemember"
+              name="inputRemember"
               onChange={onChangeCheckBox}
               checked={userData.userCredentialStorageLocation ?? userCredentialStorageLocation}
             />
-            <label htmlFor="secureCookie" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+            <label 
+              htmlFor="inputRemember" 
+              style={{ display: 'inline-block', verticalAlign: 'middle' }}>
             Remember me
           </label>
           
         </div>
-        <button type="submit">Sign in</button>
+        <button 
+          className={styles.signInButton} 
+          type="submit"
+          >
+          Sign in
+        </button>
       </form>
-    </div>
+    </>
   );
 }

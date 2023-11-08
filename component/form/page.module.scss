@@ -3,77 +3,37 @@
 
 
 
-.form label {
-    display: block;
-    text-align: left;;
-    
-    font-size: 16px;
-    
-}
-
-.form input {
-    padding: 5px;
-    font-size: 1.2rem;
-    width : 100%;
-    margin-bottom: 1rem;
-}
-
-.form button {
-    @include buttonShape;
-    width: 100%;
-    padding: 10px;
-    display: block;
-    margin-top: 1rem;
-    text-decoration: underline;
-
-}
-
-.secureCookie {
-    margin: 0;
-    height: 20px;
-    display: flex;
-    input{
-        width: 1rem;
-        height: 100%;
-        margin: auto 0;
-        
-    }
-    label{
-        margin-left: 0.25rem;
-        font-weight: light;
-    }
-}
-
-.formBold label {
-    font-weight: bold;
-}
-
 .inputRemember {
     display: flex;
   }
   
-  .inputRemember label {
+.inputRemember label {
     margin-left: 0.25rem;
-  }
-  
-  .inputWrapper {
+}
+
+.inputWrapper {
     display: flex;
     flex-direction: column;
     text-align: left;
     margin-bottom: 1rem;
-  }
-  
-  .inputWrapper label {
+}
+
+.inputWrapper label {
     font-weight: bold;
-  }
-  .signInButton {
-      display: block;
-      width: 100%;
-      padding: 8px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      margin-top: 1rem;
-      border-color: #00bc77;
-      background-color: #00bc77;
-      color: #fff;
+}
+.inputWrapper input {
+    padding: 5px;
+    font-size: 1.2rem;
+}
+  
+.signInButton {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    border-color: #00bc77;
+    background-color: #00bc77;
+    color: #fff;
 }
