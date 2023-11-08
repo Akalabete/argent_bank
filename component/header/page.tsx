@@ -14,8 +14,9 @@ export default function  Header() {
     const globalUser = useAppSelector(selectGlobalUser);
     const authToken = globalUser.authToken;
     const userName = globalUser.username;
+    const customId = globalUser.userId;
     const dispatch = useAppDispatch();
-
+    
     return (
         <header>
             <nav className={styles.mainNav}>
@@ -33,7 +34,7 @@ export default function  Header() {
                 </Link>
                 { authToken !== null ? (
                     <div>
-                        <a className={styles.mainNavItem} href="/profile">
+                        <a className={styles.mainNavItem} href={`/accounts/${customId}`}>
                             <i className={styles.fa}>
                                 <FontAwesomeIcon 
                                     icon={faCircleUser}

@@ -19,7 +19,7 @@ export default function Form() {
   const router = useRouter();
   const modal = useAppSelector((state: { modal: any; }) => state.modal);
   const handleCloseModal = () => {
-    dispatch(closeModal());
+    dispatch(closeModal());    
   };
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,6 +33,7 @@ export default function Form() {
     const newStorageLocation = !userCredentialStorageLocation
     dispatch(setuserCredentialStorageLocation(newStorageLocation));
   };
+
   const handleSubmit = async(e: React.FormEvent)=>{
     e.preventDefault();
     const formattedData = {
@@ -40,6 +41,7 @@ export default function Form() {
       password: formData.password,
       userCredentialStorageLocation: userCredentialStorageLocation,
     };
+
     try {
       const response = await fetch("http://localhost:3001/api/v1/user/login", {
         method: "POST",
@@ -48,15 +50,16 @@ export default function Form() {
         },
         body: JSON.stringify(formattedData),
       });
+
       if (response.status === 200) {
         const data = await response.json();
         const authToken = data.body.token;
         
-      if (userCredentialStorageLocation) {
-        localStorage.setItem("userData", JSON.stringify(formattedData));
-      } else {
-        localStorage.removeItem("userData");
-      };
+        if (userCredentialStorageLocation) {
+          localStorage.setItem("userData", JSON.stringify(formattedData));
+        } else {
+          localStorage.removeItem("userData");
+        };
       try {
         const profileResponse = await fetch("http://localhost:3001/api/v1/user/profile", {
             method : "POST",
@@ -82,7 +85,7 @@ export default function Form() {
               firstName: firstName,
               userId: customId,
           }));
-          router.push(`/accounts/${customId}`);
+          router.push(`/accounts/${customId}`)
           }else {
             console.log("error")
           }
@@ -103,9 +106,6 @@ export default function Form() {
       console.error("error while connecting to server:", error);
     }
   }
-
-  
-  
   return (
     <>
       {modal.isOpen && (
