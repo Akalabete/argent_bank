@@ -18,8 +18,8 @@ export default function Home() {
           <p className={styles.text}>Open a savings account with Argent Bank today!</p>
         </section>
         </div>
-        <section className={styles.servicesWrapper}>
-          
+        <section className={styles.features}>
+            <h2 className={styles.srOnly}>Features</h2>
             {services.map((service: any, index: Key | null | undefined) => (
               <LandingCard key={index} service={service} />     
             ))}

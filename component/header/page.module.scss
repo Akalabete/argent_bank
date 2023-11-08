@@ -1,14 +1,40 @@
 @import "../../app/mixins.module.scss";
 @import "../../app/variables.module.scss";
 
-.header {
-    height: 7vh;
-    @include flex-row;
+
+.mainNav {
+    display: flex;
     justify-content: space-between;
-    text-align: center;
-    align-items: center;  
+    align-items: center;
+    padding: 5px 20px;
+  }
+.mainNav a {
+font-weight: bold;
+color: #2c3e50;
+}
+.mainNav a.routerLinkExactActive {
+  color: #42b983;
 }
 
+.mainNavItem {
+  text-decoration: none;
+  margin-right: 0.5rem;
+}
+.mainNavItem:hover {
+  text-decoration: underline;
+}
+.mainNavLogo {
+  display: flex;
+  align-items: center;
+}
+.mainNavLogoImage {
+  max-width: 100%;
+  width: 200px;
+}
+.srOnly {
+    @include srOnly;
+  }
+/*
 .imageWrapper {
     position: relative;
     max-width: 100%;
@@ -59,16 +85,5 @@
     height: 14px;
     width: 14px;
 }
-.sronly {
-    border: 0 !important;
-    clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
-    -webkit-clip-path: inset(50%) !important;
-    clip-path: inset(50%) !important; /* 2 */
-    height: 1px !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    position: absolute !important;
-    width: 1px !important;
-    white-space: nowrap !important; /* 3 */
-  }
+
+  */

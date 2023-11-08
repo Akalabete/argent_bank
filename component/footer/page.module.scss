@@ -1,18 +1,15 @@
 @import '../../app/mixins.module.scss';
 @import '../../app/variables.module.scss';
 
+
 .footer {
-    @include generalFontStyle;
     display: flex;
     justify-content: center;
     border-top: 2px solid #ccc;
     padding: 2rem 0 1.5rem;
-    height: 2.5vh;
-    overflow: hidden;
-    p{ 
-        margin: 0;
-        padding: 0;
-        display: block;
-        line-height: 1;
-    }
+  }
+  
+.footerText {
+margin: 0;
+padding: 0;
 }

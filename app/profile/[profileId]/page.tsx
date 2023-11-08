@@ -1,13 +1,14 @@
 'use client';
 import { useAppSelector, useAppDispatch } from '@/redux/hook';
 import { updateFormField, selectProfileData, updateProfileData } from '@/redux/features/formSlice'
+import { selectAuthToken } from '@/redux/features/authSlice';
 import styles from './page.module.scss';
 import { useRouter } from 'next/navigation';
 import { openModal, closeModal } from "@/redux/features//modalSlice";
 import Modal from '../../../component/modal/page';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
-import { cp } from 'fs';
+
 
 export default function Profile( {
     params,
@@ -22,7 +23,7 @@ export default function Profile( {
     const dispatch = useAppDispatch();
     
     const userDataString = sessionStorage.getItem("userData");
-
+    const authToken = useAppSelector(selectAuthToken);
     const userData = userDataString? JSON.parse(userDataString): null;
     const { profileId } = params;
     const router = useRouter()
@@ -40,7 +41,7 @@ export default function Profile( {
       
       e.preventDefault();
       
-      const authToken = userData?.authToken
+      
       if(!authToken){
         console.error('missing authentification token');
         return;

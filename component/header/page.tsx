@@ -15,6 +15,36 @@ export default function  Header() {
     const dispatch = useAppDispatch();
 
     return (
+        <header>
+            <nav className={styles.mainNav}>
+                <Link className={styles.mainNavLogo} href="/">
+                    <Image 
+                        className={styles.mainNavLogoImage}
+                        src="/argentBankLogo.webp"
+                        alt="Argent Bank Logo"
+                        style={{objectFit:"cover"}}
+                        width="200"
+                        height="55"
+                        priority
+                    />
+                    <h1 className={styles.srOnly}>Argent Bank</h1>
+                </Link>
+                <div>
+                    <a className={styles.mainNavItem} href="./sign-in.html">
+                        <i className={styles.fa}>
+                            <FontAwesomeIcon 
+                                icon={faCircleUser}
+                            />
+                        </i>
+                    Sign In
+                    </a>
+                    <a className={styles.mainNavItem} href="./">
+                        Register
+                    </a>
+                </div>
+            </nav>
+        </header>
+    /*
         <header className={styles.header}>
             <div className={styles.imageWrapper}>
                 <Link href="/">
@@ -66,7 +96,7 @@ export default function  Header() {
                     </div>
                     </>
                 )}
-        </header>
+        </header>*/
     )
 }
 

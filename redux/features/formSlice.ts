@@ -62,7 +62,9 @@ export const submitForm = createAsyncThunk(
       if (response.status===200) {
         const data = await response.json()
         const authToken = data.body.token
+        
         const userData = { email, password, authToken, userCredentialStorageLocation}
+        console.log(userData,"--");
         dispatch(setConnected(true));
         dispatch(updateAuthToken(authToken));
         try {

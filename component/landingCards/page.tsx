@@ -18,17 +18,15 @@ interface Service {
 export default function LandingCard({ service }: LandingCardProps) {
     
 return (
-    <div className={styles.service}>
-              <div className={styles.serviceLogoWrapper}>
+    <div className={styles.featureItem}>             
                 <Image
                   src={service.image.src}
-                  className={styles.serviceLogo}
+                  className={styles.featureIcon}
                   alt={service.image.alt}
                   width="100"
                   height="100"
-                />
-              </div>
-              <h3>{service.title}</h3>
+                />           
+              <h3 className={styles.featureItemTitle}>{service.title}</h3>
               <p>{service.description}</p>
             </div>
 

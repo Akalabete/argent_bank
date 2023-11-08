@@ -4,6 +4,7 @@ import { RootState } from '../store';
 const initialState = {
   isAuthentificated: false, 
   userCredentialStorageLocation: false, 
+  authToken: null,
 };
 
 const authSlice = createSlice({
@@ -16,6 +17,9 @@ const authSlice = createSlice({
     setuserCredentialStorageLocation: (state, action) => {
       state.userCredentialStorageLocation = action.payload; 
     },
+    updateAuthToken: (state, action) => {
+      state.authToken = action.payload; 
+    },
   },
 });
 
@@ -24,6 +28,10 @@ export const selectuserCredentialStorageLocation = createSelector(
   selectAuthState,
   (authState) => authState.userCredentialStorageLocation
 );
+export const selectAuthToken = createSelector(
+  selectAuthState,
+  (authState) => authState.authToken
+);
 
-export const { toggleAuthentification, setuserCredentialStorageLocation } = authSlice.actions;
+export const { updateAuthToken, toggleAuthentification, setuserCredentialStorageLocation } = authSlice.actions;
 export default authSlice.reducer;

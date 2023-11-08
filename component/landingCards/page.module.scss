@@ -2,31 +2,33 @@
 @import '../../app/variables.module.scss';
 
 
-.servicesWrapper {
-    margin-top: 0;
-    @include flex-row;
-    justify-content: space-around;
-    text-align: center;
-    padding-bottom: 1%;
-    border-bottom: solid 3px grey;
-    @media screen and (max-width: 640px){  
-        flex-direction: column;
+.features {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  @media (min-width: 920px) {
+    .features {
+      flex-direction: row;
     }
-}
-
-.service {
-    padding: 40px;;
-    width : 20%;
-    min-width: 240px;
-    p {
-        @include generalFontStyle;
-    }
-}
-
-.serviceLogoWrapper {
-    padding: 16px;
-    margin: auto;
+  }
+  
+  .featureIcon {
     width: 100px;
-    border: solid 10px $primary-green;
-    border-radius: 100px;
-}
+    border: 10px solid #00bc77;
+    border-radius: 50%;
+    padding: 1rem;
+  }
+  
+  .featureItem {
+    flex: 1;
+    padding: 2.5rem;
+  }
+  
+  .featureItemTitle {
+    color: #222;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  

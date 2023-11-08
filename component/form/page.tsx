@@ -1,10 +1,11 @@
 "use client";
+import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import styles from './page.module.scss';
 import { updateFormField, submitForm, updateProfileData  } from '@/redux/features/formSlice'
-import { setuserCredentialStorageLocation, selectuserCredentialStorageLocation } from "@/redux/features/authSlice";
+import { setuserCredentialStorageLocation, selectuserCredentialStorageLocation, updateAuthToken } from "@/redux/features/authSlice";
 import { useRouter } from 'next/navigation';
-
+import { selectAuthToken } from '@/redux/features/authSlice'
 
 export default function Form() {
 
@@ -13,7 +14,7 @@ export default function Form() {
   const userCredentialStorageLocation = useAppSelector(selectuserCredentialStorageLocation);
   const userData = JSON.parse(localStorage.getItem('userData') || "{}");
   const router = useRouter();
-  
+  const authToken = useAppSelector(selectAuthToken)
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     dispatch(updateFormField({ fieldName: name, fieldValue: value }));
@@ -32,16 +33,34 @@ export default function Form() {
       email: formData.email,
       password: formData.password,
       userCredentialStorageLocation: userCredentialStorageLocation,
-    }
-    dispatch(submitForm(formattedData))
-    const profileDataStored = sessionStorage.getItem("profile");
-    if (profileDataStored) {
-    const profileData = JSON.parse(profileDataStored);
-    const customId = profileData.body.id;
-    dispatch(updateProfileData(profileData));
-    router.push(`/accounts/${customId}`)
-    } else {
-      console.log("Profile data not found in sessionStorage");
+    };
+  
+    try {
+      const response = await dispatch(submitForm(formattedData));
+  
+      if (response.meta.requestStatus === 'fulfilled') {
+        
+        
+        console.log(authToken,"666")
+        const userData = { email: formData.email, password: formData.password, authToken, userCredentialStorageLocation };
+  
+        if (userCredentialStorageLocation) {
+          localStorage.setItem("userData", JSON.stringify(userData));
+        }
+        sessionStorage.setItem("userData", JSON.stringify(userData));
+        
+        const profileDataStored = sessionStorage.getItem("profile");
+        if (profileDataStored) {
+          const profileData = JSON.parse(profileDataStored);
+          const customId = profileData.body.id;
+          dispatch(updateProfileData(profileData));
+          router.push(`/accounts/${customId}`);
+        } else {
+          console.log("Profile data not found in sessionStorage");
+        }
+      }
+    } catch (error) {
+      console.error("error while connecting to server:", error);
     }
   };
   
@@ -87,4 +106,3 @@ export default function Form() {
     </div>
   );
 }
- 
