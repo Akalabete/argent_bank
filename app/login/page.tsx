@@ -21,7 +21,7 @@ export default function Login() {
 
   return (
 
-    <section className={styles.loginBackground}>
+    <section className={styles.signInContent}>
       {modal.isOpen && (
         <Modal
           isOpen={modal.isOpen}
@@ -30,14 +30,16 @@ export default function Login() {
           onClose={handleCloseModal}
         />
       )}   
-      <div className={styles.loginWindow}>
+        <i className={`${styles.signInIcon}, ${styles.fa}`}>
         <FontAwesomeIcon 
-          size="lg" 
+          
           icon={faCircleUser} 
         />
+        </i>
         <h1>Sign in</h1>
-        <Form />
-        </div>
+        <Form />  
     </section>
   )
 }
+
+

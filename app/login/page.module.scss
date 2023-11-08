@@ -1,15 +1,25 @@
 @import "../mixins.module.scss";
 @import "../variables.module.scss";
 
-.loginBackground{
-    @include layoutWrapper;
+
+.main {
+    flex: 1;
+  }
+.bgDark {
+  background-color:$background-purple;
 }
 
-.loginWindow{
-    @include userWindow;
-    h1{
-        
-        font-size: 1.5em;
-    }
-    
+  
+.signInContent {
+  box-sizing: border-box;
+  background-color: white;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 3rem;
+  padding: 2rem;
 }
+
+.signInIcon {
+  font-size: 5rem;
+}
+
