@@ -1,7 +1,7 @@
 'use client';
+import { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '@/redux/hook';
-import { updateFormField, selectProfileData, updateProfileData } from '@/redux/features/formSlice'
-import { selectAuthToken } from '@/redux/features/authSlice';
+import { selectGlobalUser, setUser } from '@/redux/features/globalUserSlice'
 import styles from './page.module.scss';
 import { useRouter } from 'next/navigation';
 import { openModal, closeModal } from "@/redux/features//modalSlice";
@@ -17,41 +17,31 @@ export default function Profile( {
     params: {profileId: string}
     
   }) {
-    console.log('params:', params);
-
-    const profileData = useAppSelector(selectProfileData);
+    const userData = useAppSelector(selectGlobalUser);
     const dispatch = useAppDispatch();
-    
-    const userDataString = sessionStorage.getItem("userData");
-    const authToken = useAppSelector(selectAuthToken);
-    const userData = userDataString? JSON.parse(userDataString): null;
+    const oldUserName = userData.userName;
     const { profileId } = params;
     const router = useRouter()
-    let inputValue = "";
-    console.log(profileId);
+    
+    const [inputValue, setInputValue] = useState(oldUserName);
     
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target;
-      inputValue = value
-      dispatch(updateFormField({ fieldName: name, fieldValue: value }));
-      
+      const { value } = e.target;
+      setInputValue(value)
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
-      
       e.preventDefault();
-      
-      
-      if(!authToken){
+      if(userData.authToken === null) {
         console.error('missing authentification token');
         return;
       }
-      if (inputValue !== profileData.body.userName && inputValue !== "") {
+      if (inputValue !== oldUserName && inputValue !== "") {
         try {
           const profileUpdateResponse = await fetch("http://localhost:3001/api/v1/user/profile", {
             method : "PUT",
             headers: {
-              Authorization: `Bearer ${authToken}`,
+              Authorization: `Bearer ${userData.authToken}`,
               "Content-type": "application/json",
               Accept: "application.json",
             },
@@ -59,10 +49,17 @@ export default function Profile( {
           });
   
           if (profileUpdateResponse.status===200){
-            
             const updatedProfileData = await profileUpdateResponse.json();
-            sessionStorage.setItem("profile", JSON.stringify(updatedProfileData));
-            dispatch(updateProfileData(updatedProfileData));
+            console.log(updatedProfileData)
+            dispatch(setUser({
+              authToken: userData.authToken,
+              email: userData.email,
+              userName: updatedProfileData.body.userName,
+              lastName: userData.lastName,
+              password: userData.password,
+              firstName: userData.firstName,
+              userId: userData.userId,
+          }));
             dispatch(
               openModal({
                 title: "Success!",
@@ -77,7 +74,7 @@ export default function Profile( {
             console.error(error);
         }
 
-      } else if (inputValue === profileData.body.userName){
+      } else if (inputValue === userData.userName){
         dispatch(openModal({
           title:"Error!",
           message:"Please enter a différent username"
@@ -102,7 +99,7 @@ export default function Profile( {
       }
       
     };
-    if ( profileData !== null) {
+    if ( userData.authToken !== null) {
     return(
       <>
         <h2>User informations:</h2>
@@ -126,7 +123,7 @@ export default function Profile( {
               <input
                 className={styles.greyedInput}
                 type="text"
-                value={profileData.body.firstName}
+                value={userData.firstName}
                 id="firstname"
                 name="firstname"
                 readOnly
@@ -135,7 +132,7 @@ export default function Profile( {
                 <input
                   className={styles.greyedInput}
                   type="text"
-                  value={profileData.body.lastName}
+                  value={userData.lastName}
                   id="lastname"
                   name="lastname"
                   readOnly
@@ -144,7 +141,7 @@ export default function Profile( {
                 <input
                   className={styles.greyedInput}
                   type="text"
-                  value={profileData.body.email}
+                  value={userData.email}
                   id="email"
                   name="email"
                   readOnly
@@ -161,8 +158,7 @@ export default function Profile( {
               <label>Username</label>
                 <input
                   type="text"
-                  defaultValue={profileData.body.userName}
-                  value={profileData.userName}
+                  value={inputValue}
                   id="username"
                   name="username"
                   onChange={handleInputChange}

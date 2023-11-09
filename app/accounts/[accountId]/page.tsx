@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '@/redux/hook';
 import { useRouter } from 'next/navigation';
 import {  updateTransactionDetails, selectExpandedTransactions, toggleAccount } from "@/redux/features/transactionSlice";
+
 import bankAccountsList from '../../../bankaccounts.json';
-import { selectProfileData } from '../../../redux/features/formSlice';
+import { selectGlobalUser } from '@/redux/features/globalUserSlice';
 import styles from './page.module.scss';
 import { openModal, closeModal } from "@/redux/features//modalSlice";
 import Modal from '../../../component/modal/page';
@@ -50,13 +51,13 @@ export default function BankAccounts({
 }: {
   params: { accountId: string };
 }) {
-  /*
+  
   const [activeAccount, setActiveAccount] = useState<string | null>(null);
   const [openTransactions, setOpenTransactions] = useState<{ [key: string]: boolean }>({});
   const [detailsChanged, setDetailsChanged] = useState<{ [key: string]: boolean }>({});
   const [selectedCategory, setSelectedCategory] = useState<{ [key: string]: string }>({});
   const [detailsEditing, setDetailsEditing] = useState<{ [key: string]: boolean }>({});
-  const profileData = useAppSelector(selectProfileData);
+  const userData = useAppSelector(selectGlobalUser);
   const router = useRouter();
   const dispatch = useAppDispatch();
   const expandedTransactions = useAppSelector(selectExpandedTransactions);
@@ -148,13 +149,13 @@ export default function BankAccounts({
     dispatch(closeModal()); 
     
   };
-  if ( profileData !== null) {
+  if ( userData.authToken !== null) {
     return (
         <div>
           {activeAccount === null ? (
             <div>
               <h2>Welcome back</h2>
-              <h2>{profileData.body.firstName} {profileData.body.userName}</h2>
+              <h2>{userData.firstName} {userData.userName}</h2>
               <button className={styles.accountButton} onClick={navigateToProfile}>Edit Profile</button>
             </div>
           ) : (
@@ -233,5 +234,5 @@ export default function BankAccounts({
     );
   }else {
     router.push('/');
-  }*/
+  }
 }

@@ -7,18 +7,22 @@ import styles from './page.module.scss'
 import Link from 'next/link';
 import { useAppSelector, useAppDispatch } from '@/redux/hook';
 import { selectGlobalUser, setUser } from '@/redux/features/globalUserSlice'; 
+import { useRouter } from 'next/navigation';
 
-
-export default function  Header() {
+export default function  Header({
+    params,
+  }: {
+    params: { accountId: string };
+  }) {
 
     const globalUser = useAppSelector(selectGlobalUser);
-    const authToken = globalUser.authToken;
-    const userName = globalUser.username;
+    const userName = globalUser.userName;
     const customId = globalUser.userId;
     const dispatch = useAppDispatch();
-    
+    const router = useRouter();
+
     return (
-        <header>
+        
             <nav className={styles.mainNav}>
                 <Link className={styles.mainNavLogo} href="/">
                     <Image 
@@ -32,9 +36,33 @@ export default function  Header() {
                     />
                     <h1 className={styles.srOnly}>Argent Bank</h1>
                 </Link>
-                { authToken !== null ? (
+                { userName === "" ? (
                     <div>
-                        <a className={styles.mainNavItem} href={`/accounts/${customId}`}>
+                    <a className={styles.mainNavItem} 
+                    onClick={()=>
+                        router.push('/login')
+                    }>
+                        <i className={styles.fa}>
+                            <FontAwesomeIcon 
+                                icon={faCircleUser}
+                            />
+                        </i>
+                    Sign In
+                    </a>
+                    <a className={styles.mainNavItem}
+                    onClick={()=>
+                        router.push('/new')
+                    }>
+                    
+                        Register
+                    </a>
+            </div>
+                        ):(
+                            <div>
+                        <a className={styles.mainNavItem} 
+                        onClick={()=>
+                            router.push(`/profile/${customId}`)
+                            }>
                             <i className={styles.fa}>
                                 <FontAwesomeIcon 
                                     icon={faCircleUser}
@@ -48,14 +76,15 @@ export default function  Header() {
                                 dispatch(setUser({
                                     authToken: null,
                                     email: '',
-                                    username: '',
+                                    userName: '',
                                     lastName: '',
                                     password: '',
                                     firstName: '',
                                     userId: null
-                                }));
+                                    })
+                                );
+                                router.push('/');
                             }}
-                            href="/"
                         >
                             <i className={styles.fa}>
                                 <FontAwesomeIcon 
@@ -65,24 +94,11 @@ export default function  Header() {
                         Sign Out
                         </a>
                         </div>
-                        ):(
-                        <div>
-                            <a className={styles.mainNavItem} href="/login">
-                                <i className={styles.fa}>
-                                    <FontAwesomeIcon 
-                                        icon={faCircleUser}
-                                    />
-                                </i>
-                            Sign In
-                            </a>
-                            <a className={styles.mainNavItem} href="/new">
-                                Register
-                            </a>
-                    </div>
+                        
                     )
                 }
             </nav>
-        </header>
+        
     )
 }
 

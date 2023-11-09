@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface GlobalUser {
   email: string;
-  username: string;
+  userName: string;
   lastName: string;
   password: string;
   firstName: string;
@@ -12,7 +12,7 @@ interface GlobalUser {
 
 const initialState: GlobalUser = {
   email: '',
-  username: '',
+  userName: '',
   lastName: '',
   password: '',
   firstName: '',

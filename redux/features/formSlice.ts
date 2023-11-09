@@ -23,11 +23,6 @@ interface RegistrationForm {
   lastname: string;
   username: string;
 }
-interface FormSubmitData {
-  email: string;
-  password: string;
-  userCredentialStorageLocation: boolean,
-}
 
 const initialState: FormState = {
   registrationData: {
@@ -46,69 +41,7 @@ const initialState: FormState = {
   lastName: "",
 };
 
-/*export const submitForm = createAsyncThunk(
-  "form/submitForm",
-  async (formData: FormSubmitData, { dispatch }) => {
-    const { email, password, userCredentialStorageLocation } = formData;
-    try {
-      const response = await fetch("http://localhost:3001/api/v1/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
 
-      if (response.status===200) {
-        const data = await response.json()
-        const authToken = data.body.token
-        
-        const userData = { email, password, authToken, userCredentialStorageLocation}
-        console.log(userData,"--");
-        dispatch(setConnected(true));
-        dispatch(updateAuthToken(authToken));
-        try {
-          const profileResponse = await fetch("http://localhost:3001/api/v1/user/profile", {
-            method : "POST",
-            headers: {
-              Authorization: `Bearer ${authToken}`,
-              "Content-type": "application/json",
-              Accept: "application.json",
-            },
-            body: JSON.stringify({})
-          });
-
-          if (profileResponse.status===200){
-            const profileData = await profileResponse.json();
-            sessionStorage.setItem("profile", JSON.stringify(profileData));
-          }else {
-            console.log("error")
-          }
-        }
-        catch(error){
-            console.error(error);
-        }
-        if (userCredentialStorageLocation){
-          localStorage.setItem("userData", JSON.stringify(userData));
-          sessionStorage.setItem("userData", JSON.stringify(userData));
-        } else { 
-          sessionStorage.setItem("userData", JSON.stringify(userData));
-        }
-      } else if (response.status === 400) {
-        dispatch(
-          openModal({
-            title: "Incorrect credentials",
-            message: "Please verify your credentials",
-          })
-        );
-      }
-    } catch (error) {
-      console.error("error while connecting to server:", error);
-    }
-  }
-);
-
-*/
 
 const formSlice = createSlice({
   name: "form",

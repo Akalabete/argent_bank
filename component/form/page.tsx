@@ -32,6 +32,11 @@ export default function Form() {
     localStorage.removeItem("userData");
     const newStorageLocation = !userCredentialStorageLocation
     dispatch(setuserCredentialStorageLocation(newStorageLocation));
+    localStorage.setItem("userData", JSON.stringify({
+      email: formData.email,
+      password: formData.password,
+      userCredentialStorageLocation: newStorageLocation,
+    }));
   };
 
   const handleSubmit = async(e: React.FormEvent)=>{
@@ -79,7 +84,7 @@ export default function Form() {
             dispatch(setUser({
               authToken: authToken,
               email: formData.email,
-              username: userName,
+              userName: userName,
               lastName: lastName,
               password: formData.password,
               firstName: firstName,
