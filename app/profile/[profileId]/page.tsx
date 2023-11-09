@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '@/redux/hook';
 import { selectGlobalUser, setUser } from '@/redux/features/globalUserSlice'
 import styles from './page.module.scss';
@@ -92,8 +92,8 @@ export default function Profile( {
     const handleCloseModal = (profileId:string) => {
       
       if (modal.title ===  "Success!"){
-        dispatch(closeModal())
           router.push(`/accounts/${profileId}`)
+          dispatch(closeModal())
       } else {
         dispatch(closeModal());
       }

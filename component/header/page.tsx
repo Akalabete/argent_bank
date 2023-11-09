@@ -9,18 +9,26 @@ import { useAppSelector, useAppDispatch } from '@/redux/hook';
 import { selectGlobalUser, setUser } from '@/redux/features/globalUserSlice'; 
 import { useRouter } from 'next/navigation';
 
-export default function  Header({
-    params,
-  }: {
-    params: { accountId: string };
-  }) {
+export default function  Header() {
 
     const globalUser = useAppSelector(selectGlobalUser);
     const userName = globalUser.userName;
     const customId = globalUser.userId;
     const dispatch = useAppDispatch();
     const router = useRouter();
-
+    const redirectToLanding = () => {
+    dispatch(setUser({
+        authToken: null,
+        email: '',
+        userName: '',
+        lastName: '',
+        password: '',
+        firstName: '',
+        userId: null
+        })
+    );
+    router.push('/');
+    }
     return (
         
             <nav className={styles.mainNav}>
@@ -72,19 +80,7 @@ export default function  Header({
                         </a>
                         <a  
                             className={styles.mainNavItem}
-                            onClick={() => {
-                                dispatch(setUser({
-                                    authToken: null,
-                                    email: '',
-                                    userName: '',
-                                    lastName: '',
-                                    password: '',
-                                    firstName: '',
-                                    userId: null
-                                    })
-                                );
-                                router.push('/');
-                            }}
+                            onClick={redirectToLanding}
                         >
                             <i className={styles.fa}>
                                 <FontAwesomeIcon 
