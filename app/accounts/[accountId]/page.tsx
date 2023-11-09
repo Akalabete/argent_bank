@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '@/redux/hook';
 import { useRouter } from 'next/navigation';
 import {  updateTransactionDetails, selectExpandedTransactions, toggleAccount } from "@/redux/features/transactionSlice";

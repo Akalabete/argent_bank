@@ -7,7 +7,7 @@ interface FormState {
   password: string;
   userName: string;
   authToken: string | null;
-  profileData: any | null;
+  
   firstName: string | null;
   lastName: string | null;
   registrationData: RegistrationForm;
@@ -33,7 +33,7 @@ const initialState: FormState = {
   password: "",
   userName: "",
   authToken: "",
-  profileData: null,
+  
   firstName: "",
   lastName: "",
 };
@@ -48,9 +48,7 @@ const formSlice = createSlice({
       const { fieldName, fieldValue } = action.payload;
       state[fieldName as keyof FormState] = fieldValue;
     },
-    updateProfileData: (state, action: PayloadAction<any>) => {
-      state.profileData = action.payload;
-    },
+    
     updateRegistrationFormField: (
       state,
       action: PayloadAction<{ fieldName: string; fieldValue: any }>
@@ -64,8 +62,7 @@ const formSlice = createSlice({
 
 
 export const updateAuthToken = createAction<string>("form/updateAuthToken");
-export const { updateFormField, updateProfileData, updateRegistrationFormField } = formSlice.actions;
-export const selectProfileData = (state: RootState) => state.form.profileData;
+export const { updateFormField, updateRegistrationFormField } = formSlice.actions;
 export const selectRegistrationData = (state: RootState) => state.form.registrationData;
 
 
