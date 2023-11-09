@@ -1,4 +1,3 @@
-
 import { createSlice, PayloadAction, createAction } from "@reduxjs/toolkit";
 import { RootState } from '../store';
 
@@ -7,7 +6,6 @@ interface FormState {
   password: string;
   userName: string;
   authToken: string | null;
-  
   firstName: string | null;
   lastName: string | null;
   registrationData: RegistrationForm;
@@ -33,7 +31,6 @@ const initialState: FormState = {
   password: "",
   userName: "",
   authToken: "",
-  
   firstName: "",
   lastName: "",
 };
@@ -57,15 +54,11 @@ const formSlice = createSlice({
       state.registrationData[fieldName as keyof RegistrationForm] = fieldValue;
      },
   },
-  
 });
-
 
 export const updateAuthToken = createAction<string>("form/updateAuthToken");
 export const { updateFormField, updateRegistrationFormField } = formSlice.actions;
+
 export const selectRegistrationData = (state: RootState) => state.form.registrationData;
 
-
-
 export default formSlice.reducer;
-

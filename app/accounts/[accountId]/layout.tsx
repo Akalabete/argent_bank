@@ -7,8 +7,9 @@ export default function layout({
     }: PropsWithChildren<{
     params: { accountId: string }
     }>) {
-    return <div className={styles.layoutAccountWrapper}>
-        
-        {children}
-        </div>
+    return (
+        <main className={`${styles.main} ${styles.bgDark}`}>
+            {children}
+        </main>
+        )
     }

@@ -153,16 +153,20 @@ export default function BankAccounts({
     return (
         <div>
           {activeAccount === null ? (
-            <div>
-              <h2>Welcome back</h2>
-              <h2>{userData.firstName} {userData.userName}</h2>
-              <button className={styles.accountButton} onClick={navigateToProfile}>Edit Profile</button>
+            <div className={styles.header}>
+              <h1>
+                Welcome back 
+                <br />
+                {userData.firstName} {userData.userName}
+              </h1>     
+              <button className={styles.editButton} onClick={navigateToProfile}>Edit Profile</button>
             </div>
+            
           ) : (
             <div>&nbsp;</div>
           )}
-        
-        <div className={styles.accountsWrapper}>
+        <h2 className={styles.srOnly}>Accounts</h2>
+        <div className={styles.html}>
           {Object.keys(randomUser).map((accountId) => {
           const account = randomUser[accountId];
           const accountName = account.accountName;
@@ -174,16 +178,20 @@ export default function BankAccounts({
           return (
             
             activeAccount === accountId || activeAccount === null ? (
-              <div key={accountRefs} className={styles.accountWrapper}>
-                <h3>{accountName} {accountType} ref: {accountRefs}</h3>
-                <p className={styles.bankBalance}>$ {accountBalance.toFixed(2)}</p>
-                <p>Available Balance</p>
-                <button
-                  className={styles.accountButton}
-                  onClick={() => toggleAccountHandler(accountId)}
-                >
-                  {expandedTransactions.includes(accountId) ? "Hide transactions" : "View transactions"}
-                </button>
+              <div key={accountRefs} className={styles.account}>
+                <div className={styles.accountContentWrapper}>
+                  <h3 className={styles.accountTitle}>{accountName} {accountType} ref: {accountRefs}</h3>
+                  <p className={styles.accountAmount}>$ {accountBalance.toFixed(2)}</p>
+                  <p className={styles.accountAmountDescription}>Available Balance</p>
+                  </div>
+                  <div className={`${styles.accountContentWrapper} ${styles.cta}`}>
+                    <button
+                      className={styles.transactionButton}
+                      onClick={() => toggleAccountHandler(accountId)}
+                    >
+                      {expandedTransactions.includes(accountId) ? "Hide transactions" : "View transactions"}
+                    </button>
+                  </div>
                 </div>
               ) : null
             );
