@@ -5,13 +5,13 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import styles from './page.module.scss';
 import { openModal, closeModal } from '../../redux/features/modalSlice';
 import Modal from '../../component/modal/page'
-import { setUser } from '@/redux/features/globalUserSlice'
+import { selectGlobalUser, setUser } from '@/redux/features/globalUserSlice'
 
 export default function RegistrationForm() {
   const registrationForm = useAppSelector((state) => state.form.registrationData);
   const dispatch = useAppDispatch();
   const router = useRouter()
-
+  const userData = useAppSelector(selectGlobalUser)
   const modal = useAppSelector((state: { modal: any; }) => state.modal);
     const handleCloseModal = () => {
       dispatch(closeModal());
@@ -50,6 +50,7 @@ export default function RegistrationForm() {
           password: registrationForm.password,
           firstName: registrationForm.firstname,
           userId: profileData.body.id,
+          userCredentialStorageLocation: userData.userCredentialStorageLocation,
       }));
       dispatch(updateRegistrationFormField({ fieldName: "firstname", fieldValue: "" }));
       dispatch(updateRegistrationFormField({ fieldName: "lastname", fieldValue: "" }));

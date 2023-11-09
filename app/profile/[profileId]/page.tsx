@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '@/redux/hook';
 import { selectGlobalUser, setUser } from '@/redux/features/globalUserSlice'
 import styles from './page.module.scss';
@@ -59,6 +59,7 @@ export default function Profile( {
               password: userData.password,
               firstName: userData.firstName,
               userId: userData.userId,
+              userCredentialStorageLocation: userData.userCredentialStorageLocation,
           }));
             dispatch(
               openModal({

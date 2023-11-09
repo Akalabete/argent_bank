@@ -1,8 +1,5 @@
 
-import { createAsyncThunk, createSlice, PayloadAction, createAction } from "@reduxjs/toolkit";
-import { setConnected } from "./userSlice";
-import { AppDispatch } from "../store";
-import { openModal } from "./modalSlice";
+import { createSlice, PayloadAction, createAction } from "@reduxjs/toolkit";
 import { RootState } from '../store';
 
 interface FormState {
@@ -70,13 +67,8 @@ export const updateAuthToken = createAction<string>("form/updateAuthToken");
 export const { updateFormField, updateProfileData, updateRegistrationFormField } = formSlice.actions;
 export const selectProfileData = (state: RootState) => state.form.profileData;
 export const selectRegistrationData = (state: RootState) => state.form.registrationData;
-export const login = () => (dispatch: AppDispatch) => {
-  dispatch(setConnected(true));
-};
 
-export const logout = () => (dispatch: AppDispatch) => {
-  dispatch(setConnected(false));
-};
+
 
 export default formSlice.reducer;
 

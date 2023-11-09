@@ -3,7 +3,7 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import styles from './page.module.scss';
 import { updateFormField } from '@/redux/features/formSlice'
-import { setuserCredentialStorageLocation, selectuserCredentialStorageLocation} from "@/redux/features/authSlice";
+import { setuserCredentialStorageLocation, selectuserCredentialStorageLocation} from "@/redux/features/globalUserSlice";
 import { useRouter } from 'next/navigation';
 import { setUser } from '@/redux/features/globalUserSlice';
 import { openModal, closeModal } from '@/redux/features/modalSlice';
@@ -89,6 +89,7 @@ export default function Form() {
               password: formData.password,
               firstName: firstName,
               userId: customId,
+              userCredentialStorageLocation: userData.userCredentialStorageLocation,
           }));
           router.push(`/accounts/${customId}`)
           }else {

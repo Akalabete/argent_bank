@@ -26,7 +26,8 @@ export default function  Header() {
             lastName: '',
             password: '',
             firstName: '',
-            userId: null
+            userId: null,
+            userCredentialStorageLocation: globalUser.userCredentialStorageLocation,
             })
         );
         router.push('/');
