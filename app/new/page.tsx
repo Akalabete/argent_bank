@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import styles from './page.module.scss';
 import { openModal, closeModal } from '../../redux/features/modalSlice';
 import Modal from '../../component/modal/page'
-import { setConnected } from "../../redux/features/userSlice";
+import { setUser } from '@/redux/features/globalUserSlice'
 
 export default function RegistrationForm() {
   const registrationForm = useAppSelector((state) => state.form.registrationData);
@@ -40,15 +40,22 @@ export default function RegistrationForm() {
         }),
       });
       if(newUserResponse.status === 200) {
-        dispatch(updateRegistrationFormField({ fieldName: "firstname", fieldValue: "" }));
-        dispatch(updateRegistrationFormField({ fieldName: "lastname", fieldValue: "" }));
-        dispatch(updateRegistrationFormField({ fieldName: "email", fieldValue: "" }));
-        dispatch(updateRegistrationFormField({ fieldName: "password", fieldValue: "" }));
-        dispatch(updateRegistrationFormField({ fieldName: "username", fieldValue: "" }));
-        dispatch(setConnected(true));
-        //const profileData = await newUserResponse.json();
-        //const customId = profileData.body.id;
-        //sessionStorage.setItem("profile", JSON.stringify(profileData));
+        const profileData = await newUserResponse.json();
+
+        dispatch(setUser({
+          authToken: null,
+          email: profileData.body.email,
+          userName: registrationForm.username,
+          lastName: registrationForm.lastname,
+          password: registrationForm.password,
+          firstName: registrationForm.firstname,
+          userId: profileData.body.id,
+      }));
+      dispatch(updateRegistrationFormField({ fieldName: "firstname", fieldValue: "" }));
+      dispatch(updateRegistrationFormField({ fieldName: "lastname", fieldValue: "" }));
+      dispatch(updateRegistrationFormField({ fieldName: "email", fieldValue: "" }));
+      dispatch(updateRegistrationFormField({ fieldName: "password", fieldValue: "" }));
+      dispatch(updateRegistrationFormField({ fieldName: "username", fieldValue: "" }));
         dispatch(
           openModal({
             title: "Success",

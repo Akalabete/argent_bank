@@ -16,36 +16,37 @@ export default function  Header() {
     const customId = globalUser.userId;
     const dispatch = useAppDispatch();
     const router = useRouter();
+    
+    
     const redirectToLanding = () => {
-    dispatch(setUser({
-        authToken: null,
-        email: '',
-        userName: '',
-        lastName: '',
-        password: '',
-        firstName: '',
-        userId: null
-        })
-    );
-    router.push('/');
+        dispatch(setUser({
+            authToken: null,
+            email: '',
+            userName: '',
+            lastName: '',
+            password: '',
+            firstName: '',
+            userId: null
+            })
+        );
+        router.push('/');
     }
     return (
-        
-            <nav className={styles.mainNav}>
-                <Link className={styles.mainNavLogo} href="/">
-                    <Image 
-                        className={styles.mainNavLogoImage}
-                        src="/argentBankLogo.webp"
-                        alt="Argent Bank Logo"
-                        style={{objectFit:"cover"}}
-                        width="200"
-                        height="55"
-                        priority
-                    />
-                    <h1 className={styles.srOnly}>Argent Bank</h1>
-                </Link>
-                { userName === "" ? (
-                    <div>
+        <nav className={styles.mainNav}>
+            <Link className={styles.mainNavLogo} href="/">
+                <Image 
+                    className={styles.mainNavLogoImage}
+                    src="/argentBankLogo.webp"
+                    alt="Argent Bank Logo"
+                    style={{objectFit:"cover"}}
+                    width="200"
+                    height="55"
+                    priority
+                />    
+                <h1 className={styles.srOnly}>Argent Bank</h1>
+            </Link>
+            { globalUser.authToken === null ? (
+                <div>
                     <a className={styles.mainNavItem} 
                     onClick={()=>
                         router.push('/login')
@@ -55,46 +56,43 @@ export default function  Header() {
                                 icon={faCircleUser}
                             />
                         </i>
-                    Sign In
+                        Sign In
                     </a>
                     <a className={styles.mainNavItem}
                     onClick={()=>
                         router.push('/new')
                     }>
-                    
                         Register
                     </a>
-            </div>
-                        ):(
-                            <div>
-                        <a className={styles.mainNavItem} 
-                        onClick={()=>
-                            router.push(`/profile/${customId}`)
-                            }>
-                            <i className={styles.fa}>
-                                <FontAwesomeIcon 
-                                    icon={faCircleUser}
-                                />
-                            </i>
-                        {userName}
-                        </a>
-                        <a  
-                            className={styles.mainNavItem}
-                            onClick={redirectToLanding}
-                        >
-                            <i className={styles.fa}>
-                                <FontAwesomeIcon 
-                                    icon={faRightFromBracket}
-                                />
-                            </i>
-                        Sign Out
-                        </a>
-                        </div>
-                        
-                    )
-                }
-            </nav>
-        
+                </div>
+            ):(
+                <div>
+                <a className={styles.mainNavItem} 
+                onClick={()=>
+                    router.push(`/profile/${customId}`)
+                    }>
+                    <i className={styles.fa}>
+                        <FontAwesomeIcon 
+                            icon={faCircleUser}
+                        />
+                    </i>
+                {userName}
+                </a>
+                <a  
+                    className={styles.mainNavItem}
+                    onClick={redirectToLanding}
+                >
+                    <i className={styles.fa}>
+                        <FontAwesomeIcon 
+                            icon={faRightFromBracket}
+                        />
+                    </i>
+                Sign Out
+                </a>
+                </div>
+            )
+            }
+        </nav>
     )
 }
 
