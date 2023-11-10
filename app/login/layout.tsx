@@ -6,11 +6,8 @@ export default function LoginLayout({
     children: React.ReactNode
   }) {
     return (
-        <>
         <main className={`${styles.main} ${styles.bgDark}`}> 
-            {children}
-           
+            {children}   
         </main>
-        </>
     )
   }

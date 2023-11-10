@@ -67,11 +67,13 @@ export default function BankAccounts({
   const navigateToProfile = () => {
     router.push(`/profile/${accountId}`);
   };
+  
   // converti le format de l'heure
   const formattedDate = (transactionDate: string | number | Date) => {
     const date = new Date(transactionDate);
     return date.toLocaleString("en-US");
   };
+
   // state de l'account actif
   const toggleAccountHandler = (accountId: string) => {
     dispatch(toggleAccount(accountId));
@@ -81,6 +83,7 @@ export default function BankAccounts({
       setActiveAccount(accountId);
     }
   };
+
   // action du bouton qui fait apparaitre les transactions
   const toggleTransaction = (transactionId: string) => {
     setOpenTransactions((prevState) => ({
@@ -88,6 +91,7 @@ export default function BankAccounts({
       [transactionId]: !prevState[transactionId],
     }));
   };
+
   // action qui permute le bouton d'edition et le onchange
   const handleToggleDetailsEditing = (accountId: string, transactionId: string) => () => {
     setDetailsEditing((prevState) => ({
@@ -95,6 +99,7 @@ export default function BankAccounts({
       [transactionId]: !prevState[transactionId], 
     }));
   };
+
   // mise a jour de l'affichage des données fournies par l'utilisateur
   const handleTransactionDetailsChange = (accountId: string, transactionId: string) => (
     e: React.ChangeEvent<HTMLInputElement>
@@ -121,6 +126,7 @@ export default function BankAccounts({
       [transactionId]: value, 
     }));
   };
+
   // validation et traitement des nouvelles données
   const handleSaveDetails = (accountId: string, transactionId: string) => () => {
     // API CALL Put 
@@ -137,6 +143,7 @@ export default function BankAccounts({
       message: "Details updated successfully.",
     });
   };
+
   const handleCategoryConfirmation = (accountId: string, transactionId: string) => () => {
     openModal({
       title: "Success!",
@@ -157,7 +164,7 @@ export default function BankAccounts({
               <h1>
                 Welcome back 
                 <br />
-                {userData.firstName} {userData.userName}
+                {userData.firstName} {userData.userName}!
               </h1>     
               <button className={styles.editButton} onClick={navigateToProfile}>Edit Profile</button>
             </div>
@@ -174,9 +181,7 @@ export default function BankAccounts({
           const accountType = account.accountType;
           const accountBalance = balanceCalculator(account);
           
-
           return (
-            
             activeAccount === accountId || activeAccount === null ? (
               <div key={accountRefs} className={styles.account}>
                 <div className={styles.accountContentWrapper}>

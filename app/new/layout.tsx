@@ -11,5 +11,4 @@ export default function layout({
         <main className={`${styles.main} ${styles.bgDark}`}> 
             {children}
         </main>)
-    
     }

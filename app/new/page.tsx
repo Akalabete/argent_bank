@@ -81,14 +81,13 @@ export default function RegistrationForm() {
           onClose={handleCloseModal}
         />
       )}
-      <i className={`${styles.signInIcon}, ${styles.fa}`}>
-        <FontAwesomeIcon 
-          
-          icon={faCircleUser} 
-        />
+        <i className={`${styles.signInIcon}, ${styles.fa}`}>
+          <FontAwesomeIcon       
+            icon={faCircleUser} 
+          />
         </i>
-      <h1>Welcome to<br /> Argent Bank</h1> 
-      
+        <h1>Welcome to<br /> Argent Bank</h1> 
+        <h2 className={styles.srOnly}>Registration</h2>
         <form>
           <div className={styles.inputWrapper}>
             <label>Email: </label>

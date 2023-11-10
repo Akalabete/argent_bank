@@ -1,67 +1,14 @@
 @import "../mixins.module.scss";
 @import "../variables.module.scss";
 
-.layoutAccountWrapper{
-    @include layoutWrapper;
-    h2{
-        margin: none;
-        padding-top: 15px 0 0 0;
-    }
-    h3{
-        margin: none;
-        padding: none;
-    }
-   
-}
-
-.loginWindow{
-    @include userWindow;
-    h3{
-        margin-top: 10px;
-        font-size: 30px;
-    }
-    
-}
-
-.form {
-    display: block;
-    background-color: white;
-    color: $primaryFontColors;
-    
-}
-.form input {
-    padding: 5px;
-    font-size: 1.2rem;
-    width : 100%;
-    margin-bottom: 1rem;
-}
-
-.form label {
-    display: block;
-    text-align: left;;
-    font-weight: bold;
-    font-size: 16px;
-    
-}
-
-.form button {
-    @include buttonShape;
-    padding: 10px;
-    display: block;
-    margin: 15px auto;
-    text-decoration: underline;
-}
-
-
-
 .main {
     flex: 1;
-  }
+}
+
 .bgDark {
   background-color:$background-purple;
 }
 
-  
 .signInContent {
   box-sizing: border-box;
   background-color: white;
@@ -75,7 +22,6 @@
   font-size: 5rem;
 }
 
-
 .inputWrapper {
     display: flex;
     flex-direction: column;
@@ -86,6 +32,7 @@
 .inputWrapper label {
     font-weight: bold;
 }
+
 .inputWrapper input {
     padding: 5px;
     font-size: 1.2rem;
@@ -101,4 +48,8 @@
     border-color: #00bc77;
     background-color: #00bc77;
     color: #fff;
+}
+
+.srOnly {
+    @include srOnly;
 }

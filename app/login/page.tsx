@@ -9,10 +9,10 @@ export default function Login() {
   return (
     <section className={styles.signInContent}>   
         <i className={`${styles.signInIcon}, ${styles.fa}`}>
-        <FontAwesomeIcon 
-          
-          icon={faCircleUser} 
-        />
+          <FontAwesomeIcon 
+            
+            icon={faCircleUser} 
+          />
         </i>
         <h1>Sign in</h1>
         <Form />  

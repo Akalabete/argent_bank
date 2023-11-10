@@ -16,7 +16,6 @@ const transactionSlice = createSlice({
   name: "transactions",
   initialState,
   reducers: {
-
     updateTransactionDetails: (state, action: PayloadAction<{ accountId: string; transactionId: string; transactionDetails: string }>) => {
       const { accountId, transactionId, transactionDetails } = action.payload;
       const account = (bankAccountsList.randomUser as { [accountId: string]: any })[accountId];
@@ -37,8 +36,8 @@ const transactionSlice = createSlice({
   },
 });
 
-
 export const selectExpandedTransactions = (state: RootState) => state.transactions.expandedTransactions;
+
 export const {  updateTransactionDetails, toggleAccount } = transactionSlice.actions;
 
 export default transactionSlice.reducer;

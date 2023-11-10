@@ -8,8 +8,8 @@ export default function Layout({
     params: { profileId: string }
     
     }>) {
-    return <div className={styles.layoutAccountWrapper}>
-        <h2>Profile Edition</h2>
-        {children}
-        </div>
+    return (
+        <main className={`${styles.main} ${styles.bgDark}`}> 
+            {children}
+        </main>)
     }
