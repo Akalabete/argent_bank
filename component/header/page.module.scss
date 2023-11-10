@@ -11,7 +11,9 @@
 .mainNav a {
 font-weight: bold;
 color: #2c3e50;
+cursor: pointer;
 }
+
 .mainNav a.routerLinkExactActive {
   color: #42b983;
 }
