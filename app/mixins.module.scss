@@ -3,58 +3,6 @@
     flex-direction: row;
 }
 
-@mixin buttonShape {
-    background-color: $primary-green;
-    border-color: $primary-green;
-    
-    
-    
-    
-    padding: 8px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-top: 1rem;
-    
-    color: #fff;
-}
-
-@mixin layoutWrapper{
-    
-    text-align: center;
-    margin: auto;
-    padding-top: 6px;
-    padding-bottom: 30px;
-    background-color:$background-purple;
-    min-height: 80vh;
-    width: 100%;
-    color: white;
-    flex: 1;
-    
-}
-
-@mixin userWindow {
-    
-    text-align: center;    
-    box-sizing: border-box;
-    background-color: white;
-    width: 300px;
-    margin: 0 auto;
-    margin-top: 3rem;
-    padding: 2rem;
-    color: $primaryFontColors;
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-@mixin generalFontStyle {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: $primaryFontColors;
-}
-
 @mixin srOnly {
     border: 0 !important;
     clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
@@ -67,4 +15,66 @@
     position: absolute !important;
     width: 1px !important;
     white-space: nowrap !important; /* 3 */
+}
+
+@mixin html {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: $primaryFontColors;
+}
+
+@mixin bgDark {
+    background-color:$background-purple;
+}
+
+@mixin main {
+    flex: 1;
+}
+
+@mixin header {
+    color: $white;
+    margin-bottom: 2rem;
+}
+
+@mixin signInContent {
+    box-sizing: border-box;
+    background-color: $white;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 3rem;
+    padding: 2rem;
+}
+
+@mixin signInIcon {
+    font-size: 5rem;
+}
+
+@mixin inputWrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+@mixin inputWrapperLabel {
+    font-weight: bold;
+}
+
+@mixin inputWrapperInput {
+    padding: 5px;
+    font-size: 1.2rem;
+}
+
+@mixin signInButton {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    border-color: $primary-green;
+    background-color: $primary-green;
+    color: $white;
 }

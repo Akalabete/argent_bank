@@ -2,54 +2,37 @@
 @import "../../variables.module.scss";
 
 .main {
-    flex: 1;
+  @include main;
 }
 
 .bgDark {
-  background-color:$background-purple;
+  @include bgDark;
 }
 
 .signInContent {
-  box-sizing: border-box;
-  background-color: white;
-  width: 300px;
-  margin: 0 auto;
-  margin-top: 3rem;
-  padding: 2rem;
+  @include signInContent;
 }
 
 .signInIcon {
-  font-size: 5rem;
+  @include signInIcon;
 }
 
 .inputWrapper {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin-bottom: 1rem;
+  @include inputWrapper;
 }
 
 .inputWrapper label {
-    font-weight: bold;
+  @include inputWrapperLabel;
 }
 
 .inputWrapper input {
-    padding: 5px;
-    font-size: 1.2rem;
+  @include inputWrapperInput;
 }
   
 .signInButton {
-    display: block;
-    width: 100%;
-    padding: 8px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-top: 1rem;
-    border-color: #00bc77;
-    background-color: #00bc77;
-    color: #fff;
+  @include signInButton;
 }
 
 .srOnly {
-    @include srOnly;
+  @include srOnly;
 }

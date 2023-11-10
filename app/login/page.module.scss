@@ -3,22 +3,18 @@
 
 
 .main {
-    flex: 1;
-  }
+  @include main;
+}
+
 .bgDark {
-  background-color:$background-purple;
+  @include bgDark;
 }
  
 .signInContent {
-  box-sizing: border-box;
-  background-color: white;
-  width: 300px;
-  margin: 0 auto;
-  margin-top: 3rem;
-  padding: 2rem;
+  @include signInContent;
 }
 
 .signInIcon {
-  font-size: 5rem;
+  @include signInIcon
 }
 
