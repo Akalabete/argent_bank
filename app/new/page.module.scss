@@ -30,7 +30,7 @@
 }
   
 .signInButton {
-  @include srOnly;
+  @include signInButton;
 }
 
 .srOnly {
