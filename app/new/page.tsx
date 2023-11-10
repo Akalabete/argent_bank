@@ -6,6 +6,9 @@ import styles from './page.module.scss';
 import { openModal, closeModal } from '../../redux/features/modalSlice';
 import Modal from '../../component/modal/page'
 import { selectGlobalUser, setUser } from '@/redux/features/globalUserSlice'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function RegistrationForm() {
   const registrationForm = useAppSelector((state) => state.form.registrationData);
@@ -69,72 +72,82 @@ export default function RegistrationForm() {
   }
   
   return(
-    <>
-    {modal.isOpen && (
+    <section className={styles.signInContent}>  
+      {modal.isOpen && (
         <Modal
           isOpen={modal.isOpen}
           title={modal.title}
           message={modal.message}
           onClose={handleCloseModal}
         />
-      )}   
-    <h2>Please fill the registration form below:</h2>
-    <div className={styles.loginWindow}>
+      )}
+      <i className={`${styles.signInIcon}, ${styles.fa}`}>
+        <FontAwesomeIcon 
+          
+          icon={faCircleUser} 
+        />
+        </i>
+      <h1>Welcome to<br /> Argent Bank</h1> 
       
-    <div className={styles.form}>
-    <form>
-      <label>Email: </label>
-      <input 
-        type="email"
-        name="email"
-        id="email"
-        value={registrationForm.email}
-        placeholder="Your email here"
-        onChange={handleInputChange}
-        />
-      <label>Password</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        value={registrationForm.password}
-        placeholder="Your password here"
-        onChange={handleInputChange}
-        />
-      <label>First name: </label>
-      <input
-        type="text"
-        name="firstname"
-        id="firstname"
-        value={registrationForm.firstname}
-        placeholder="Your first name here"
-        onChange={handleInputChange}
-        />
-      <label>Last name: </label>
-      <input
-        type="text"
-        name="lastname"
-        id="lastname"
-        value={registrationForm.lastname}
-        placeholder="Your last name here"
-        onChange={handleInputChange}
-        />
-      
-      <label>User name: </label>
-      <input 
-        type="text"
-        name="username"
-        id="username"
-        value={registrationForm.username}
-        placeholder="Your username here"
-        onChange={handleInputChange}
-        />
-      
-      <button type="submit" className={styles.registrationFormSubmit} onClick={handleRegistrationSubmit}>Sign in !</button>
-    </form>
-    </div>
-    </div>
-    </>
+        <form>
+          <div className={styles.inputWrapper}>
+            <label>Email: </label>
+            <input 
+              type="email"
+              name="email"
+              id="email"
+              value={registrationForm.email}
+              placeholder="abc@xy.z"
+              onChange={handleInputChange}
+              />
+          </div>
+          <div className={styles.inputWrapper}>
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={registrationForm.password}
+              placeholder="*****"
+              onChange={handleInputChange}
+              />
+          </div>
+          <div className={styles.inputWrapper}>
+            <label>First name: </label>
+            <input
+              type="text"
+              name="firstname"
+              id="firstname"
+              value={registrationForm.firstname}
+              placeholder="firstname"
+              onChange={handleInputChange}
+              />
+          </div>
+          <div className={styles.inputWrapper}>
+            <label>Last name: </label>
+            <input
+              type="text"
+              name="lastname"
+              id="lastname"
+              value={registrationForm.lastname}
+              placeholder="lastname"
+              onChange={handleInputChange}
+              />
+          </div>
+          <div className={styles.inputWrapper}>
+            <label>User name: </label>
+            <input 
+              type="text"
+              name="username"
+              id="username"
+              value={registrationForm.username}
+              placeholder="username"
+              onChange={handleInputChange}
+              />
+          </div>
+        <button type="submit" className={styles.signInButton} onClick={handleRegistrationSubmit}>Sign in !</button>
+      </form>
+    </section>
   )
 }
  

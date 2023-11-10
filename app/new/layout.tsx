@@ -7,8 +7,9 @@ export default function layout({
     params: { accountId: string }
     
     }>) {
-    return <div className={styles.layoutAccountWrapper}>
-        <h2>Welcome to Argent bank</h2>
-        {children}
-        </div>
+    return (
+        <main className={`${styles.main} ${styles.bgDark}`}> 
+            {children}
+        </main>)
+    
     }
