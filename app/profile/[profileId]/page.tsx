@@ -23,7 +23,6 @@ export default function Profile( {
       const oldUserName = userData.userName;
       const { profileId } = params;
       const router = useRouter()
-      
       const [inputValue, setInputValue] = useState(oldUserName);
       
       const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +65,6 @@ export default function Profile( {
                 openModal({
                   title: "Success!",
                   message: "Profile updated successfully.",
-                  
                 }))
             }else {
               console.log("error")
@@ -75,31 +73,28 @@ export default function Profile( {
           catch(error){
               console.error(error);
           }
-
         } else if (inputValue === userData.userName){
           dispatch(openModal({
             title:"Error!",
             message:"Please enter a différent username"
           }))
-
         } else {
           dispatch(openModal({
             title: "Error!",
             message: "Please enter a username"
           }))
         }
-        
       }
+
       const modal = useAppSelector((state: { modal: any; }) => state.modal);
       const handleCloseModal = (profileId:string) => {
         
-        if (modal.title ===  "Success!"){
-            router.push(`/accounts/${profileId}`)
-            dispatch(closeModal())
+      if (modal.title ===  "Success!"){
+          router.push(`/accounts/${profileId}`)
+          dispatch(closeModal())
         } else {
           dispatch(closeModal());
         }
-        
       };
       if ( userData.authToken !== null) {
       return(
