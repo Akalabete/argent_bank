@@ -28,15 +28,9 @@ export default function Form() {
   };
 
   const onChangeCheckBox = () => {
-    sessionStorage.removeItem("userData");
     localStorage.removeItem("userData");
     const newStorageLocation = !userCredentialStorageLocation
     dispatch(setuserCredentialStorageLocation(newStorageLocation));
-    localStorage.setItem("userData", JSON.stringify({
-      email: formData.email,
-      password: formData.password,
-      userCredentialStorageLocation: newStorageLocation,
-    }));
   };
 
   const handleSubmit = async(e: React.FormEvent)=>{
