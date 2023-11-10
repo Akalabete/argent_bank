@@ -3,6 +3,16 @@
     flex-direction: row;
 }
 
+@mixin buttonShape {
+    background-color: $primary-green;
+    border-color: $primary-green;
+    padding: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    color: $white;
+}
+
 @mixin srOnly {
     border: 0 !important;
     clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
